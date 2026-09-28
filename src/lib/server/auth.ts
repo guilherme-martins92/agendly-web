@@ -1,7 +1,7 @@
 import "server-only";
 
 import { NextResponse } from "next/server";
-import { apiUrl, setSessionCookies, type Tokens } from "@/lib/server/session";
+import { apiUrl, fetchApi, setSessionCookies, type Tokens } from "@/lib/server/session";
 
 /** IP do visitante, repassado para a API aplicar o rate limit por cliente. */
 export function clientIpHeaders(request: Request): Record<string, string> {
@@ -11,11 +11,10 @@ export function clientIpHeaders(request: Request): Record<string, string> {
 
 /** Encaminha um POST para a API e devolve a resposta crua (status e corpo preservados). */
 export async function postToApi(path: string, body: unknown, request: Request) {
-  return fetch(apiUrl(path), {
+  return fetchApi(apiUrl(path), {
     method: "POST",
     headers: { "Content-Type": "application/json", ...clientIpHeaders(request) },
     body: JSON.stringify(body),
-    cache: "no-store",
   });
 }
 
