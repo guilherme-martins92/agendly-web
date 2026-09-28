@@ -9,6 +9,11 @@ export type BackofficeSession = {
   business: BusinessDto;
   role: Role;
   isOwner: boolean;
+  /**
+   * Pode criar/editar serviços, profissionais e clientes. Espelha a política ManageCatalog da API
+   * (hoje só o proprietário); para o funcionário as telas ficam em modo leitura.
+   */
+  canManageCatalog: boolean;
 };
 
 export const SessionContext = createContext<BackofficeSession | null>(null);

@@ -1,12 +1,11 @@
 "use client";
 
-import QRCode from "qrcode";
-import { useEffect, useState } from "react";
 import { Icon } from "@/components/icon";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-import { publicLinkLabel, publicUrl } from "@/lib/public-link";
+import { publicLinkLabel } from "@/lib/public-link";
 import { useCopyPublicLink } from "./use-copy-public-link";
+import { useQrCode } from "./use-qr-code";
 
 /** QR Code da página pública, para imprimir no balcão ou postar nas redes. */
 export function QrCodeDialog({
@@ -18,22 +17,8 @@ export function QrCodeDialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
-  const [dataUrl, setDataUrl] = useState<string | null>(null);
+  const dataUrl = useQrCode(slug, open);
   const copyLink = useCopyPublicLink(slug);
-
-  useEffect(() => {
-    if (!open) return;
-    let cancelled = false;
-
-    // Alta resolução para impressão; preto sobre branco independe do tema, para qualquer leitor
-    QRCode.toDataURL(publicUrl(slug), { width: 1024, margin: 2, errorCorrectionLevel: "M" }).then((url) => {
-      if (!cancelled) setDataUrl(url);
-    });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [open, slug]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
