@@ -31,6 +31,7 @@ npm run dev                  # http://localhost:3000
 | `npm run lint` / `typecheck` | ESLint e checagem de tipos |
 | `npm run api:pull` | Baixa o contrato da API em execução para `openapi.json` (versionado) |
 | `npm run api:gen` | Gera tipos e hooks em `src/lib/api/generated` a partir do `openapi.json` |
+| `npm run visual-check` | Percorre as telas pela interface (Playwright), cria uma conta de teste e salva screenshots em `screenshots/` (app e API no ar; na primeira vez: `npx playwright install chromium`) |
 
 Quando a API mudar: `npm run api:pull && npm run api:gen`. O código gerado não é editado à mão.
 
