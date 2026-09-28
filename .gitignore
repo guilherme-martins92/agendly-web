@@ -43,3 +43,6 @@ next-env.d.ts
 
 # Export original do Claude Design (o conteudo extraido em design/extracted e versionado)
 design/*.zip
+
+# Saida do scripts/visual-check.mjs
+/screenshots

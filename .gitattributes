@@ -1,0 +1,5 @@
+# Fins de linha LF no repositorio e na copia de trabalho (padrao do ecossistema Node)
+* text=auto eol=lf
+*.png binary
+*.ico binary
+*.zip binary
