@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..24,400,0..1,0&display=block" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0}
+body{font-family:'Figtree',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+button,input,select{font-family:inherit}
+a{color:var(--primary-text);text-decoration:none}
+a:hover{text-decoration:underline}
+[data-theme]{--bg:oklch(0.975 0.004 255);--surface:oklch(1 0 0);--surface-2:oklch(0.962 0.006 255);--border:oklch(0.912 0.008 255);--border-strong:oklch(0.84 0.012 255);--text:oklch(0.23 0.03 262);--text-2:oklch(0.46 0.025 262);--text-3:oklch(0.56 0.02 262);--primary:oklch(0.44 0.15 262);--primary-hover:oklch(0.38 0.14 262);--primary-soft:oklch(0.95 0.03 262);--primary-text:oklch(0.42 0.15 262);--on-primary:oklch(0.99 0.005 262);--danger-fg:oklch(0.48 0.17 27);--danger-soft:oklch(0.965 0.025 27);--danger-border:oklch(0.85 0.07 27);--hatch:oklch(0.88 0.01 262);--skeleton:oklch(0.93 0.006 255);--skeleton-hi:oklch(0.965 0.004 255);--overlay:oklch(0.2 0.03 262 / 0.42);--shadow-sm:0 1px 2px oklch(0.3 0.03 262 / 0.06);--shadow-md:0 6px 16px oklch(0.3 0.03 262 / 0.08),0 1px 3px oklch(0.3 0.03 262 / 0.06);--shadow-lg:0 24px 56px oklch(0.22 0.04 262 / 0.2),0 2px 8px oklch(0.22 0.04 262 / 0.08);
+--sched-bg:oklch(0.955 0.045 80);--sched-fg:oklch(0.43 0.09 70);--sched-dot:oklch(0.72 0.14 75);--conf-bg:oklch(0.945 0.035 255);--conf-fg:oklch(0.42 0.14 258);--conf-dot:oklch(0.58 0.16 258);--done-bg:oklch(0.95 0.04 155);--done-fg:oklch(0.42 0.1 155);--done-dot:oklch(0.62 0.14 155);--canc-bg:oklch(0.95 0.004 262);--canc-fg:oklch(0.47 0.012 262);--canc-dot:oklch(0.7 0.01 262);--noshow-bg:oklch(0.955 0.03 27);--noshow-fg:oklch(0.47 0.16 27);--noshow-dot:oklch(0.62 0.18 27)}
+[data-theme="dark"]{--bg:oklch(0.165 0.012 262);--surface:oklch(0.205 0.014 262);--surface-2:oklch(0.245 0.016 262);--border:oklch(0.295 0.016 262);--border-strong:oklch(0.37 0.02 262);--text:oklch(0.955 0.006 262);--text-2:oklch(0.77 0.015 262);--text-3:oklch(0.66 0.015 262);--primary:oklch(0.7 0.13 258);--primary-hover:oklch(0.76 0.12 258);--primary-soft:oklch(0.3 0.06 262);--primary-text:oklch(0.8 0.1 258);--on-primary:oklch(0.17 0.03 262);--danger-fg:oklch(0.78 0.12 27);--danger-soft:oklch(0.27 0.05 27);--danger-border:oklch(0.42 0.09 27);--hatch:oklch(0.32 0.016 262);--skeleton:oklch(0.26 0.014 262);--skeleton-hi:oklch(0.3 0.016 262);--overlay:oklch(0.08 0.01 262 / 0.6);--shadow-sm:0 1px 2px oklch(0 0 0 / 0.3);--shadow-md:0 6px 16px oklch(0 0 0 / 0.35);--shadow-lg:0 24px 56px oklch(0 0 0 / 0.5);
+--sched-bg:oklch(0.31 0.05 75);--sched-fg:oklch(0.88 0.1 80);--sched-dot:oklch(0.78 0.13 78);--conf-bg:oklch(0.31 0.06 258);--conf-fg:oklch(0.87 0.08 258);--conf-dot:oklch(0.72 0.13 258);--done-bg:oklch(0.3 0.05 155);--done-fg:oklch(0.87 0.09 155);--done-dot:oklch(0.72 0.13 155);--canc-bg:oklch(0.28 0.01 262);--canc-fg:oklch(0.78 0.01 262);--canc-dot:oklch(0.6 0.01 262);--noshow-bg:oklch(0.3 0.06 27);--noshow-fg:oklch(0.86 0.09 27);--noshow-dot:oklch(0.7 0.15 27)}
+@keyframes agShimmer{0%{background-position:-480px 0}100%{background-position:480px 0}}
+</style>
+</helmet>
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--text);font-family:Figtree,system-ui,sans-serif">
+<div style="max-width:1180px;margin:0 auto;padding:40px 24px 80px;display:flex;flex-direction:column;gap:56px">
+
+  <header style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:32px;height:32px;border-radius:9px;background:var(--primary);color:var(--on-primary);display:grid;place-items:center;font:700 17px/1 Figtree,sans-serif">a</div>
+        <div style="font:700 20px/1 Figtree,sans-serif;letter-spacing:-0.02em">agendly</div>
+      </div>
+      <h1 style="margin:18px 0 0;font:700 40px/1.1 Figtree,sans-serif;letter-spacing:-0.03em">Design system</h1>
+      <p style="margin:8px 0 0;font:500 16px/1.5 Figtree,sans-serif;color:var(--text-2);max-width:560px;text-wrap:pretty">Tokens e componentes base do Agendly. Azul profundo como cor primária, neutros levemente frios e cores de status com a mesma luminosidade.</p>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <div style="display:inline-flex;padding:3px;gap:2px;background:var(--surface-2);border:1px solid var(--border);border-radius:11px">
+        <button onClick="{{ setLight }}" style="display:flex;align-items:center;gap:6px;height:36px;padding:0 14px;border:none;border-radius:8px;background:{{ lightBg }};color:{{ lightFg }};box-shadow:{{ lightSh }};font:600 13px/1 Figtree,sans-serif;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1">light_mode</span>Claro</button>
+        <button onClick="{{ setDark }}" style="display:flex;align-items:center;gap:6px;height:36px;padding:0 14px;border:none;border-radius:8px;background:{{ darkBg }};color:{{ darkFg }};box-shadow:{{ darkSh }};font:600 13px/1 Figtree,sans-serif;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1">dark_mode</span>Escuro</button>
+      </div>
+      <a href="Agendly Backoffice.dc.html" style="display:flex;align-items:center;gap:6px;height:42px;padding:0 16px;border-radius:10px;background:var(--primary);color:var(--on-primary);font:600 14px/1 Figtree,sans-serif;text-decoration:none">Abrir protótipo<span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1">arrow_forward</span></a>
+    </div>
+  </header>
+
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0;font:700 22px/1.2 Figtree,sans-serif">Cores</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px">
+      <sc-for list="{{ colors }}" as="c" hint-placeholder-count="12">
+        <div style="border-radius:12px;border:1px solid var(--border);background:var(--surface);overflow:hidden">
+          <div style="height:64px;background:{{ c.v }};border-bottom:1px solid var(--border)"></div>
+          <div style="padding:10px 12px">
+            <div style="font:600 13px/1.3 Figtree,sans-serif">{{ c.name }}</div>
+            <div style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:var(--text-2)">--{{ c.token }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="font:700 15px/1.3 Figtree,sans-serif;margin-top:8px">Status de agendamento</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px">
+      <sc-for list="{{ statuses }}" as="s" hint-placeholder-count="5">
+        <div style="border-radius:12px;border:1px solid var(--border);background:var(--surface);padding:14px;display:flex;flex-direction:column;gap:10px">
+          <span style="align-self:flex-start;display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:99px;background:{{ s.bg }};color:{{ s.fg }};font:600 13px/1 Figtree,sans-serif"><span style="width:7px;height:7px;border-radius:50%;background:{{ s.dot }}"></span>{{ s.label }}</span>
+          <div style="font:500 12px/1.45 Figtree,sans-serif;color:var(--text-2)">{{ s.api }} · {{ s.note }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:32px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h2 style="margin:0;font:700 22px/1.2 Figtree,sans-serif">Tipografia</h2>
+      <div style="font:500 13px/1.5 Figtree,sans-serif;color:var(--text-2)">Figtree, 400–700. Números com tabular-nums em horários e valores.</div>
+      <div style="display:flex;flex-direction:column;border-radius:14px;border:1px solid var(--border);background:var(--surface)">
+        <sc-for list="{{ type }}" as="t" hint-placeholder-count="7">
+          <div style="display:flex;align-items:baseline;gap:16px;padding:14px 18px;border-top:1px solid {{ t.border }}">
+            <div style="width:84px;flex-shrink:0;font:500 11px/1.4 ui-monospace,Menlo,monospace;color:var(--text-3)">{{ t.spec }}</div>
+            <div style="font:{{ t.w }} {{ t.s }}px/{{ t.lh }} Figtree,sans-serif;letter-spacing:{{ t.ls }};min-width:0">{{ t.sample }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h2 style="margin:0;font:700 22px/1.2 Figtree,sans-serif">Espaçamento, raios e sombras</h2>
+      <div style="border-radius:14px;border:1px solid var(--border);background:var(--surface);padding:18px;display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ spacing }}" as="p" hint-placeholder-count="10">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:44px;font:500 11px/1 ui-monospace,Menlo,monospace;color:var(--text-3)">{{ p }}px</div>
+            <div style="height:10px;width:{{ p }}px;border-radius:3px;background:var(--primary)"></div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+        <sc-for list="{{ radii }}" as="r" hint-placeholder-count="5">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="width:100%;aspect-ratio:1;border-radius:{{ r.v }};background:var(--primary-soft);border:1px solid var(--primary)"></div>
+            <div style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:var(--text-2);text-align:center">{{ r.name }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:12px;border-radius:14px;background:var(--surface-2)">
+        <sc-for list="{{ shadows }}" as="h" hint-placeholder-count="3">
+          <div style="height:72px;border-radius:12px;background:var(--surface);box-shadow:{{ h.v }};display:grid;place-items:center;font:500 11px/1 ui-monospace,Menlo,monospace;color:var(--text-2)">{{ h.name }}</div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0;font:700 22px/1.2 Figtree,sans-serif">Botões</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:24px;border-radius:14px;border:1px solid var(--border);background:var(--surface)">
+      <button style="display:flex;align-items:center;gap:8px;height:48px;padding:0 20px;border:none;border-radius:12px;background:var(--primary);color:var(--on-primary);font:600 15px/1 Figtree,sans-serif;cursor:pointer" style-hover="background:var(--primary-hover)">Agendar horário</button>
+      <button style="display:flex;align-items:center;gap:8px;height:44px;padding:0 16px;border:none;border-radius:10px;background:var(--primary);color:var(--on-primary);font:600 14px/1 Figtree,sans-serif;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1">add</span>Novo agendamento</button>
+      <button style="height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:600 14px/1 Figtree,sans-serif;cursor:pointer" style-hover="background:var(--surface-2)">Reagendar</button>
+      <button style="height:44px;padding:0 16px;border-radius:10px;border:none;background:transparent;color:var(--primary-text);font:600 14px/1 Figtree,sans-serif;cursor:pointer" style-hover="background:var(--primary-soft)">Ver agenda</button>
+      <button style="height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--danger-border);background:var(--surface);color:var(--danger-fg);font:600 14px/1 Figtree,sans-serif;cursor:pointer">Cancelar agendamento</button>
+      <button style="height:44px;padding:0 16px;border-radius:10px;border:none;background:var(--danger-fg);color:var(--surface);font:600 14px/1 Figtree,sans-serif;cursor:pointer">Desativar negócio</button>
+      <button disabled style="height:44px;padding:0 16px;border-radius:10px;border:none;background:var(--primary);color:var(--on-primary);font:600 14px/1 Figtree,sans-serif;opacity:0.45;cursor:not-allowed">Confirmar</button>
+      <button aria-label="Fechar" style="width:44px;height:44px;border-radius:10px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);display:grid;place-items:center;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">close</span></button>
+    </div>
+    <div style="font:500 13px/1.5 Figtree,sans-serif;color:var(--text-2)">Alturas: 48 (CTA da página pública), 44 (padrão, alvo de toque mínimo), 36 (controles segmentados), 32 (ações compactas no cabeçalho desktop).</div>
+  </section>
+
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:32px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h2 style="margin:0;font:700 22px/1.2 Figtree,sans-serif">Inputs e select</h2>
+      <div style="display:flex;flex-direction:column;gap:16px;padding:24px;border-radius:14px;border:1px solid var(--border);background:var(--surface)">
+        <label style="display:flex;flex-direction:column;gap:6px;font:600 14px/1.2 Figtree,sans-serif">Nome
+          <input placeholder="Nome completo" style="height:48px;padding:0 14px;border:1px solid var(--border-strong);border-radius:11px;background:var(--surface);color:var(--text);font:500 16px/1 Figtree,sans-serif">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px;font:600 14px/1.2 Figtree,sans-serif">WhatsApp / telefone
+          <div style="display:flex;align-items:center;height:48px;padding:0 14px;border:2px solid var(--primary);border-radius:11px;background:var(--surface);font:500 16px/1 Figtree,sans-serif;font-variant-numeric:tabular-nums;box-shadow:0 0 0 4px var(--primary-soft)">(11) 91234-5678</div>
+          <span style="font:500 12px/1.3 Figtree,sans-serif;color:var(--text-2)">Estado de foco · máscara (99) 99999-9999</span>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px;font:600 14px/1.2 Figtree,sans-serif">E-mail
+          <div style="display:flex;align-items:center;height:48px;padding:0 14px;border:1px solid var(--danger-fg);border-radius:11px;background:var(--surface);font:500 16px/1 Figtree,sans-serif">ze@barbearia</div>
+          <span style="display:flex;align-items:center;gap:4px;font:500 13px/1.3 Figtree,sans-serif;color:var(--danger-fg)"><span style="font-family:'Material Symbols Rounded';font-size:16px;line-height:1">error</span>Informe um e-mail válido.</span>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px;font:600 14px/1.2 Figtree,sans-serif">Duração
+          <div style="display:flex;align-items:center;justify-content:space-between;height:48px;padding:0 12px 0 14px;border:1px solid var(--border-strong);border-radius:11px;background:var(--surface);font:500 16px/1 Figtree,sans-serif">45 min<span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:var(--text-2)">expand_more</span></div>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px;font:600 14px/1.2 Figtree,sans-serif">Preço
+          <div style="display:flex;align-items:center;gap:8px;height:48px;padding:0 14px;border:1px solid var(--border-strong);border-radius:11px;background:var(--surface);font:500 16px/1 Figtree,sans-serif;font-variant-numeric:tabular-nums"><span style="color:var(--text-2)">R$</span>45,00</div>
+        </label>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h2 style="margin:0;font:700 22px/1.2 Figtree,sans-serif">Date picker e horários</h2>
+      <div style="display:flex;flex-direction:column;gap:18px;padding:24px;border-radius:14px;border:1px solid var(--border);background:var(--surface)">
+        <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px">
+          <sc-for list="{{ days }}" as="d" hint-placeholder-count="8">
+            <div style="flex-shrink:0;width:58px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 0;min-height:66px;border-radius:12px;border:1px solid {{ d.border }};background:{{ d.bg }};color:{{ d.fg }};opacity:{{ d.op }}">
+              <span style="font:600 11px/1 Figtree,sans-serif;text-transform:uppercase;letter-spacing:0.04em;color:{{ d.sub }}">{{ d.dow }}</span>
+              <span style="font:700 18px/1.1 Figtree,sans-serif">{{ d.day }}</span>
+              <span style="font:600 10px/1 Figtree,sans-serif;color:{{ d.sub }}">{{ d.note }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font:500 12px/1.4 Figtree,sans-serif;color:var(--text-2)">Dia passado e dia fechado ficam desabilitados. Hoje recebe contorno na cor primária.</div>
+        <div>
+          <div style="font:600 12px/1 Figtree,sans-serif;color:var(--text-3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px">Tarde</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px">
+            <sc-for list="{{ slots }}" as="t" hint-placeholder-count="8">
+              <div style="height:44px;border-radius:10px;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.fg }};display:grid;place-items:center;font:600 15px/1 Figtree,sans-serif;font-variant-numeric:tabular-nums;text-decoration:{{ t.deco }};opacity:{{ t.op }}">{{ t.label }}</div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px">
+          <sc-for list="{{ sk8 }}" as="k" hint-placeholder-count="8"><div style="height:44px;border-radius:10px;background:linear-gradient(90deg,var(--skeleton) 0,var(--skeleton-hi) 40%,var(--skeleton) 80%);background-size:960px 100%;animation:agShimmer 1.4s linear infinite"></div></sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:20px 16px;border:1px dashed var(--border-strong);border-radius:12px">
+          <span style="font-family:'Material Symbols Rounded';font-size:26px;line-height:1;color:var(--text-3)">event_busy</span>
+          <div style="font:700 15px/1.3 Figtree,sans-serif">Sem horários neste dia</div>
+          <button style="height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:600 13px/1 Figtree,sans-serif;cursor:pointer">Ver quinta, 01/10</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0;font:700 22px/1.2 Figtree,sans-serif">Cards</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
+      <div style="display:flex;align-items:center;gap:12px;padding:16px 18px;border-radius:14px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-sm)">
+        <div style="flex:1;min-width:0">
+          <div style="font:600 16px/1.3 Figtree,sans-serif">Corte masculino</div>
+          <div style="font:500 13px/1.4 Figtree,sans-serif;color:var(--text-2);margin-top:2px">Corte na tesoura ou máquina, com lavagem e finalização.</div>
+          <div style="font:500 13px/1.4 Figtree,sans-serif;color:var(--text-2);margin-top:6px;display:flex;align-items:center;gap:4px"><span style="font-family:'Material Symbols Rounded';font-size:16px;line-height:1">schedule</span>30 min</div>
+        </div>
+        <div style="font:700 16px/1 Figtree,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap">R$ 45,00</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:14px;border:2px solid var(--primary);background:var(--primary-soft)">
+        <div style="width:48px;height:48px;border-radius:50%;background:var(--surface);color:var(--primary-text);display:grid;place-items:center;font:700 16px/1 Figtree,sans-serif">ZC</div>
+        <div style="flex:1"><div style="font:600 16px/1.3 Figtree,sans-serif">Zé Carlos</div><div style="font:500 13px/1.3 Figtree,sans-serif;color:var(--text-2)">Selecionado</div></div>
+        <span style="font-family:'Material Symbols Rounded';font-size:24px;line-height:1;color:var(--primary-text);font-variation-settings:'FILL' 1">check_circle</span>
+      </div>
+      <div style="border-radius:14px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-sm);padding:16px 18px;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:8px;color:var(--text-2);font:600 13px/1.25 Figtree,sans-serif"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1">payments</span>Faturamento</div>
+        <div style="font:700 26px/1.1 Figtree,sans-serif;letter-spacing:-0.02em;font-variant-numeric:tabular-nums">R$ 5.005,00</div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="display:inline-flex;align-items:center;gap:3px;height:22px;padding:0 8px;border-radius:99px;background:var(--done-bg);color:var(--done-fg);font:700 12px/1 Figtree,sans-serif"><span style="font-family:'Material Symbols Rounded';font-size:15px;line-height:1">trending_up</span>+12%</span><span style="font:500 12px/1 Figtree,sans-serif;color:var(--text-3)">vs. anterior</span></div>
+      </div>
+      <div style="position:relative;height:118px;border-radius:14px;border:1px solid var(--border);background:var(--surface);padding:10px">
+        <div style="position:absolute;left:10px;right:10px;top:10px;height:56px;border-radius:8px;background:var(--conf-bg);color:var(--conf-fg);padding:6px 8px">
+          <div style="display:flex;align-items:center;gap:5px;font:600 12px/1.2 Figtree,sans-serif"><span style="width:6px;height:6px;border-radius:50%;background:var(--conf-dot)"></span>14:00 – 14:50</div>
+          <div style="font:700 14px/1.25 Figtree,sans-serif;margin-top:3px">Thiago Oliveira</div>
+        </div>
+        <div style="position:absolute;left:10px;right:10px;top:72px;height:36px;border-radius:8px;border:1px dashed var(--border-strong);background:repeating-linear-gradient(135deg,var(--hatch) 0 2px,transparent 2px 9px);padding:0 8px;display:flex;align-items:center;gap:4px;color:var(--text-2);font:700 12px/1 Figtree,sans-serif"><span style="font-family:'Material Symbols Rounded';font-size:15px;line-height:1">block</span>Bloqueio · Almoço</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0;font:700 22px/1.2 Figtree,sans-serif">Tabela e lista</h2>
+    <div style="border-radius:14px;border:1px solid var(--border);background:var(--surface);overflow-x:auto">
+      <div style="min-width:640px">
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 110px;gap:12px;padding:12px 18px;background:var(--surface-2);border-bottom:1px solid var(--border);font:600 12px/1 Figtree,sans-serif;color:var(--text-2);text-transform:uppercase;letter-spacing:0.04em">
+          <div>Serviço</div><div>Duração</div><div>Preço</div><div>Status</div><div style="text-align:right">Ativo</div>
+        </div>
+        <sc-for list="{{ rows }}" as="r" hint-placeholder-count="4">
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 110px;gap:12px;align-items:center;padding:14px 18px;border-top:1px solid {{ r.border }};opacity:{{ r.op }};font:500 14px/1.3 Figtree,sans-serif">
+            <div style="font-weight:600">{{ r.name }}</div>
+            <div style="font-variant-numeric:tabular-nums;color:var(--text-2)">{{ r.dur }}</div>
+            <div style="font-variant-numeric:tabular-nums">{{ r.price }}</div>
+            <div><span style="display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:99px;background:{{ r.bBg }};color:{{ r.bFg }};font:600 12px/1 Figtree,sans-serif">{{ r.status }}</span></div>
+            <div style="display:flex;justify-content:flex-end"><div style="width:44px;height:26px;border-radius:99px;background:{{ r.tBg }};padding:3px;display:flex;justify-content:{{ r.tJ }}"><div style="width:20px;height:20px;border-radius:50%;background:var(--surface);box-shadow:var(--shadow-sm)"></div></div></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:32px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h2 style="margin:0;font:700 22px/1.2 Figtree,sans-serif">Modal</h2>
+      <div style="position:relative;height:320px;border-radius:14px;background:var(--overlay);display:grid;place-items:center;padding:16px;overflow:hidden">
+        <div style="width:100%;max-width:340px;border-radius:18px;background:var(--surface);box-shadow:var(--shadow-lg);padding:22px">
+          <div style="width:44px;height:44px;border-radius:50%;background:var(--danger-soft);color:var(--danger-fg);display:grid;place-items:center"><span style="font-family:'Material Symbols Rounded';font-size:24px;line-height:1">event_busy</span></div>
+          <div style="font:700 18px/1.3 Figtree,sans-serif;margin-top:12px">Cancelar agendamento?</div>
+          <div style="font:500 14px/1.5 Figtree,sans-serif;color:var(--text-2);margin-top:4px">O horário será liberado na agenda. Essa ação não pode ser desfeita.</div>
+          <div style="display:flex;gap:8px;margin-top:18px">
+            <button style="flex:1;height:44px;border-radius:11px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:600 14px/1 Figtree,sans-serif">Voltar</button>
+            <button style="flex:1.4;height:44px;border-radius:11px;border:none;background:var(--danger-fg);color:var(--surface);font:600 14px/1 Figtree,sans-serif">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h2 style="margin:0;font:700 22px/1.2 Figtree,sans-serif">Drawer</h2>
+      <div style="position:relative;height:320px;border-radius:14px;background:var(--overlay);overflow:hidden">
+        <div style="position:absolute;top:0;right:0;bottom:0;width:72%;background:var(--surface);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+          <div style="height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 16px;border-bottom:1px solid var(--border);font:700 15px/1 Figtree,sans-serif">Detalhes<span style="width:40px;height:40px;display:grid;place-items:center;font-family:'Material Symbols Rounded';font-size:22px;line-height:1">close</span></div>
+          <div style="padding:16px;flex:1">
+            <span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:99px;background:var(--sched-bg);color:var(--sched-fg);font:600 12px/1 Figtree,sans-serif"><span style="width:6px;height:6px;border-radius:50%;background:var(--sched-dot)"></span>Agendado</span>
+            <div style="font:700 24px/1.2 Figtree,sans-serif;margin-top:10px;font-variant-numeric:tabular-nums">15:00 – 15:30</div>
+            <div style="font:500 13px/1.4 Figtree,sans-serif;color:var(--text-2)">Bruno Carvalho · Corte masculino</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:12px 16px;border-top:1px solid var(--border)">
+            <div style="grid-column:1 / -1;height:40px;border-radius:10px;background:var(--primary);color:var(--on-primary);display:grid;place-items:center;font:600 13px/1 Figtree,sans-serif">Confirmar</div>
+            <div style="height:40px;border-radius:10px;border:1px solid var(--border-strong);display:grid;place-items:center;font:600 13px/1 Figtree,sans-serif">Reagendar</div>
+            <div style="height:40px;border-radius:10px;border:1px solid var(--danger-border);color:var(--danger-fg);display:grid;place-items:center;font:600 13px/1 Figtree,sans-serif">Cancelar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:32px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h2 style="margin:0;font:700 22px/1.2 Figtree,sans-serif">Toast e banner de erro</h2>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;background:var(--text);color:var(--surface);box-shadow:var(--shadow-lg);font:600 14px/1.4 Figtree,sans-serif"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:var(--done-dot)">check_circle</span>Agendamento confirmado</div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;background:var(--text);color:var(--surface);box-shadow:var(--shadow-lg);font:600 14px/1.4 Figtree,sans-serif"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:var(--primary)">info</span>Link copiado</div>
+      <div role="alert" style="display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;background:var(--danger-soft);border:1px solid var(--danger-border);color:var(--danger-fg)">
+        <span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">event_busy</span>
+        <div><div style="font:700 15px/1.3 Figtree,sans-serif">Horário indisponível</div><div style="font:500 14px/1.45 Figtree,sans-serif;margin-top:2px">Este horário acabou de ser ocupado. Atualizamos a lista com os horários livres.</div></div>
+      </div>
+      <div role="alert" style="display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;background:var(--sched-bg);border:1px solid var(--sched-dot);color:var(--sched-fg)">
+        <span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">hourglass_top</span>
+        <div><div style="font:700 15px/1.3 Figtree,sans-serif">Muitas tentativas</div><div style="font:500 14px/1.45 Figtree,sans-serif;margin-top:2px">Aguarde alguns minutos antes de tentar novamente.</div></div>
+      </div>
+      <div style="font:500 12px/1.5 Figtree,sans-serif;color:var(--text-2)">O título do banner é local; o corpo mostra o array <span style="font-family:ui-monospace,Menlo,monospace">errors</span> da API sem reescrever.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h2 style="margin:0;font:700 22px/1.2 Figtree,sans-serif">Empty state e skeleton</h2>
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:32px 20px;border:1px dashed var(--border-strong);border-radius:16px;background:var(--surface)">
+        <div style="width:52px;height:52px;border-radius:50%;background:var(--primary-soft);color:var(--primary-text);display:grid;place-items:center"><span style="font-family:'Material Symbols Rounded';font-size:26px;line-height:1">content_cut</span></div>
+        <div style="font:700 17px/1.3 Figtree,sans-serif">Nenhum serviço cadastrado</div>
+        <div style="font:500 14px/1.5 Figtree,sans-serif;color:var(--text-2);max-width:300px">Cadastre o primeiro serviço para liberar sua página de agendamento.</div>
+        <button style="margin-top:6px;height:44px;padding:0 18px;border:none;border-radius:10px;background:var(--primary);color:var(--on-primary);font:600 14px/1 Figtree,sans-serif">Cadastrar serviço</button>
+      </div>
+      <div style="display:flex;gap:14px;align-items:center;padding:16px;border-radius:14px;border:1px solid var(--border);background:var(--surface)">
+        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(90deg,var(--skeleton) 0,var(--skeleton-hi) 40%,var(--skeleton) 80%);background-size:960px 100%;animation:agShimmer 1.4s linear infinite"></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+          <div style="height:14px;width:55%;border-radius:6px;background:linear-gradient(90deg,var(--skeleton) 0,var(--skeleton-hi) 40%,var(--skeleton) 80%);background-size:960px 100%;animation:agShimmer 1.4s linear infinite"></div>
+          <div style="height:12px;width:35%;border-radius:6px;background:var(--skeleton)"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;tema&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Claro&quot;,&quot;Escuro&quot;],&quot;default&quot;:&quot;Claro&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { t: null };
+  renderVals() {
+    const t = this.state.t || (this.props.tema === 'Escuro' ? 'dark' : 'light');
+    const seg = on => ({ bg: on ? 'var(--surface)' : 'transparent', fg: on ? 'var(--text)' : 'var(--text-2)', sh: on ? 'var(--shadow-sm)' : 'none' });
+    const L = seg(t === 'light'), D = seg(t === 'dark');
+    const colors = [['Fundo', 'bg'], ['Superfície', 'surface'], ['Superfície 2', 'surface-2'], ['Borda', 'border'], ['Borda forte', 'border-strong'], ['Texto', 'text'], ['Texto 2', 'text-2'], ['Primária', 'primary'], ['Primária hover', 'primary-hover'], ['Primária suave', 'primary-soft'], ['Perigo', 'danger-fg'], ['Perigo suave', 'danger-soft']].map(([name, token]) => ({ name, token, v: 'var(--' + token + ')' }));
+    const statuses = [['Agendado', 'Scheduled', 'sched', 'Aguardando confirmação'], ['Confirmado', 'Confirmed', 'conf', 'Cliente confirmou'], ['Concluído', 'Completed', 'done', 'Final, só leitura'], ['Cancelado', 'Cancelled', 'canc', 'Final, só leitura'], ['Faltou', 'NoShow', 'noshow', 'Final, só leitura']].map(([label, api, v, note]) => ({ label, api, note, bg: 'var(--' + v + '-bg)', fg: 'var(--' + v + '-fg)', dot: 'var(--' + v + '-dot)' }));
+    const type = [['40 / 700', 700, 40, 1.1, '-0.03em', 'Barbearia do Zé'], ['26 / 700', 700, 26, 1.2, '-0.02em', 'Terça-feira, 29 de setembro'], ['18 / 700', 700, 18, 1.3, '0', 'Escolha data e horário'], ['16 / 600', 600, 16, 1.4, '0', 'Corte masculino'], ['14 / 500', 500, 14, 1.5, '0', 'Corte na tesoura ou máquina, com lavagem.'], ['13 / 600', 600, 13, 1.3, '0', '30 min · R$ 45,00'], ['12 / 600', 600, 12, 1.3, '0.04em', 'MANHÃ · TARDE · NOITE']].map(([spec, w, s, lh, ls, sample], i) => ({ spec, w, s, lh, ls, sample, border: i ? 'var(--border)' : 'transparent' }));
+    const days = [['Seg', '28', '', 'past'], ['Ter', '29', 'Hoje', 'today'], ['Qua', '30', '', 'sel'], ['Qui', '1', '', ''], ['Sex', '2', '', ''], ['Sáb', '3', '', ''], ['Dom', '4', 'Fechado', 'closed'], ['Seg', '5', '', '']].map(([dow, day, note, k]) => ({ dow, day, note, bg: k === 'sel' ? 'var(--primary)' : 'var(--surface)', fg: k === 'sel' ? 'var(--on-primary)' : 'var(--text)', sub: k === 'sel' ? 'var(--on-primary)' : 'var(--text-2)', border: k === 'sel' || k === 'today' ? 'var(--primary)' : 'var(--border)', op: k === 'past' || k === 'closed' ? 0.4 : 1 }));
+    const slots = [['14:30', ''], ['14:45', ''], ['15:00', 'sel'], ['15:15', ''], ['15:30', 'off'], ['15:45', ''], ['16:00', ''], ['16:15', '']].map(([label, k]) => ({ label, bg: k === 'sel' ? 'var(--primary)' : 'var(--surface)', fg: k === 'sel' ? 'var(--on-primary)' : 'var(--text)', border: k === 'sel' ? 'var(--primary)' : 'var(--border-strong)', deco: k === 'off' ? 'line-through' : 'none', op: k === 'off' ? 0.4 : 1 }));
+    const rows = [['Corte masculino', '30 min', 'R$ 45,00', 1], ['Barba', '20 min', 'R$ 30,00', 1], ['Corte degradê', '40 min', 'R$ 55,00', 1], ['Hidratação capilar', '20 min', 'R$ 35,00', 0]].map(([name, dur, price, on], i) => ({ name, dur, price, status: on ? 'Ativo' : 'Inativo', bBg: on ? 'var(--done-bg)' : 'var(--canc-bg)', bFg: on ? 'var(--done-fg)' : 'var(--canc-fg)', tBg: on ? 'var(--primary)' : 'var(--border-strong)', tJ: on ? 'flex-end' : 'flex-start', op: on ? 1 : 0.55, border: i ? 'var(--border)' : 'transparent' }));
+    return {
+      theme: t, setLight: () => this.setState({ t: 'light' }), setDark: () => this.setState({ t: 'dark' }),
+      lightBg: L.bg, lightFg: L.fg, lightSh: L.sh, darkBg: D.bg, darkFg: D.fg, darkSh: D.sh,
+      colors, statuses, type, days, slots, rows, sk8: [0, 1, 2, 3, 4, 5, 6, 7],
+      spacing: [4, 8, 12, 16, 20, 24, 32, 40, 48, 64],
+      radii: [['sm 6', '6px'], ['md 10', '10px'], ['lg 14', '14px'], ['xl 18', '18px'], ['pill', '999px']].map(([name, v]) => ({ name, v })),
+      shadows: [['sm', 'var(--shadow-sm)'], ['md', 'var(--shadow-md)'], ['lg', 'var(--shadow-lg)']].map(([name, v]) => ({ name, v }))
+    };
+  }
+}
+</script>
+</body>
+</html>

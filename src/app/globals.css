@@ -1,26 +1,231 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* O tema Ã© controlado por data-theme no <html> (ver ThemeScript), nÃ£o pela classe .dark */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+ * Tokens do design system (Agendly Design System.dc.html).
+ * Neutros levemente frios, azul profundo como primÃ¡ria e cores de status com a mesma luminosidade.
+ */
+:root,
+[data-theme="light"] {
+  --bg: oklch(0.975 0.004 255);
+  --surface: oklch(1 0 0);
+  --surface-2: oklch(0.962 0.006 255);
+  --border-soft: oklch(0.912 0.008 255);
+  --border-strong: oklch(0.84 0.012 255);
+  --text: oklch(0.23 0.03 262);
+  --text-2: oklch(0.46 0.025 262);
+  --text-3: oklch(0.56 0.02 262);
+  --brand: oklch(0.44 0.15 262);
+  --brand-hover: oklch(0.38 0.14 262);
+  --brand-soft: oklch(0.95 0.03 262);
+  --brand-text: oklch(0.42 0.15 262);
+  --on-brand: oklch(0.99 0.005 262);
+  --danger-fg: oklch(0.48 0.17 27);
+  --danger-soft: oklch(0.965 0.025 27);
+  --danger-border: oklch(0.85 0.07 27);
+  --hatch: oklch(0.88 0.01 262);
+  --skeleton: oklch(0.93 0.006 255);
+  --skeleton-hi: oklch(0.965 0.004 255);
+  --overlay: oklch(0.2 0.03 262 / 0.42);
+  --shadow-sm: 0 1px 2px oklch(0.3 0.03 262 / 0.06);
+  --shadow-md: 0 6px 16px oklch(0.3 0.03 262 / 0.08), 0 1px 3px oklch(0.3 0.03 262 / 0.06);
+  --shadow-lg: 0 24px 56px oklch(0.22 0.04 262 / 0.2), 0 2px 8px oklch(0.22 0.04 262 / 0.08);
+
+  --sched-bg: oklch(0.955 0.045 80);
+  --sched-fg: oklch(0.43 0.09 70);
+  --sched-dot: oklch(0.72 0.14 75);
+  --conf-bg: oklch(0.945 0.035 255);
+  --conf-fg: oklch(0.42 0.14 258);
+  --conf-dot: oklch(0.58 0.16 258);
+  --done-bg: oklch(0.95 0.04 155);
+  --done-fg: oklch(0.42 0.1 155);
+  --done-dot: oklch(0.62 0.14 155);
+  --canc-bg: oklch(0.95 0.004 262);
+  --canc-fg: oklch(0.47 0.012 262);
+  --canc-dot: oklch(0.7 0.01 262);
+  --noshow-bg: oklch(0.955 0.03 27);
+  --noshow-fg: oklch(0.47 0.16 27);
+  --noshow-dot: oklch(0.62 0.18 27);
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: oklch(0.165 0.012 262);
+  --surface: oklch(0.205 0.014 262);
+  --surface-2: oklch(0.245 0.016 262);
+  --border-soft: oklch(0.295 0.016 262);
+  --border-strong: oklch(0.37 0.02 262);
+  --text: oklch(0.955 0.006 262);
+  --text-2: oklch(0.77 0.015 262);
+  --text-3: oklch(0.66 0.015 262);
+  --brand: oklch(0.7 0.13 258);
+  --brand-hover: oklch(0.76 0.12 258);
+  --brand-soft: oklch(0.3 0.06 262);
+  --brand-text: oklch(0.8 0.1 258);
+  --on-brand: oklch(0.17 0.03 262);
+  --danger-fg: oklch(0.78 0.12 27);
+  --danger-soft: oklch(0.27 0.05 27);
+  --danger-border: oklch(0.42 0.09 27);
+  --hatch: oklch(0.32 0.016 262);
+  --skeleton: oklch(0.26 0.014 262);
+  --skeleton-hi: oklch(0.3 0.016 262);
+  --overlay: oklch(0.08 0.01 262 / 0.6);
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
+  --shadow-md: 0 6px 16px oklch(0 0 0 / 0.35);
+  --shadow-lg: 0 24px 56px oklch(0 0 0 / 0.5);
+
+  --sched-bg: oklch(0.31 0.05 75);
+  --sched-fg: oklch(0.88 0.1 80);
+  --sched-dot: oklch(0.78 0.13 78);
+  --conf-bg: oklch(0.31 0.06 258);
+  --conf-fg: oklch(0.87 0.08 258);
+  --conf-dot: oklch(0.72 0.13 258);
+  --done-bg: oklch(0.3 0.05 155);
+  --done-fg: oklch(0.87 0.09 155);
+  --done-dot: oklch(0.72 0.13 155);
+  --canc-bg: oklch(0.28 0.01 262);
+  --canc-fg: oklch(0.78 0.01 262);
+  --canc-dot: oklch(0.6 0.01 262);
+  --noshow-bg: oklch(0.3 0.06 27);
+  --noshow-fg: oklch(0.86 0.09 27);
+  --noshow-dot: oklch(0.7 0.15 27);
+
+  color-scheme: dark;
+}
+
+/* VariÃ¡veis semÃ¢nticas do shadcn/ui apontando para os tokens do design */
+:root,
+[data-theme] {
+  --background: var(--bg);
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary: var(--brand);
+  --primary-foreground: var(--on-brand);
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--text);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--text-2);
+  --accent: var(--surface-2);
+  --accent-foreground: var(--text);
+  --destructive: var(--danger-fg);
+  --border: var(--border-soft);
+  --input: var(--border-strong);
+  --ring: var(--brand);
+  --radius: 0.875rem;
 }
 
 @theme inline {
+  --font-sans: var(--font-figtree), system-ui, sans-serif;
+  --font-heading: var(--font-figtree), system-ui, sans-serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Tokens prÃ³prios do design, disponÃ­veis como utilitÃ¡rios (bg-surface, text-text-2, ...) */
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-text: var(--brand-text);
+  --color-on-brand: var(--on-brand);
+  --color-danger: var(--danger-fg);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-border: var(--danger-border);
+  --color-hatch: var(--hatch);
+  --color-skeleton: var(--skeleton);
+  --color-skeleton-hi: var(--skeleton-hi);
+  --color-overlay: var(--overlay);
+  --color-sched-bg: var(--sched-bg);
+  --color-sched-fg: var(--sched-fg);
+  --color-sched-dot: var(--sched-dot);
+  --color-conf-bg: var(--conf-bg);
+  --color-conf-fg: var(--conf-fg);
+  --color-conf-dot: var(--conf-dot);
+  --color-done-bg: var(--done-bg);
+  --color-done-fg: var(--done-fg);
+  --color-done-dot: var(--done-dot);
+  --color-canc-bg: var(--canc-bg);
+  --color-canc-fg: var(--canc-fg);
+  --color-canc-dot: var(--canc-dot);
+  --color-noshow-bg: var(--noshow-bg);
+  --color-noshow-fg: var(--noshow-fg);
+  --color-noshow-dot: var(--noshow-dot);
+
+  /* Raios do design: sm 6 Â· md 10 Â· lg 14 Â· xl 18 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-2xl: 22px;
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  --animate-shimmer: ag-shimmer 1.4s linear infinite;
+  @keyframes ag-shimmer {
+    0% {
+      background-position: -480px 0;
+    }
+    100% {
+      background-position: 480px 0;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* HorÃ¡rios e valores alinhados em colunas */
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@utility skeleton {
+  background: linear-gradient(90deg, var(--skeleton) 0, var(--skeleton-hi) 40%, var(--skeleton) 80%);
+  background-size: 960px 100%;
+  animation: var(--animate-shimmer);
+}
+
+@utility hatch {
+  background: repeating-linear-gradient(135deg, var(--hatch) 0 2px, transparent 2px 9px);
 }

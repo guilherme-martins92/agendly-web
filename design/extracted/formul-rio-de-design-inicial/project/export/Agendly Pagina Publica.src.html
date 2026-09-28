@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail" data-bg-color="#2f4db3">
+  <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="400" fill="#2f4db3"/><rect x="120" y="120" width="160" height="160" rx="40" fill="#ffffff"/><text x="200" y="228" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="84" fill="#2f4db3">a</text></svg>
+</template>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..24,400,0..1,0&display=block" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0}
+body{font-family:'Figtree',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+button,input{font-family:inherit}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline}
+[data-theme]{--bg:oklch(0.975 0.004 255);--surface:oklch(1 0 0);--surface-2:oklch(0.962 0.006 255);--border:oklch(0.912 0.008 255);--border-strong:oklch(0.84 0.012 255);--text:oklch(0.23 0.03 262);--text-2:oklch(0.46 0.025 262);--text-3:oklch(0.56 0.02 262);--danger-fg:oklch(0.48 0.17 27);--danger-soft:oklch(0.965 0.025 27);--danger-border:oklch(0.85 0.07 27);--warn-bg:oklch(0.955 0.045 80);--warn-fg:oklch(0.43 0.09 70);--warn-border:oklch(0.72 0.14 75);--ok-bg:oklch(0.95 0.04 155);--ok-fg:oklch(0.42 0.1 155);--skeleton:oklch(0.93 0.006 255);--skeleton-hi:oklch(0.965 0.004 255);--shadow-sm:0 1px 2px oklch(0.3 0.03 262 / 0.06);--shadow-md:0 6px 16px oklch(0.3 0.03 262 / 0.08),0 1px 3px oklch(0.3 0.03 262 / 0.06);--shadow-lg:0 24px 56px oklch(0.22 0.04 262 / 0.2)}
+[data-theme="dark"]{--bg:oklch(0.165 0.012 262);--surface:oklch(0.205 0.014 262);--surface-2:oklch(0.245 0.016 262);--border:oklch(0.295 0.016 262);--border-strong:oklch(0.37 0.02 262);--text:oklch(0.955 0.006 262);--text-2:oklch(0.77 0.015 262);--text-3:oklch(0.66 0.015 262);--danger-fg:oklch(0.78 0.12 27);--danger-soft:oklch(0.27 0.05 27);--danger-border:oklch(0.42 0.09 27);--warn-bg:oklch(0.31 0.05 75);--warn-fg:oklch(0.88 0.1 80);--warn-border:oklch(0.55 0.1 78);--ok-bg:oklch(0.3 0.05 155);--ok-fg:oklch(0.87 0.09 155);--skeleton:oklch(0.26 0.014 262);--skeleton-hi:oklch(0.3 0.016 262);--shadow-sm:0 1px 2px oklch(0 0 0 / 0.3);--shadow-md:0 6px 16px oklch(0 0 0 / 0.35);--shadow-lg:0 24px 56px oklch(0 0 0 / 0.5)}
+@keyframes agShimmer{0%{background-position:-480px 0}100%{background-position:480px 0}}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" data-theme="{{ theme }}" style="min-height:100vh;background:var(--surface-2);display:flex;justify-content:center;align-items:flex-start;color:var(--text);font-family:Figtree,system-ui,sans-serif;color-scheme:{{ colorScheme }}">
+<div data-screen-label="{{ screenLabel }}" style="position:relative;width:100%;max-width:{{ frameMax }};height:{{ frameH }};margin:{{ frameMargin }};border-radius:{{ frameRadius }};box-shadow:{{ frameShadow }};overflow:hidden;background:var(--bg);display:flex;flex-direction:column">
+
+<sc-if value="{{ is404 }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1;overflow:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 24px;gap:14px">
+    <div style="width:72px;height:72px;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;color:var(--text-2)"><span style="font-family:'Material Symbols Rounded';font-size:34px;line-height:1">storefront</span></div>
+    <h1 style="margin:6px 0 0;font:700 26px/1.2 Figtree,sans-serif;letter-spacing:-0.02em">Página não encontrada</h1>
+    <div style="font:500 15px/1.55 Figtree,sans-serif;color:var(--text-2);max-width:380px;text-wrap:pretty">Este endereço não existe ou o negócio não está recebendo agendamentos online no momento.</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:9px;background:var(--surface);border:1px solid var(--border);font:500 13px/1 ui-monospace,Menlo,monospace;color:var(--text-2)">agendly.com/barbearia-do-zee</div>
+    <div style="font:500 14px/1.5 Figtree,sans-serif;color:var(--text-2);max-width:360px;margin-top:6px">Confira se o link está correto ou fale com o estabelecimento pelo WhatsApp ou Instagram.</div>
+    <div style="margin-top:28px;font:500 12px/1 Figtree,sans-serif;color:var(--text-3)">agendly</div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isApp }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;min-height:0;overflow:auto">
+  <sc-if value="{{ showMobileHeader }}" hint-placeholder-val="{{ false }}">
+  <div style="position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--border)">
+    <div style="height:56px;display:flex;align-items:center;gap:6px;padding:0 12px 0 6px">
+      <button onClick="{{ back }}" aria-label="Voltar" style="width:44px;height:44px;border:none;border-radius:12px;background:transparent;color:var(--text);display:grid;place-items:center;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:24px;line-height:1">arrow_back</span></button>
+      <div style="flex:1;min-width:0">
+        <div style="font:700 15px/1.2 Figtree,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Barbearia do Zé</div>
+        <div style="font:500 12px/1.3 Figtree,sans-serif;color:var(--text-2)">{{ stepLabel }}</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat({{ stepTotal }},1fr);gap:4px;padding:0 16px 10px">
+      <sc-for list="{{ bars }}" as="b" hint-placeholder-count="5"><div style="height:4px;border-radius:99px;background:{{ b.bg }}"></div></sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <div style="max-width:{{ containerMax }};margin:0 auto;padding:{{ containerPad }};display:grid;grid-template-columns:{{ gridCols }};gap:28px;align-items:start">
+
+    <sc-if value="{{ showSide }}" hint-placeholder-val="{{ false }}">
+    <div style="position:sticky;top:32px;display:flex;flex-direction:column;gap:14px">
+      <div style="border-radius:20px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-sm);overflow:hidden">
+        <div style="height:88px;background:{{ brandSoft }}"></div>
+        <div style="padding:0 24px 24px;margin-top:-40px;display:flex;flex-direction:column;gap:12px">
+          <sc-if value="{{ hasLogo }}" hint-placeholder-val="{{ false }}"><div style="width:80px;height:80px;border-radius:22px;border:4px solid var(--surface);background:repeating-linear-gradient(45deg,var(--surface-2) 0 6px,var(--surface) 6px 12px);display:grid;place-items:center;font:500 10px/1.2 ui-monospace,Menlo,monospace;color:var(--text-2)">logo</div></sc-if>
+          <sc-if value="{{ noLogo }}" hint-placeholder-val="{{ true }}"><div style="width:80px;height:80px;border-radius:22px;border:4px solid var(--surface);background:{{ brand }};color:{{ onBrand }};display:grid;place-items:center;font:700 28px/1 Figtree,sans-serif">BZ</div></sc-if>
+          <div>
+            <h1 style="margin:0;font:700 26px/1.15 Figtree,sans-serif;letter-spacing:-0.02em">Barbearia do Zé</h1>
+            <p style="margin:8px 0 0;font:500 15px/1.55 Figtree,sans-serif;color:var(--text-2);text-wrap:pretty">Cortes clássicos e modernos, barba na navalha e um bom café. Desde 2012 no Tatuapé.</p>
+          </div>
+          <sc-if value="{{ hasContact }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:2px;margin-top:2px">
+            <a href="tel:+551134567890" style="display:flex;align-items:center;gap:10px;min-height:40px;font:500 14px/1.4 Figtree,sans-serif;color:var(--text);text-decoration:none"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ brandText }}">call</span>(11) 3456-7890</a>
+            <a href="https://maps.google.com/?q=Rua+Tuiuti+1520+Tatuape+Sao+Paulo" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;min-height:40px;font:500 14px/1.4 Figtree,sans-serif;color:var(--text);text-decoration:none"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ brandText }}">location_on</span>Rua Tuiuti, 1520 — Tatuapé, São Paulo/SP</a>
+          </div>
+          </sc-if>
+          <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ start }}" style="margin-top:6px;height:52px;border:none;border-radius:14px;background:{{ brand }};color:{{ onBrand }};font:700 16px/1 Figtree,sans-serif;cursor:pointer">Agendar horário</button>
+          </sc-if>
+          <sc-if value="{{ showSummary }}" hint-placeholder-val="{{ false }}">
+            <div style="border-top:1px solid var(--border);padding-top:14px;margin-top:4px">
+              <div style="font:700 12px/1 Figtree,sans-serif;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">Seu agendamento</div>
+              <sc-for list="{{ sideRows }}" as="r" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;gap:10px;padding:8px 0">
+                  <span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ r.iconFg }}">{{ r.icon }}</span>
+                  <span style="flex:1;min-width:0;font:{{ r.weight }} 14px/1.35 Figtree,sans-serif;color:{{ r.fg }}">{{ r.value }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+      <div style="text-align:center;font:500 12px/1.4 Figtree,sans-serif;color:var(--text-3)">Agendamento online por <span style="font-weight:700">agendly</span></div>
+    </div>
+    </sc-if>
+
+    <div style="min-width:0;display:flex;flex-direction:column;gap:0">
+      <sc-if value="{{ showHero }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="01 Home do negócio" style="display:flex;flex-direction:column">
+        <div style="height:120px;background:{{ brandSoft }}"></div>
+        <div style="padding:0 20px 8px;margin-top:-48px;display:flex;flex-direction:column;gap:14px">
+          <sc-if value="{{ hasLogo }}" hint-placeholder-val="{{ false }}"><div style="width:92px;height:92px;border-radius:26px;border:4px solid var(--bg);background:repeating-linear-gradient(45deg,var(--surface-2) 0 6px,var(--surface) 6px 12px);display:grid;place-items:center;font:500 10px/1.2 ui-monospace,Menlo,monospace;color:var(--text-2)">logo</div></sc-if>
+          <sc-if value="{{ noLogo }}" hint-placeholder-val="{{ true }}"><div style="width:92px;height:92px;border-radius:26px;border:4px solid var(--bg);background:{{ brand }};color:{{ onBrand }};display:grid;place-items:center;font:700 32px/1 Figtree,sans-serif">BZ</div></sc-if>
+          <div>
+            <h1 style="margin:0;font:700 28px/1.15 Figtree,sans-serif;letter-spacing:-0.02em">Barbearia do Zé</h1>
+            <p style="margin:8px 0 0;font:500 15px/1.55 Figtree,sans-serif;color:var(--text-2);text-wrap:pretty">Cortes clássicos e modernos, barba na navalha e um bom café. Desde 2012 no Tatuapé.</p>
+          </div>
+          <sc-if value="{{ hasContact }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;border-radius:14px;border:1px solid var(--border);background:var(--surface)">
+            <a href="tel:+551134567890" style="display:flex;align-items:center;gap:12px;min-height:52px;padding:0 14px;font:500 15px/1.4 Figtree,sans-serif;color:var(--text);text-decoration:none"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ brandText }}">call</span><span style="flex:1">(11) 3456-7890</span><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:var(--text-3)">chevron_right</span></a>
+            <a href="https://maps.google.com/?q=Rua+Tuiuti+1520+Tatuape+Sao+Paulo" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;min-height:52px;padding:0 14px;border-top:1px solid var(--border);font:500 15px/1.4 Figtree,sans-serif;color:var(--text);text-decoration:none"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ brandText }}">location_on</span><span style="flex:1">Rua Tuiuti, 1520 — Tatuapé, São Paulo/SP</span><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:var(--text-3)">chevron_right</span></a>
+          </div>
+          </sc-if>
+          <button onClick="{{ start }}" style="height:56px;border:none;border-radius:16px;background:{{ brand }};color:{{ onBrand }};font:700 17px/1 Figtree,sans-serif;cursor:pointer;box-shadow:var(--shadow-md)">Agendar horário</button>
+          <div style="font:700 13px/1 Figtree,sans-serif;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;margin-top:14px">Serviços</div>
+        </div>
+      </div>
+      </sc-if>
+
+      <div style="background:{{ cardBg }};border:{{ cardBorder }};border-radius:{{ cardRadius }};box-shadow:{{ cardShadow }};padding:{{ cardPad }};display:flex;flex-direction:column;gap:18px">
+
+        <sc-if value="{{ showDeskHeader }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <button onClick="{{ back }}" aria-label="Voltar" style="width:40px;height:40px;margin-left:-8px;border:none;border-radius:10px;background:transparent;color:var(--text);display:grid;place-items:center;cursor:pointer" style-hover="background:var(--surface-2)"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">arrow_back</span></button>
+            <div style="font:600 13px/1 Figtree,sans-serif;color:var(--text-2)">{{ stepLabel }}</div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat({{ stepTotal }},1fr);gap:4px">
+            <sc-for list="{{ bars }}" as="b" hint-placeholder-count="5"><div style="height:4px;border-radius:99px;background:{{ b.bg }}"></div></sc-for>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ showTitle }}" hint-placeholder-val="{{ false }}">
+          <h2 style="margin:0;font:700 {{ titleSize }}px/1.2 Figtree,sans-serif;letter-spacing:-0.02em">{{ title }}</h2>
+        </sc-if>
+
+        <sc-if value="{{ hasErr }}" hint-placeholder-val="{{ false }}">
+        <div role="alert" style="display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:{{ errBg }};border:1px solid {{ errBorder }};color:{{ errFg }}">
+          <span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">{{ errIcon }}</span>
+          <div style="flex:1;min-width:0">
+            <div style="font:700 15px/1.3 Figtree,sans-serif">{{ errTitle }}</div>
+            <sc-for list="{{ errList }}" as="e" hint-placeholder-count="1"><div style="font:500 14px/1.45 Figtree,sans-serif;margin-top:2px">{{ e }}</div></sc-for>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ showServices }}" hint-placeholder-val="{{ true }}">
+        <div data-screen-label="02 Escolher serviço" style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ services }}" as="v" hint-placeholder-count="6">
+            <button onClick="{{ v.onClick }}" style="display:flex;align-items:center;gap:14px;padding:16px;border-radius:16px;border:{{ v.borderW }} solid {{ v.border }};background:{{ v.bg }};color:var(--text);cursor:pointer;text-align:left;min-height:76px" style-hover="border-color:var(--border-strong);box-shadow:var(--shadow-md)">
+              <span style="flex:1;min-width:0">
+                <span style="display:block;font:600 16px/1.3 Figtree,sans-serif">{{ v.name }}</span>
+                <sc-if value="{{ v.hasDesc }}" hint-placeholder-val="{{ false }}"><span style="display:block;font:500 14px/1.45 Figtree,sans-serif;color:var(--text-2);margin-top:2px">{{ v.desc }}</span></sc-if>
+                <span style="display:flex;align-items:center;gap:4px;font:500 13px/1 Figtree,sans-serif;color:var(--text-2);margin-top:8px"><span style="font-family:'Material Symbols Rounded';font-size:16px;line-height:1">schedule</span>{{ v.dur }}</span>
+              </span>
+              <span style="font:700 16px/1 Figtree,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap">{{ v.price }}</span>
+              <span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:var(--text-3)">chevron_right</span>
+            </button>
+          </sc-for>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ showPros }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="03 Escolher profissional" style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ pros }}" as="p" hint-placeholder-count="3">
+            <button onClick="{{ p.onClick }}" style="display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;border:{{ p.borderW }} solid {{ p.border }};background:{{ p.bg }};color:var(--text);cursor:pointer;text-align:left;min-height:80px" style-hover="border-color:var(--border-strong);box-shadow:var(--shadow-md)">
+              <span style="width:52px;height:52px;flex-shrink:0;border-radius:50%;background:{{ brandSoft }};color:{{ brandText }};display:grid;place-items:center;font:700 17px/1 Figtree,sans-serif">{{ p.initials }}</span>
+              <span style="flex:1;min-width:0">
+                <span style="display:block;font:600 16px/1.3 Figtree,sans-serif">{{ p.name }}</span>
+                <span style="display:block;font:500 13px/1.4 Figtree,sans-serif;color:{{ p.nextFg }};margin-top:2px">{{ p.next }}</span>
+              </span>
+              <span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:var(--text-3)">chevron_right</span>
+            </button>
+          </sc-for>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ showDate }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="04 Data e horário" style="display:flex;flex-direction:column;gap:18px">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px">
+              <div style="font:700 15px/1.2 Figtree,sans-serif;text-transform:capitalize">{{ monthLabel }}</div>
+              <div style="display:flex;gap:4px">
+                <button onClick="{{ stripPrev }}" aria-label="Semana anterior" style="width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);display:grid;place-items:center;cursor:pointer;opacity:{{ prevOp }}"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">chevron_left</span></button>
+                <button onClick="{{ stripNext }}" aria-label="Próxima semana" style="width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);display:grid;place-items:center;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">chevron_right</span></button>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px">
+              <sc-for list="{{ days }}" as="d" hint-placeholder-count="7">
+                <button onClick="{{ d.onClick }}" aria-disabled="{{ d.disabled }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0;min-height:72px;border-radius:14px;border:1px solid {{ d.border }};background:{{ d.bg }};color:{{ d.fg }};opacity:{{ d.opacity }};cursor:{{ d.cursor }};text-decoration:{{ d.deco }}">
+                  <span style="font:600 11px/1 Figtree,sans-serif;text-transform:uppercase;letter-spacing:0.04em;color:{{ d.subFg }}">{{ d.dow }}</span>
+                  <span style="font:700 19px/1.1 Figtree,sans-serif;font-variant-numeric:tabular-nums">{{ d.day }}</span>
+                  <span style="font:600 10px/1 Figtree,sans-serif;color:{{ d.subFg }}">{{ d.sub }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="font:600 14px/1.3 Figtree,sans-serif;color:var(--text-2)">{{ dateLong }}</div>
+          <sc-if value="{{ slotsLoading }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px">
+              <sc-for list="{{ sk12 }}" as="k" hint-placeholder-count="12"><div style="height:48px;border-radius:12px;background:linear-gradient(90deg,var(--skeleton) 0,var(--skeleton-hi) 40%,var(--skeleton) 80%);background-size:960px 100%;animation:agShimmer 1.4s linear infinite"></div></sc-for>
+            </div>
+          </sc-if>
+          <sc-for list="{{ groups }}" as="g" hint-placeholder-count="0">
+            <div>
+              <div style="font:700 12px/1 Figtree,sans-serif;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px">{{ g.label }}</div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px">
+                <sc-for list="{{ g.slots }}" as="t" hint-placeholder-count="0">
+                  <button onClick="{{ t.onClick }}" style="height:48px;border-radius:12px;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.fg }};font:600 16px/1 Figtree,sans-serif;font-variant-numeric:tabular-nums;cursor:pointer">{{ t.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+          <sc-if value="{{ noSlots }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:28px 18px;border:1px dashed var(--border-strong);border-radius:16px;background:var(--surface)">
+              <span style="font-family:'Material Symbols Rounded';font-size:30px;line-height:1;color:var(--text-3)">event_busy</span>
+              <div style="font:700 16px/1.3 Figtree,sans-serif">Sem horários neste dia</div>
+              <div style="font:500 14px/1.5 Figtree,sans-serif;color:var(--text-2);max-width:300px">Todos os horários de {{ proFirst }} já estão ocupados. Que tal outro dia?</div>
+              <sc-if value="{{ hasNextDay }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ goNextDay }}" style="margin-top:4px;height:46px;padding:0 18px;border-radius:12px;border:none;background:{{ brandSoft }};color:{{ brandText }};font:700 14px/1 Figtree,sans-serif;cursor:pointer">{{ nextDayLabel }}</button>
+              </sc-if>
+            </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ showForm }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="05 Seus dados" style="display:flex;flex-direction:column;gap:18px">
+          <div style="font:500 14px/1.5 Figtree,sans-serif;color:var(--text-2);margin-top:-8px">Não precisa criar conta nem senha. Usamos seu WhatsApp só para falar sobre este horário.</div>
+          <label style="display:flex;flex-direction:column;gap:6px;font:600 14px/1.2 Figtree,sans-serif">Nome
+            <input value="{{ fName }}" onChange="{{ onName }}" autocomplete="name" placeholder="Seu nome" style="width:100%;height:52px;padding:0 16px;border:1px solid {{ eName.border }};border-radius:12px;background:var(--surface);color:var(--text);font:500 17px/1 Figtree,sans-serif;outline-color:{{ brand }}">
+            <sc-if value="{{ eName.has }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:4px;font:500 13px/1.3 Figtree,sans-serif;color:var(--danger-fg)"><span style="font-family:'Material Symbols Rounded';font-size:16px;line-height:1">error</span>{{ eName.msg }}</span></sc-if>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px;font:600 14px/1.2 Figtree,sans-serif">WhatsApp
+            <input value="{{ fPhone }}" onChange="{{ onPhone }}" inputmode="tel" autocomplete="tel" placeholder="(11) 91234-5678" style="width:100%;height:52px;padding:0 16px;border:1px solid {{ ePhone.border }};border-radius:12px;background:var(--surface);color:var(--text);font:500 17px/1 Figtree,sans-serif;font-variant-numeric:tabular-nums;outline-color:{{ brand }}">
+            <sc-if value="{{ ePhone.has }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:4px;font:500 13px/1.3 Figtree,sans-serif;color:var(--danger-fg)"><span style="font-family:'Material Symbols Rounded';font-size:16px;line-height:1">error</span>{{ ePhone.msg }}</span></sc-if>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px;font:600 14px/1.2 Figtree,sans-serif">
+            <span style="display:flex;justify-content:space-between;gap:8px">E-mail<span style="font-weight:500;color:var(--text-3);font-size:12px">Opcional</span></span>
+            <input value="{{ fEmail }}" onChange="{{ onEmail }}" type="email" autocomplete="email" placeholder="voce@email.com" style="width:100%;height:52px;padding:0 16px;border:1px solid {{ eEmail.border }};border-radius:12px;background:var(--surface);color:var(--text);font:500 17px/1 Figtree,sans-serif;outline-color:{{ brand }}">
+            <sc-if value="{{ eEmail.has }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:4px;font:500 13px/1.3 Figtree,sans-serif;color:var(--danger-fg)"><span style="font-family:'Material Symbols Rounded';font-size:16px;line-height:1">error</span>{{ eEmail.msg }}</span></sc-if>
+          </label>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ showReview }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="06 Revisão" style="display:flex;flex-direction:column;gap:14px">
+          <div style="border-radius:16px;border:1px solid var(--border);background:var(--surface);overflow:hidden">
+            <sc-for list="{{ reviewRows }}" as="r" hint-placeholder-count="7">
+              <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-top:1px solid {{ r.border }}">
+                <span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:var(--text-3)">{{ r.icon }}</span>
+                <div style="flex:1;min-width:0">
+                  <div style="font:500 12px/1.3 Figtree,sans-serif;color:var(--text-2)">{{ r.label }}</div>
+                  <div style="font:600 15px/1.35 Figtree,sans-serif;font-variant-numeric:tabular-nums">{{ r.value }}</div>
+                </div>
+                <sc-if value="{{ r.canEdit }}" hint-placeholder-val="{{ false }}"><button onClick="{{ r.onEdit }}" style="height:36px;padding:0 10px;border:none;border-radius:9px;background:transparent;color:{{ brandText }};font:600 13px/1 Figtree,sans-serif;cursor:pointer">Alterar</button></sc-if>
+              </div>
+            </sc-for>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;border-top:1px solid var(--border);background:var(--surface-2)">
+              <span style="font:600 15px/1 Figtree,sans-serif">Total</span>
+              <span style="font:700 20px/1 Figtree,sans-serif;font-variant-numeric:tabular-nums">{{ priceLabel }}</span>
+            </div>
+          </div>
+          <div style="font:500 13px/1.5 Figtree,sans-serif;color:var(--text-2)">Pagamento no local. Se precisar desmarcar, avise o estabelecimento pelo WhatsApp.</div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ showSuccess }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="07 Sucesso" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding-top:{{ successPadTop }}">
+          <div style="width:84px;height:84px;border-radius:50%;background:{{ brandSoft }};color:{{ brandText }};display:grid;place-items:center"><span style="font-family:'Material Symbols Rounded';font-size:46px;line-height:1;font-variation-settings:'FILL' 1">check_circle</span></div>
+          <h2 style="margin:0;font:700 26px/1.2 Figtree,sans-serif;letter-spacing:-0.02em">Horário agendado!</h2>
+          <div style="font:500 15px/1.55 Figtree,sans-serif;color:var(--text-2);max-width:360px;text-wrap:pretty">{{ successText }}</div>
+          <div style="width:100%;text-align:left;border-radius:16px;border:1px solid var(--border);background:var(--surface);overflow:hidden;margin-top:6px">
+            <div style="padding:16px;background:{{ brandSoft }};color:{{ brandText }}">
+              <div style="font:700 22px/1.2 Figtree,sans-serif;font-variant-numeric:tabular-nums">{{ sucTime }}</div>
+              <div style="font:600 14px/1.4 Figtree,sans-serif;margin-top:2px">{{ sucDate }}</div>
+            </div>
+            <sc-for list="{{ sucRows }}" as="r" hint-placeholder-count="3">
+              <div style="display:flex;justify-content:space-between;gap:12px;padding:13px 16px;border-top:1px solid {{ r.border }}">
+                <span style="font:500 14px/1.4 Figtree,sans-serif;color:var(--text-2)">{{ r.label }}</span>
+                <span style="font:600 14px/1.4 Figtree,sans-serif;text-align:right;font-variant-numeric:tabular-nums">{{ r.value }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="width:100%;display:flex;flex-direction:column;gap:10px;margin-top:4px">
+            <button onClick="{{ addCal }}" style="display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:14px;border:none;background:{{ brand }};color:{{ onBrand }};font:700 15px/1 Figtree,sans-serif;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1">event</span>Adicionar ao calendário</button>
+            <a href="{{ waHref }}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:14px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:700 15px/1 Figtree,sans-serif;text-decoration:none"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1">chat</span>Falar no WhatsApp do negócio</a>
+            <button onClick="{{ restart }}" style="height:44px;border:none;background:transparent;color:{{ brandText }};font:600 14px/1 Figtree,sans-serif;cursor:pointer">Fazer outro agendamento</button>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ showInlineCta }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;justify-content:flex-end;padding-top:6px;border-top:1px solid var(--border)">
+            <button onClick="{{ cta }}" style="min-width:240px;height:52px;padding:0 22px;border:none;border-radius:14px;background:{{ brand }};color:{{ onBrand }};font:700 16px/1 Figtree,sans-serif;cursor:{{ ctaCursor }};opacity:{{ ctaOp }}">{{ ctaLabel }}</button>
+          </div>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{ showMobileFooter }}" hint-placeholder-val="{{ true }}">
+        <div style="text-align:center;padding:24px 0 {{ footerPadBottom }};font:500 12px/1.4 Figtree,sans-serif;color:var(--text-3)">Agendamento online por <span style="font-weight:700">agendly</span></div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+
+<sc-if value="{{ showFixedCta }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;left:0;right:0;bottom:0;z-index:6;padding:12px 16px 16px;background:var(--surface);border-top:1px solid var(--border);box-shadow:0 -8px 24px oklch(0.2 0.03 262 / 0.06)">
+    <button onClick="{{ cta }}" style="width:100%;height:54px;border:none;border-radius:14px;background:{{ brand }};color:{{ onBrand }};font:700 16px/1 Figtree,sans-serif;cursor:{{ ctaCursor }};opacity:{{ ctaOp }}">{{ ctaLabel }}</button>
+  </div>
+</sc-if>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;corNegocio&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Azul&quot;,&quot;Verde&quot;,&quot;Bordô&quot;,&quot;Terracota&quot;,&quot;Grafite&quot;],&quot;default&quot;:&quot;Azul&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Marca do negócio&quot;},&quot;comLogo&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Marca do negócio&quot;},&quot;semContato&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Marca do negócio&quot;},&quot;profissionalUnico&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Fluxo&quot;},&quot;estado&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Normal&quot;,&quot;Carregando horários&quot;,&quot;Sem horários no dia&quot;,&quot;Horário ocupado (409)&quot;,&quot;Muitas tentativas (429)&quot;,&quot;Não encontrado (404)&quot;],&quot;default&quot;:&quot;Normal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estados&quot;},&quot;tema&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Claro&quot;,&quot;Escuro&quot;],&quot;default&quot;:&quot;Claro&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aparência&quot;},&quot;visualizacao&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Auto&quot;,&quot;Desktop&quot;,&quot;Mobile (390)&quot;],&quot;default&quot;:&quot;Auto&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aparência&quot;}}">
+const TODAY_KEY = '2026-09-29', NOW_MIN = 14 * 60 + 20;
+const pad = n => String(n).padStart(2, '0');
+const toKey = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+const parse = k => { const a = k.split('-').map(Number); return new Date(a[0], a[1] - 1, a[2]); };
+const addDays = (k, n) => { const d = parse(k); d.setDate(d.getDate() + n); return toKey(d); };
+const hm = m => pad(Math.floor(m / 60)) + ':' + pad(m % 60);
+const brl = v => 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const brDate = k => { const a = k.split('-'); return a[2] + '/' + a[1] + '/' + a[0]; };
+const DOW = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+const DOWF = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+const MON = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+const longDate = k => { const d = parse(k); return DOWF[d.getDay()] + ', ' + d.getDate() + ' de ' + MON[d.getMonth()]; };
+const initials = n => n.split(' ').filter(Boolean).slice(0, 2).map(x => x[0]).join('').toUpperCase();
+const maskPhone = v => { const d = v.replace(/\D/g, '').slice(0, 11); if (!d.length) return ''; if (d.length <= 2) return '(' + d; if (d.length <= 6) return '(' + d.slice(0, 2) + ') ' + d.slice(2); if (d.length <= 10) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6); return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7); };
+const range = n => Array.from({ length: n }, (_, i) => i);
+const SERVICES = [
+  { id: 's1', name: 'Corte masculino', description: 'Corte na tesoura ou máquina, com lavagem e finalização.', durationMinutes: 30, price: 45, active: true },
+  { id: 's2', name: 'Barba', description: 'Barba com toalha quente e navalha.', durationMinutes: 20, price: 30, active: true },
+  { id: 's3', name: 'Corte + barba', description: 'Combo completo com finalização.', durationMinutes: 50, price: 70, active: true },
+  { id: 's4', name: 'Corte degradê', description: 'Degradê navalhado nas laterais.', durationMinutes: 40, price: 55, active: true },
+  { id: 's5', name: 'Sobrancelha', description: null, durationMinutes: 15, price: 15, active: true },
+  { id: 's6', name: 'Pigmentação de barba', description: 'Preenche falhas e uniformiza a cor.', durationMinutes: 30, price: 40, active: true },
+  { id: 's7', name: 'Hidratação capilar', description: null, durationMinutes: 20, price: 35, active: false }];
+const SVC = {}; SERVICES.forEach(s => SVC[s.id] = s);
+const PROS = [
+  { id: 'p1', name: 'Zé Carlos', serviceIds: ['s1', 's2', 's3', 's4', 's5', 's6'] },
+  { id: 'p2', name: 'Rafael Souza', serviceIds: ['s1', 's2', 's3', 's4', 's5'] },
+  { id: 'p3', name: 'Lucas Mendes', serviceIds: ['s1', 's4', 's5', 's6'] }];
+const PRO = {}; PROS.forEach(p => PRO[p.id] = p);
+const WORK = { p1: {}, p2: {}, p3: {} };
+for (let d = 1; d <= 6; d++) { WORK.p1[d] = [[540, 720], [780, 1200]]; WORK.p2[d] = [[540, 1200]]; WORK.p3[d] = d === 1 ? [[780, 1140]] : [[600, 1140]]; }
+const BLOCKS = [{ p: 'p2', k: TODAY_KEY, s: 720, e: 780 }, { p: 'p3', k: TODAY_KEY, s: 960, e: 1020 }, { p: 'p1', k: '2026-10-01', s: 840, e: 960 }, { p: 'p3', k: '2026-10-03', s: 0, e: 1440 }];
+function rng(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const hash = s => { let h = 7; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return h; };
+const BUSY = {};
+function busy(p, k) {
+  const key = p + k; if (BUSY[key]) return BUSY[key];
+  const r = rng(hash(key)), out = [], dow = parse(k).getDay(), i = Math.round((parse(k) - parse(TODAY_KEY)) / 864e5);
+  const fill = i === 0 ? 0.78 : Math.max(0.2, 0.7 - i * 0.04);
+  (WORK[p][dow] || []).forEach(([s, e]) => { let t = s; while (t < e) { const d = [30, 40, 50, 20][Math.floor(r() * 4)]; if (r() < fill) out.push([t, t + d]); t += d; t = Math.ceil(t / 15) * 15; } });
+  BUSY[key] = out; return out;
+}
+const BRANDS = { 'Azul': 262, 'Verde': 160, 'Bordô': 15, 'Terracota': 45, 'Grafite': null };
+function brandVals(name, dark) {
+  const h = BRANDS[name];
+  if (h === null || h === undefined && name === 'Grafite') return dark ? { brand: 'oklch(0.9 0.01 262)', soft: 'oklch(0.29 0.012 262)', text: 'oklch(0.92 0.01 262)', on: 'oklch(0.2 0.02 262)' } : { brand: 'oklch(0.28 0.02 262)', soft: 'oklch(0.94 0.006 262)', text: 'oklch(0.28 0.02 262)', on: 'oklch(0.99 0 0)' };
+  const hh = h === undefined ? 262 : h;
+  return dark ? { brand: 'oklch(0.72 0.12 ' + hh + ')', soft: 'oklch(0.3 0.05 ' + hh + ')', text: 'oklch(0.83 0.09 ' + hh + ')', on: 'oklch(0.17 0.03 ' + hh + ')' } : { brand: 'oklch(0.46 0.14 ' + hh + ')', soft: 'oklch(0.95 0.03 ' + hh + ')', text: 'oklch(0.43 0.14 ' + hh + ')', on: 'oklch(0.99 0.005 ' + hh + ')' };
+}
+const EMPTY = { step: 0, serviceId: null, proId: null, date: TODAY_KEY, week: 0, slot: null, loading: false, name: '', phone: '', email: '', tried: false, err: null, submitting: false, taken: [], conflicted: false, retryIn: 0, booked: null };
+
+class Component extends DCLogic {
+  rootRef = React.createRef();
+  state = { w: 1200, ...EMPTY };
+  componentDidMount() {
+    const el = this.rootRef.current;
+    if (el && window.ResizeObserver) { this.ro = new ResizeObserver(en => { const w = Math.round(en[0].contentRect.width); if (w !== this.state.w) this.setState({ w }); }); this.ro.observe(el); }
+  }
+  componentWillUnmount() { this.ro && this.ro.disconnect(); clearInterval(this.tm); }
+  onlyOne() { return !!this.props.profissionalUnico; }
+  prosFor(sid) { const l = PROS.filter(p => p.serviceIds.includes(sid)); return this.onlyOne() ? l.filter(p => p.id === 'p1') : l; }
+  flow() { return this.state.serviceId && this.prosFor(this.state.serviceId).length === 1 ? [1, 3, 4, 5] : [1, 2, 3, 4, 5]; }
+  forcedEmpty(k) { return this.props.estado === 'Sem horários no dia' && k === TODAY_KEY; }
+  slots(p, k, dur) {
+    if (!p || k < TODAY_KEY || this.forcedEmpty(k)) return [];
+    const dow = parse(k).getDay(), b = busy(p, k), bl = BLOCKS.filter(x => x.p === p && x.k === k), out = [];
+    (WORK[p][dow] || []).forEach(([s, e]) => { for (let t = s; t + dur <= e; t += 15) { const end = t + dur; if (k === TODAY_KEY && t <= NOW_MIN) continue; if (b.some(x => x[0] < end && x[1] > t)) continue; if (bl.some(x => x.s < end && x.e > t)) continue; if (this.state.taken.includes(p + k + t)) continue; out.push(t); } });
+    return out;
+  }
+  firstDay(p, dur, from) { for (let i = 0; i < 30; i++) { const k = addDays(from || TODAY_KEY, i); if (this.slots(p, k, dur).length) return k; } return null; }
+  pickDate(k) { this.setState({ date: k, slot: null, loading: true, err: null }); clearTimeout(this.lt); this.lt = setTimeout(() => this.setState({ loading: false }), 550); }
+  goStep(n) { this.setState({ step: n, err: n === 3 ? this.state.err : null }); const sc = this.rootRef.current && this.rootRef.current.querySelector('[style*="overflow: auto"]'); if (sc) sc.scrollTop = 0; }
+  enterDate(p, sid) { const dur = SVC[sid].durationMinutes; const d = this.props.estado === 'Sem horários no dia' ? TODAY_KEY : (this.firstDay(p, dur) || TODAY_KEY); const wk = Math.floor((parse(d) - parse(addDays(TODAY_KEY, -parse(TODAY_KEY).getDay()))) / (7 * 864e5)); this.setState({ step: 3, proId: p, date: d, week: wk, slot: null }); this.pickDate(d); }
+  pickService(id) {
+    const ps = this.prosFor(id);
+    this.setState({ serviceId: id, slot: null, err: null });
+    if (ps.length === 1) this.enterDate(ps[0].id, id); else this.setState({ step: 2, proId: null });
+  }
+  confirm() {
+    const s = this.state, e = this.props.estado;
+    if (s.submitting || s.retryIn) return;
+    this.setState({ submitting: true, err: null });
+    setTimeout(() => {
+      if (e === 'Horário ocupado (409)' && !this.state.conflicted) {
+        this.setState(st => ({ submitting: false, conflicted: true, taken: [...st.taken, st.proId + st.date + st.slot], slot: null, step: 3, err: { kind: 'conflict', title: 'Esse horário acabou de ser ocupado', errors: ['Outra pessoa confirmou este horário antes de você. Atualizamos a lista: escolha um novo horário.'] } }));
+        this.pickDate(this.state.date); return;
+      }
+      if (e === 'Muitas tentativas (429)') {
+        this.setState({ submitting: false, retryIn: 30, err: { kind: 'rate', title: 'Muitas tentativas', errors: ['Você fez muitas tentativas em pouco tempo. Aguarde alguns instantes e tente novamente.'] } });
+        clearInterval(this.tm); this.tm = setInterval(() => this.setState(st => { const r = Math.max(0, st.retryIn - 1); if (!r) clearInterval(this.tm); return { retryIn: r }; }), 1000);
+        return;
+      }
+      this.setState(st => ({ submitting: false, step: 6, booked: { serviceId: st.serviceId, proId: st.proId, date: st.date, slot: st.slot, name: st.name } }));
+    }, 900);
+  }
+  renderVals() {
+    const s = this.state, P = this.props;
+    const theme = P.tema === 'Escuro' ? 'dark' : 'light';
+    const B = brandVals(P.corNegocio || 'Azul', theme === 'dark');
+    const vz = P.visualizacao || 'Auto', forced = vz === 'Mobile (390)';
+    const mobile = forced || (vz === 'Auto' && s.w < 880);
+    const is404 = P.estado === 'Não encontrado (404)';
+    const step = s.step, flow = this.flow(), fi = flow.indexOf(step);
+    const sv = s.serviceId && SVC[s.serviceId], pr = s.proId && PRO[s.proId];
+    const titles = { 1: 'Escolha o serviço', 2: 'Escolha o profissional', 3: 'Escolha data e horário', 4: 'Seus dados', 5: 'Revise e confirme' };
+    const back = () => { if (step === 3 && s.err && s.err.kind === 'conflict') this.setState({ err: null }); if (fi <= 0) this.goStep(0); else this.goStep(flow[fi - 1]); };
+    const services = SERVICES.filter(x => x.active).map(x => { const on = x.id === s.serviceId && step > 0; return { name: x.name, desc: x.description || '', hasDesc: !!x.description, dur: x.durationMinutes + ' min', price: brl(x.price), bg: 'var(--surface)', border: on ? B.brand : 'var(--border)', borderW: on ? '2px' : '1px', onClick: () => this.pickService(x.id) }; });
+    const nextLbl = (p, dur) => { const k = this.firstDay(p, dur); if (!k) return ['Sem horários nos próximos dias', 'var(--text-3)']; const sl = this.slots(p, k, dur)[0]; const dd = k === TODAY_KEY ? 'Hoje' : k === addDays(TODAY_KEY, 1) ? 'Amanhã' : DOW[parse(k).getDay()] + ', ' + brDate(k).slice(0, 5); return ['Próximo horário: ' + dd + ' às ' + hm(sl), 'var(--text-2)']; };
+    const pros = sv ? this.prosFor(sv.id).map(p => { const on = p.id === s.proId; const n = nextLbl(p.id, sv.durationMinutes); return { name: p.name, initials: initials(p.name), next: n[0], nextFg: n[1], bg: 'var(--surface)', border: on ? B.brand : 'var(--border)', borderW: on ? '2px' : '1px', onClick: () => this.enterDate(p.id, sv.id) }; }) : [];
+    // date
+    const wk0 = addDays(TODAY_KEY, -parse(TODAY_KEY).getDay()), wkStart = addDays(wk0, s.week * 7);
+    const dur = sv ? sv.durationMinutes : 30;
+    const days = range(7).map(i => { const k = addDays(wkStart, i), d = parse(k), past = k < TODAY_KEY, closed = d.getDay() === 0, dis = past || closed, on = k === s.date, isT = k === TODAY_KEY; return { dow: DOW[d.getDay()], day: String(d.getDate()), sub: closed ? 'Fechado' : isT ? 'Hoje' : past ? '' : '', disabled: dis ? 'true' : 'false', bg: on ? B.brand : 'var(--surface)', fg: on ? B.on : 'var(--text)', subFg: on ? B.on : 'var(--text-2)', border: on ? B.brand : isT ? B.brand : 'var(--border)', opacity: dis ? 0.38 : 1, cursor: dis ? 'not-allowed' : 'pointer', deco: past ? 'line-through' : 'none', onClick: () => { if (!dis) this.pickDate(k); } }; });
+    const md = parse(wkStart), me = parse(addDays(wkStart, 6));
+    const monthLabel = md.getMonth() === me.getMonth() ? MON[md.getMonth()] + ' ' + md.getFullYear() : MON[md.getMonth()].slice(0, 3) + ' – ' + MON[me.getMonth()].slice(0, 3) + ' ' + me.getFullYear();
+    const loading = s.loading || P.estado === 'Carregando horários';
+    const list = step === 3 && !loading && pr ? this.slots(pr.id, s.date, dur) : [];
+    const groups = step === 3 && !loading ? [['Manhã', 0, 720], ['Tarde', 720, 1080], ['Noite', 1080, 1440]].map(([label, a, b]) => ({ label, slots: list.filter(t => t >= a && t < b).map(t => { const on = t === s.slot; return { label: hm(t), bg: on ? B.brand : 'var(--surface)', fg: on ? B.on : 'var(--text)', border: on ? B.brand : 'var(--border-strong)', onClick: () => this.setState({ slot: t, err: s.err && s.err.kind === 'conflict' ? s.err : null }) }; }) })).filter(g => g.slots.length) : [];
+    const noSlots = step === 3 && !loading && !list.length;
+    const nextDay = noSlots && pr ? this.firstDay(pr.id, dur, addDays(s.date, 1)) : null;
+    // form
+    const digits = s.phone.replace(/\D/g, '');
+    const eN = s.name.trim().length < 2 ? 'Informe seu nome.' : '', eP = digits.length < 10 ? 'Informe um WhatsApp válido com DDD.' : '', eE = s.email && !/^\S+@\S+\.\S+$/.test(s.email) ? 'Informe um e-mail válido.' : '';
+    const F = m => ({ msg: m, has: !!(s.tried && m), border: s.tried && m ? 'var(--danger-fg)' : 'var(--border-strong)' });
+    // cta
+    let cta = null, ctaLabel = '', ctaOk = false;
+    if (step === 3) { ctaOk = s.slot != null; ctaLabel = ctaOk ? 'Continuar · ' + hm(s.slot) : 'Escolha um horário'; cta = () => ctaOk && this.goStep(4); }
+    if (step === 4) { ctaOk = true; ctaLabel = 'Continuar'; cta = () => { if (eN || eP || eE) return this.setState({ tried: true }); this.goStep(5); }; }
+    if (step === 5) { ctaOk = !s.submitting && !s.retryIn; ctaLabel = s.submitting ? 'Confirmando…' : s.retryIn ? 'Tente novamente em ' + s.retryIn + ' s' : 'Confirmar agendamento'; cta = () => this.confirm(); }
+    const priceLabel = sv ? brl(sv.price) : '';
+    const reviewRows = sv && pr && s.slot != null ? [
+      { icon: 'content_cut', label: 'Serviço', value: sv.name, canEdit: true, onEdit: () => this.goStep(1) },
+      { icon: 'badge', label: 'Profissional', value: pr.name, canEdit: flow.includes(2), onEdit: () => this.goStep(2) },
+      { icon: 'event', label: 'Data', value: longDate(s.date) + ' · ' + brDate(s.date), canEdit: true, onEdit: () => this.goStep(3) },
+      { icon: 'schedule', label: 'Horário', value: hm(s.slot) + ' – ' + hm(s.slot + dur), canEdit: true, onEdit: () => this.goStep(3) },
+      { icon: 'timer', label: 'Duração', value: dur + ' min', canEdit: false },
+      { icon: 'person', label: 'Seus dados', value: s.name.trim() + ' · ' + s.phone, canEdit: true, onEdit: () => this.goStep(4) }].map((r, i) => ({ ...r, border: i ? 'var(--border)' : 'transparent' })) : [];
+    const bk = s.booked;
+    const bsv = bk && SVC[bk.serviceId], bpr = bk && PRO[bk.proId];
+    const addCal = () => {
+      if (!bk) return;
+      const dt = (k, m) => k.replace(/-/g, '') + 'T' + pad(Math.floor(m / 60)) + pad(m % 60) + '00';
+      const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Agendly//PT-BR', 'BEGIN:VEVENT', 'UID:' + Date.now() + '@agendly.com', 'DTSTART;TZID=America/Sao_Paulo:' + dt(bk.date, bk.slot), 'DTEND;TZID=America/Sao_Paulo:' + dt(bk.date, bk.slot + bsv.durationMinutes), 'SUMMARY:' + bsv.name + ' — Barbearia do Zé', 'DESCRIPTION:Com ' + bpr.name + '. Agendado via agendly.com/barbearia-do-ze', 'LOCATION:Rua Tuiuti\\, 1520 — Tatuapé\\, São Paulo/SP', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+      const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })); const a = document.createElement('a'); a.href = url; a.download = 'agendamento-barbearia-do-ze.ics'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    };
+    const waText = bk ? 'Olá! Acabei de agendar ' + bsv.name + ' com ' + bpr.name + ' para ' + brDate(bk.date) + ' às ' + hm(bk.slot) + '. Meu nome é ' + bk.name.trim() + '.' : '';
+    // side summary
+    const sideRows = [['content_cut', sv ? sv.name + ' · ' + sv.durationMinutes + ' min' : 'Serviço'], ['badge', pr ? pr.name : 'Profissional'], ['event', s.slot != null || step >= 3 ? longDate(s.date) : 'Data'], ['schedule', s.slot != null ? hm(s.slot) + ' – ' + hm(s.slot + dur) : 'Horário']].map(([icon, value], i) => { const has = [!!sv, !!pr, step >= 3 || s.slot != null, s.slot != null][i]; return { icon, value, fg: has ? 'var(--text)' : 'var(--text-3)', iconFg: has ? B.text : 'var(--text-3)', weight: has ? 600 : 500 }; });
+    const err = s.err;
+    const inFlow = step >= 1 && step <= 5;
+    return {
+      rootRef: this.rootRef, theme, colorScheme: theme,
+      brand: B.brand, brandSoft: B.soft, brandText: B.text, onBrand: B.on,
+      frameMax: forced ? '390px' : '100%', frameH: forced ? '844px' : '100vh', frameMargin: forced ? '24px auto' : '0', frameRadius: forced ? '28px' : '0', frameShadow: forced ? 'var(--shadow-lg)' : 'none',
+      is404, isApp: !is404, screenLabel: is404 ? 'Página pública 404' : 'Página pública',
+      hasLogo: !!P.comLogo, noLogo: !P.comLogo, hasContact: !P.semContato,
+      showMobileHeader: mobile && inFlow, showDeskHeader: !mobile && inFlow, showSide: !mobile, showHero: mobile && step === 0, showSummary: !mobile && step > 0, isHome: step === 0,
+      containerMax: mobile ? '640px' : '1100px', containerPad: mobile ? '0' : '40px 24px', gridCols: mobile ? '1fr' : '360px minmax(0,1fr)',
+      cardBg: mobile ? 'transparent' : 'var(--surface)', cardBorder: mobile ? 'none' : '1px solid var(--border)', cardRadius: mobile ? '0' : '20px', cardShadow: mobile ? 'none' : 'var(--shadow-sm)', cardPad: mobile ? (step === 0 ? '0 20px' : step === 6 ? '28px 20px 8px' : '22px 20px 8px') : '28px',
+      stepLabel: inFlow ? 'Etapa ' + (fi + 1) + ' de ' + flow.length + ' · ' + titles[step].replace('Escolha o ', '').replace('Escolha ', '').replace('Revise e confirme', 'Revisão').replace(/^./, c => c.toUpperCase()) : '',
+      stepTotal: flow.length, bars: flow.map((_, i) => ({ bg: i <= fi ? B.brand : 'var(--border)' })),
+      back, start: () => this.setState({ step: 1, err: null }),
+      showTitle: inFlow || (step === 0 && !mobile), title: step === 0 ? 'Serviços' : titles[step] || '', titleSize: mobile ? 24 : 26,
+      hasErr: !!err, errTitle: err ? err.title : '', errList: err ? err.errors : [], errIcon: err && err.kind === 'rate' ? 'hourglass_top' : 'event_busy', errBg: err && err.kind === 'rate' ? 'var(--warn-bg)' : 'var(--danger-soft)', errFg: err && err.kind === 'rate' ? 'var(--warn-fg)' : 'var(--danger-fg)', errBorder: err && err.kind === 'rate' ? 'var(--warn-border)' : 'var(--danger-border)',
+      showServices: step === 0 || step === 1, services,
+      showPros: step === 2, pros,
+      showDate: step === 3, days, monthLabel, stripPrev: () => s.week > 0 && this.setState({ week: s.week - 1 }), stripNext: () => this.setState({ week: s.week + 1 }), prevOp: s.week > 0 ? 1 : 0.4,
+      dateLong: longDate(s.date) + (s.date === TODAY_KEY ? ' · Hoje' : '') + (pr ? ' · com ' + pr.name : ''),
+      slotsLoading: step === 3 && loading, sk12: range(12), groups, noSlots, proFirst: pr ? pr.name.split(' ')[0] : '', hasNextDay: !!nextDay, nextDayLabel: nextDay ? 'Ver ' + DOWF[parse(nextDay).getDay()].split('-')[0].toLowerCase() + ', ' + brDate(nextDay).slice(0, 5) : '', goNextDay: () => { if (!nextDay) return; const wk = Math.floor((parse(nextDay) - parse(wk0)) / (7 * 864e5)); this.setState({ week: wk }); this.pickDate(nextDay); },
+      showForm: step === 4, fName: s.name, fPhone: s.phone, fEmail: s.email, onName: e => this.setState({ name: e.target.value }), onPhone: e => this.setState({ phone: maskPhone(e.target.value) }), onEmail: e => this.setState({ email: e.target.value.trim() }), eName: F(eN), ePhone: F(eP), eEmail: F(eE),
+      showReview: step === 5, reviewRows, priceLabel,
+      showSuccess: step === 6 && !!bk, successPadTop: mobile ? '12px' : '8px',
+      successText: bk ? 'Te esperamos, ' + bk.name.trim().split(' ')[0] + '. Se precisar desmarcar, avise a Barbearia do Zé pelo WhatsApp.' : '',
+      sucTime: bk ? hm(bk.slot) + ' – ' + hm(bk.slot + bsv.durationMinutes) : '', sucDate: bk ? longDate(bk.date) + ' · ' + brDate(bk.date) : '',
+      sucRows: bk ? [['Serviço', bsv.name], ['Profissional', bpr.name], ['Duração', bsv.durationMinutes + ' min'], ['Valor', brl(bsv.price)], ['Local', 'Rua Tuiuti, 1520 — Tatuapé']].map(([label, value], i) => ({ label, value, border: 'var(--border)' })) : [],
+      addCal, waHref: 'https://wa.me/551134567890?text=' + encodeURIComponent(waText), restart: () => this.setState({ ...EMPTY, w: s.w, name: s.name, phone: s.phone, email: s.email }),
+      showInlineCta: !mobile && !!cta, showFixedCta: mobile && !!cta, cta: () => cta && cta(), ctaLabel, ctaOp: ctaOk ? 1 : 0.5, ctaCursor: ctaOk ? 'pointer' : 'not-allowed',
+      sideRows,
+      showMobileFooter: mobile, footerPadBottom: mobile && cta ? '100px' : '28px'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..24,400,0..1,0&display=block" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0}
+body{font-family:'Figtree',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+button,input{font-family:inherit}
+a{color:var(--primary-text);text-decoration:none}
+a:hover{text-decoration:underline}
+[data-theme]{--bg:oklch(0.975 0.004 255);--surface:oklch(1 0 0);--surface-2:oklch(0.962 0.006 255);--border:oklch(0.912 0.008 255);--border-strong:oklch(0.84 0.012 255);--text:oklch(0.23 0.03 262);--text-2:oklch(0.46 0.025 262);--text-3:oklch(0.56 0.02 262);--primary:oklch(0.44 0.15 262);--primary-hover:oklch(0.38 0.14 262);--primary-soft:oklch(0.95 0.03 262);--primary-text:oklch(0.42 0.15 262);--on-primary:oklch(0.99 0.005 262);--danger-fg:oklch(0.48 0.17 27);--danger-soft:oklch(0.965 0.025 27);--danger-border:oklch(0.85 0.07 27);--hatch:oklch(0.88 0.01 262);--skeleton:oklch(0.93 0.006 255);--skeleton-hi:oklch(0.965 0.004 255);--overlay:oklch(0.2 0.03 262 / 0.42);--shadow-sm:0 1px 2px oklch(0.3 0.03 262 / 0.06);--shadow-md:0 6px 16px oklch(0.3 0.03 262 / 0.08),0 1px 3px oklch(0.3 0.03 262 / 0.06);--shadow-lg:0 24px 56px oklch(0.22 0.04 262 / 0.2),0 2px 8px oklch(0.22 0.04 262 / 0.08);
+--sched-bg:oklch(0.955 0.045 80);--sched-fg:oklch(0.43 0.09 70);--sched-dot:oklch(0.72 0.14 75);
+--conf-bg:oklch(0.945 0.035 255);--conf-fg:oklch(0.42 0.14 258);--conf-dot:oklch(0.58 0.16 258);
+--done-bg:oklch(0.95 0.04 155);--done-fg:oklch(0.42 0.1 155);--done-dot:oklch(0.62 0.14 155);
+--canc-bg:oklch(0.95 0.004 262);--canc-fg:oklch(0.47 0.012 262);--canc-dot:oklch(0.7 0.01 262);
+--noshow-bg:oklch(0.955 0.03 27);--noshow-fg:oklch(0.47 0.16 27);--noshow-dot:oklch(0.62 0.18 27)}
+[data-theme="dark"]{--bg:oklch(0.165 0.012 262);--surface:oklch(0.205 0.014 262);--surface-2:oklch(0.245 0.016 262);--border:oklch(0.295 0.016 262);--border-strong:oklch(0.37 0.02 262);--text:oklch(0.955 0.006 262);--text-2:oklch(0.77 0.015 262);--text-3:oklch(0.66 0.015 262);--primary:oklch(0.7 0.13 258);--primary-hover:oklch(0.76 0.12 258);--primary-soft:oklch(0.3 0.06 262);--primary-text:oklch(0.8 0.1 258);--on-primary:oklch(0.17 0.03 262);--danger-fg:oklch(0.78 0.12 27);--danger-soft:oklch(0.27 0.05 27);--danger-border:oklch(0.42 0.09 27);--hatch:oklch(0.32 0.016 262);--skeleton:oklch(0.26 0.014 262);--skeleton-hi:oklch(0.3 0.016 262);--overlay:oklch(0.08 0.01 262 / 0.6);--shadow-sm:0 1px 2px oklch(0 0 0 / 0.3);--shadow-md:0 6px 16px oklch(0 0 0 / 0.35);--shadow-lg:0 24px 56px oklch(0 0 0 / 0.5);
+--sched-bg:oklch(0.31 0.05 75);--sched-fg:oklch(0.88 0.1 80);--sched-dot:oklch(0.78 0.13 78);
+--conf-bg:oklch(0.31 0.06 258);--conf-fg:oklch(0.87 0.08 258);--conf-dot:oklch(0.72 0.13 258);
+--done-bg:oklch(0.3 0.05 155);--done-fg:oklch(0.87 0.09 155);--done-dot:oklch(0.72 0.13 155);
+--canc-bg:oklch(0.28 0.01 262);--canc-fg:oklch(0.78 0.01 262);--canc-dot:oklch(0.6 0.01 262);
+--noshow-bg:oklch(0.3 0.06 27);--noshow-fg:oklch(0.86 0.09 27);--noshow-dot:oklch(0.7 0.15 27)}
+@keyframes agShimmer{0%{background-position:-480px 0}100%{background-position:480px 0}}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" data-theme="{{ theme }}" style="min-height:100vh;background:var(--surface-2);display:flex;justify-content:center;align-items:flex-start;color:var(--text);font-family:Figtree,system-ui,sans-serif">
+<div data-screen-label="Backoffice" style="position:relative;width:100%;max-width:{{ frameMax }};height:{{ frameH }};margin:{{ frameMargin }};border-radius:{{ frameRadius }};box-shadow:{{ frameShadow }};overflow:hidden;display:flex;flex-direction:{{ shellDir }};background:var(--bg)">
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div style="width:240px;flex-shrink:0;display:flex;flex-direction:column;gap:2px;background:var(--surface);border-right:1px solid var(--border);padding:18px 12px">
+  <div style="display:flex;align-items:center;gap:10px;padding:4px 10px 22px">
+    <div style="width:28px;height:28px;border-radius:8px;background:var(--primary);color:var(--on-primary);display:grid;place-items:center;font:700 15px/1 Figtree,sans-serif">a</div>
+    <div style="font:700 18px/1 Figtree,sans-serif;letter-spacing:-0.02em">agendly</div>
+  </div>
+  <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="6">
+    <button onClick="{{ n.onClick }}" style="display:flex;align-items:center;gap:12px;height:42px;padding:0 12px;border:none;border-radius:10px;background:{{ n.bg }};color:{{ n.fg }};font:{{ n.weight }} 14px/1 Figtree,sans-serif;cursor:pointer;text-align:left" style-hover="background:var(--surface-2)">
+      <span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;font-variation-settings:'FILL' {{ n.fill }}">{{ n.icon }}</span>{{ n.label }}
+    </button>
+  </sc-for>
+  <div style="flex:1"></div>
+  <a href="Agendly Design System.dc.html" style="display:flex;align-items:center;gap:10px;height:40px;padding:0 12px;border-radius:10px;color:var(--text-2);font:500 13px/1 Figtree,sans-serif">
+    <span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1">palette</span>Design system
+  </a>
+</div>
+</sc-if>
+
+<div style="flex:1;min-width:0;min-height:0;display:flex;flex-direction:column">
+  <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+  <div style="height:64px;flex-shrink:0;display:flex;align-items:center;gap:12px;padding:0 24px;border-bottom:1px solid var(--border);background:var(--surface)">
+    <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1">
+      <div style="font:700 16px/1.2 Figtree,sans-serif;white-space:nowrap">Barbearia do Zé</div>
+      <div style="display:flex;align-items:center;gap:6px;height:32px;padding:0 10px;margin-left:6px;border-radius:8px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-2);font:500 13px/1 Figtree,sans-serif;min-width:0">
+        <span style="font-family:'Material Symbols Rounded';font-size:16px;line-height:1">link</span>
+        <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">agendly.com/barbearia-do-ze</span>
+      </div>
+      <button onClick="{{ copyLink }}" style="display:flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:8px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:600 13px/1 Figtree,sans-serif;cursor:pointer;white-space:nowrap" style-hover="background:var(--surface-2)">
+        <span style="font-family:'Material Symbols Rounded';font-size:17px;line-height:1">content_copy</span>Copiar link
+      </button>
+      <button onClick="{{ openQr }}" style="display:flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:8px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:600 13px/1 Figtree,sans-serif;cursor:pointer;white-space:nowrap" style-hover="background:var(--surface-2)">
+        <span style="font-family:'Material Symbols Rounded';font-size:17px;line-height:1">qr_code_2</span>QR Code
+      </button>
+    </div>
+    <button onClick="{{ toggleMenu }}" style="display:flex;align-items:center;gap:10px;height:44px;padding:0 8px 0 4px;border-radius:12px;border:none;background:transparent;color:var(--text);cursor:pointer" style-hover="background:var(--surface-2)">
+      <div style="width:36px;height:36px;border-radius:50%;background:var(--primary-soft);color:var(--primary-text);display:grid;place-items:center;font:700 13px/1 Figtree,sans-serif">{{ userInitials }}</div>
+      <div style="text-align:left">
+        <div style="font:600 14px/1.2 Figtree,sans-serif">{{ userName }}</div>
+        <div style="font:500 12px/1.2 Figtree,sans-serif;color:var(--text-2)">{{ userRole }}</div>
+      </div>
+      <span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:var(--text-2)">expand_more</span>
+    </button>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+  <div style="height:60px;flex-shrink:0;display:flex;align-items:center;gap:4px;padding:0 8px 0 16px;border-bottom:1px solid var(--border);background:var(--surface)">
+    <div style="flex:1;min-width:0">
+      <div style="font:700 16px/1.2 Figtree,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Barbearia do Zé</div>
+      <div style="font:500 12px/1.3 Figtree,sans-serif;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">agendly.com/barbearia-do-ze</div>
+    </div>
+    <button onClick="{{ copyLink }}" aria-label="Copiar link" style="width:44px;height:44px;border:none;border-radius:12px;background:transparent;color:var(--text);display:grid;place-items:center;cursor:pointer">
+      <span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">content_copy</span>
+    </button>
+    <button onClick="{{ openQr }}" aria-label="QR Code" style="width:44px;height:44px;border:none;border-radius:12px;background:transparent;color:var(--text);display:grid;place-items:center;cursor:pointer">
+      <span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">qr_code_2</span>
+    </button>
+    <button onClick="{{ toggleMenu }}" aria-label="Menu do usuário" style="width:44px;height:44px;border:none;background:transparent;display:grid;place-items:center;cursor:pointer">
+      <div style="width:34px;height:34px;border-radius:50%;background:var(--primary-soft);color:var(--primary-text);display:grid;place-items:center;font:700 12px/1 Figtree,sans-serif">{{ userInitials }}</div>
+    </button>
+  </div>
+  </sc-if>
+
+  <div style="flex:1;min-height:0;overflow:auto;padding:{{ contentPad }}">
+
+  <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
+  <div data-screen-label="Dashboard" style="display:flex;flex-direction:column;gap:20px;max-width:1240px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px">
+      <div>
+        <h1 style="margin:0;font:700 26px/1.2 Figtree,sans-serif;letter-spacing:-0.02em">Dashboard</h1>
+        <div style="color:var(--text-2);font:500 14px/1.4 Figtree,sans-serif;margin-top:4px">{{ periodLabel }}</div>
+      </div>
+      <div style="max-width:100%;overflow-x:auto">
+        <div style="display:inline-flex;padding:3px;gap:2px;background:var(--surface-2);border:1px solid var(--border);border-radius:11px">
+          <sc-for list="{{ periodOpts }}" as="o" hint-placeholder-count="5">
+            <button onClick="{{ o.onClick }}" style="height:36px;padding:0 14px;border:none;border-radius:8px;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.shadow }};font:600 13px/1 Figtree,sans-serif;cursor:pointer;white-space:nowrap">{{ o.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ isCustom }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end">
+      <label style="display:flex;flex-direction:column;gap:6px;font:600 13px/1 Figtree,sans-serif;color:var(--text-2)">Início
+        <div style="display:flex;align-items:center;gap:8px;height:44px;padding:0 12px;min-width:170px;border:1px solid var(--border-strong);border-radius:10px;background:var(--surface);color:var(--text);font:500 15px/1 Figtree,sans-serif"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:var(--text-2)">event</span>01/09/2026</div>
+      </label>
+      <label style="display:flex;flex-direction:column;gap:6px;font:600 13px/1 Figtree,sans-serif;color:var(--text-2)">Fim
+        <div style="display:flex;align-items:center;gap:8px;height:44px;padding:0 12px;min-width:170px;border:1px solid var(--border-strong);border-radius:10px;background:var(--surface);color:var(--text);font:500 15px/1 Figtree,sans-serif"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:var(--text-2)">event</span>29/09/2026</div>
+      </label>
+      <button style="height:44px;padding:0 18px;border:none;border-radius:10px;background:var(--primary);color:var(--on-primary);font:600 14px/1 Figtree,sans-serif;cursor:pointer">Aplicar</button>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ dError }}" hint-placeholder-val="{{ false }}">
+    <div role="alert" style="display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;background:var(--danger-soft);border:1px solid var(--danger-border);color:var(--danger-fg)">
+      <span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">error</span>
+      <div style="flex:1;min-width:0">
+        <div style="font:700 15px/1.3 Figtree,sans-serif">{{ dErr.title }}</div>
+        <sc-for list="{{ dErr.errors }}" as="e" hint-placeholder-count="1"><div style="font:500 14px/1.45 Figtree,sans-serif;margin-top:2px">{{ e }}</div></sc-for>
+      </div>
+      <button onClick="{{ retry }}" style="height:36px;padding:0 14px;border-radius:9px;border:1px solid var(--danger-border);background:var(--surface);color:var(--danger-fg);font:600 13px/1 Figtree,sans-serif;cursor:pointer;white-space:nowrap">Tentar novamente</button>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ dLoading }}" hint-placeholder-val="{{ false }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax({{ kpiMin }},1fr));gap:12px">
+      <sc-for list="{{ sk7 }}" as="k" hint-placeholder-count="7">
+        <div style="height:118px;border-radius:14px;border:1px solid var(--border);background:var(--surface);padding:18px;display:flex;flex-direction:column;gap:12px">
+          <div style="height:12px;width:60%;border-radius:6px;background:linear-gradient(90deg,var(--skeleton) 0,var(--skeleton-hi) 40%,var(--skeleton) 80%);background-size:960px 100%;animation:agShimmer 1.4s linear infinite"></div>
+          <div style="height:26px;width:45%;border-radius:6px;background:linear-gradient(90deg,var(--skeleton) 0,var(--skeleton-hi) 40%,var(--skeleton) 80%);background-size:960px 100%;animation:agShimmer 1.4s linear infinite"></div>
+          <div style="height:18px;width:35%;border-radius:99px;background:var(--skeleton)"></div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px">
+      <div style="height:300px;border-radius:14px;border:1px solid var(--border);background:var(--surface);background-image:linear-gradient(90deg,var(--surface) 0,var(--skeleton-hi) 40%,var(--surface) 80%);background-size:960px 100%;animation:agShimmer 1.4s linear infinite"></div>
+      <div style="height:300px;border-radius:14px;border:1px solid var(--border);background:var(--surface);background-image:linear-gradient(90deg,var(--surface) 0,var(--skeleton-hi) 40%,var(--surface) 80%);background-size:960px 100%;animation:agShimmer 1.4s linear infinite"></div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ dEmpty }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:56px 24px;border:1px dashed var(--border-strong);border-radius:16px;background:var(--surface)">
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--primary-soft);color:var(--primary-text);display:grid;place-items:center"><span style="font-family:'Material Symbols Rounded';font-size:28px;line-height:1">insights</span></div>
+      <div style="font:700 18px/1.3 Figtree,sans-serif">Ainda não há dados neste período</div>
+      <div style="font:500 14px/1.5 Figtree,sans-serif;color:var(--text-2);max-width:420px;text-wrap:pretty">As métricas aparecem assim que os primeiros atendimentos forem concluídos. Compartilhe seu link para receber agendamentos online.</div>
+      <button onClick="{{ copyLink }}" style="margin-top:6px;display:flex;align-items:center;gap:8px;height:44px;padding:0 18px;border:none;border-radius:10px;background:var(--primary);color:var(--on-primary);font:600 14px/1 Figtree,sans-serif;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1">content_copy</span>Copiar link da página</button>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ dReady }}" hint-placeholder-val="{{ true }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax({{ kpiMin }},1fr));gap:12px">
+      <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="7">
+        <div style="border-radius:14px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-sm);padding:16px 18px;display:flex;flex-direction:column;gap:8px;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;color:var(--text-2);font:600 13px/1.25 Figtree,sans-serif">
+            <span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1">{{ k.icon }}</span>{{ k.label }}
+          </div>
+          <div style="font:700 26px/1.1 Figtree,sans-serif;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;white-space:nowrap">{{ k.value }}</div>
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            <span style="display:inline-flex;align-items:center;gap:3px;height:22px;padding:0 8px;border-radius:99px;background:{{ k.dBg }};color:{{ k.dFg }};font:700 12px/1 Figtree,sans-serif"><span style="font-family:'Material Symbols Rounded';font-size:15px;line-height:1">{{ k.dIcon }}</span>{{ k.delta }}</span>
+            <span style="font:500 12px/1 Figtree,sans-serif;color:var(--text-3)">vs. anterior</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px">
+      <div style="border-radius:14px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-sm);padding:20px">
+        <div style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:10px">
+          <div>
+            <div style="font:700 16px/1.3 Figtree,sans-serif">Faturamento por serviço</div>
+            <div style="font:500 13px/1.4 Figtree,sans-serif;color:var(--text-2)">{{ chartSub }}</div>
+          </div>
+          <div style="display:inline-flex;padding:3px;gap:2px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px">
+            <sc-for list="{{ chartOpts }}" as="o" hint-placeholder-count="2"><button onClick="{{ o.onClick }}" style="height:30px;padding:0 10px;border:none;border-radius:7px;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.shadow }};font:600 12px/1 Figtree,sans-serif;cursor:pointer">{{ o.label }}</button></sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:20px">
+          <sc-for list="{{ svcRows }}" as="r" hint-placeholder-count="6">
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:baseline">
+              <div style="font:600 14px/1.3 Figtree,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</div>
+              <div style="font:600 14px/1.3 Figtree,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap">{{ r.value }} <span style="font-weight:500;color:var(--text-3);font-size:12px">{{ r.sub }}</span></div>
+              <div style="grid-column:1 / -1;height:8px;border-radius:99px;background:var(--surface-2)"><div style="height:100%;width:{{ r.pct }}%;border-radius:99px;background:var(--primary)"></div></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="border-radius:14px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-sm);padding:20px">
+        <div style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:10px">
+          <div>
+            <div style="font:700 16px/1.3 Figtree,sans-serif">Faturamento por profissional</div>
+            <div style="font:500 13px/1.4 Figtree,sans-serif;color:var(--text-2)">{{ chartSub }}</div>
+          </div>
+          <div style="display:inline-flex;padding:3px;gap:2px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px">
+            <sc-for list="{{ chartOpts }}" as="o" hint-placeholder-count="2"><button onClick="{{ o.onClick }}" style="height:30px;padding:0 10px;border:none;border-radius:7px;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.shadow }};font:600 12px/1 Figtree,sans-serif;cursor:pointer">{{ o.label }}</button></sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px;margin-top:20px">
+          <sc-for list="{{ proRows }}" as="r" hint-placeholder-count="3">
+            <div style="display:flex;gap:12px;align-items:center">
+              <div style="width:40px;height:40px;flex-shrink:0;border-radius:50%;background:var(--primary-soft);color:var(--primary-text);display:grid;place-items:center;font:700 14px/1 Figtree,sans-serif">{{ r.initials }}</div>
+              <div style="flex:1;min-width:0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:baseline">
+                <div style="font:600 14px/1.3 Figtree,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</div>
+                <div style="font:600 14px/1.3 Figtree,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap">{{ r.value }} <span style="font-weight:500;color:var(--text-3);font-size:12px">{{ r.sub }}</span></div>
+                <div style="grid-column:1 / -1;height:8px;border-radius:99px;background:var(--surface-2)"><div style="height:100%;width:{{ r.pct }}%;border-radius:99px;background:var(--primary)"></div></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px">
+      <div style="border-radius:14px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-sm);padding:20px">
+        <div style="font:700 16px/1.3 Figtree,sans-serif">Insights do período</div>
+        <div style="display:flex;flex-direction:column;margin-top:10px">
+          <sc-for list="{{ insights }}" as="i" hint-placeholder-count="4">
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid {{ i.border }}">
+              <div style="width:32px;height:32px;flex-shrink:0;border-radius:9px;background:var(--primary-soft);color:var(--primary-text);display:grid;place-items:center"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1">{{ i.icon }}</span></div>
+              <div style="font:500 14px/1.5 Figtree,sans-serif;padding-top:5px;text-wrap:pretty">{{ i.text }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="border-radius:14px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-sm);padding:20px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+          <div style="font:700 16px/1.3 Figtree,sans-serif">Próximos agendamentos de hoje</div>
+          <button onClick="{{ goAgenda }}" style="border:none;background:transparent;color:var(--primary-text);font:600 13px/1 Figtree,sans-serif;cursor:pointer;padding:8px 0;white-space:nowrap">Ver agenda</button>
+        </div>
+        <div style="display:flex;flex-direction:column;margin-top:6px">
+          <sc-for list="{{ upcoming }}" as="a" hint-placeholder-count="5">
+            <div onClick="{{ a.onOpen }}" style="display:flex;gap:12px;align-items:center;padding:12px 8px;margin:0 -8px;border-radius:10px;cursor:pointer" style-hover="background:var(--surface-2)">
+              <div style="width:48px;flex-shrink:0;font:700 15px/1.2 Figtree,sans-serif;font-variant-numeric:tabular-nums">{{ a.startLabel }}</div>
+              <div style="flex:1;min-width:0">
+                <div style="font:600 14px/1.3 Figtree,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ a.customerName }}</div>
+                <div style="font:500 13px/1.3 Figtree,sans-serif;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ a.serviceName }} · {{ a.proShort }}</div>
+              </div>
+              <span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:99px;background:{{ a.sBg }};color:{{ a.sFg }};font:600 12px/1 Figtree,sans-serif;white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:{{ a.sDot }}"></span>{{ a.sLabel }}</span>
+            </div>
+          </sc-for>
+          <sc-if value="{{ noUpcoming }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:24px 0;text-align:center;font:500 14px/1.5 Figtree,sans-serif;color:var(--text-2)">Nenhum agendamento restante para hoje.</div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isAgenda }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Agenda" style="display:flex;flex-direction:column;gap:14px;max-width:1400px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+      <div style="min-width:0">
+        <h1 style="margin:0;font:700 {{ h1Size }}px/1.2 Figtree,sans-serif;letter-spacing:-0.02em">{{ dateLabel }}</h1>
+        <div style="color:var(--text-2);font:500 14px/1.4 Figtree,sans-serif;margin-top:3px">{{ dateSub }}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="display:flex;align-items:center;border:1px solid var(--border-strong);border-radius:10px;background:var(--surface);overflow:hidden">
+          <button onClick="{{ prevDate }}" aria-label="Anterior" style="width:40px;height:40px;border:none;background:transparent;color:var(--text);display:grid;place-items:center;cursor:pointer" style-hover="background:var(--surface-2)"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">chevron_left</span></button>
+          <button onClick="{{ goToday }}" style="height:40px;padding:0 14px;border:none;border-left:1px solid var(--border);border-right:1px solid var(--border);background:transparent;color:var(--text);font:600 14px/1 Figtree,sans-serif;cursor:pointer" style-hover="background:var(--surface-2)">Hoje</button>
+          <button onClick="{{ nextDate }}" aria-label="Próximo" style="width:40px;height:40px;border:none;background:transparent;color:var(--text);display:grid;place-items:center;cursor:pointer" style-hover="background:var(--surface-2)"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">chevron_right</span></button>
+        </div>
+        <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ openNew }}" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:none;border-radius:10px;background:var(--primary);color:var(--on-primary);font:600 14px/1 Figtree,sans-serif;cursor:pointer;white-space:nowrap" style-hover="background:var(--primary-hover)"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1">add</span>Novo agendamento</button>
+        </sc-if>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+      <div style="display:inline-flex;padding:3px;gap:2px;background:var(--surface-2);border:1px solid var(--border);border-radius:11px">
+        <sc-for list="{{ viewOpts }}" as="o" hint-placeholder-count="3">
+          <button onClick="{{ o.onClick }}" style="display:flex;align-items:center;gap:6px;height:36px;padding:0 12px;border:none;border-radius:8px;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.shadow }};font:600 13px/1 Figtree,sans-serif;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1">{{ o.icon }}</span>{{ o.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:6px;overflow-x:auto;max-width:100%;padding:2px 0">
+        <sc-for list="{{ proChips }}" as="c" hint-placeholder-count="4">
+          <button onClick="{{ c.onClick }}" style="display:flex;align-items:center;gap:8px;height:40px;padding:0 14px 0 {{ c.padL }}px;border-radius:99px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};font:600 13px/1 Figtree,sans-serif;cursor:pointer;white-space:nowrap;flex-shrink:0">
+            <sc-if value="{{ c.showAv }}" hint-placeholder-val="{{ false }}"><span style="width:30px;height:30px;border-radius:50%;background:var(--surface-2);color:var(--text);display:grid;place-items:center;font:700 11px/1 Figtree,sans-serif">{{ c.initials }}</span></sc-if>
+            {{ c.label }}
+          </button>
+        </sc-for>
+      </div>
+      <sc-if value="{{ showLegend }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-left:auto">
+        <sc-for list="{{ legend }}" as="l" hint-placeholder-count="6">
+          <div style="display:flex;align-items:center;gap:6px;font:500 12px/1 Figtree,sans-serif;color:var(--text-2)"><span style="width:12px;height:12px;border-radius:4px;background:{{ l.bg }};border:1px solid {{ l.dot }}"></span>{{ l.label }}</div>
+        </sc-for>
+      </div>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ showStrip }}" hint-placeholder-val="{{ false }}">
+    <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px">
+      <sc-for list="{{ agStrip }}" as="d" hint-placeholder-count="7">
+        <button onClick="{{ d.onClick }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 0;min-height:64px;border-radius:12px;border:1px solid {{ d.border }};background:{{ d.bg }};color:{{ d.fg }};opacity:{{ d.opacity }};cursor:{{ d.cursor }}">
+          <span style="font:600 11px/1 Figtree,sans-serif;text-transform:uppercase;letter-spacing:0.04em;color:{{ d.subFg }}">{{ d.dow }}</span>
+          <span style="font:700 18px/1.1 Figtree,sans-serif;font-variant-numeric:tabular-nums">{{ d.day }}</span>
+          <span style="font:600 10px/1 Figtree,sans-serif;color:{{ d.subFg }}">{{ d.sub }}</span>
+        </button>
+      </sc-for>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ aError }}" hint-placeholder-val="{{ false }}">
+    <div role="alert" style="display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;background:var(--danger-soft);border:1px solid var(--danger-border);color:var(--danger-fg);flex-wrap:wrap">
+      <span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">error</span>
+      <div style="flex:1;min-width:200px">
+        <div style="font:700 15px/1.3 Figtree,sans-serif">{{ aErr.title }}</div>
+        <sc-for list="{{ aErr.errors }}" as="e" hint-placeholder-count="1"><div style="font:500 14px/1.45 Figtree,sans-serif;margin-top:2px">{{ e }}</div></sc-for>
+      </div>
+      <button onClick="{{ retry }}" style="height:36px;padding:0 14px;border-radius:9px;border:1px solid var(--danger-border);background:var(--surface);color:var(--danger-fg);font:600 13px/1 Figtree,sans-serif;cursor:pointer;white-space:nowrap">Tentar novamente</button>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ aLoading }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ sk6 }}" as="k" hint-placeholder-count="6">
+        <div style="display:flex;gap:14px;align-items:center;padding:16px;border-radius:14px;border:1px solid var(--border);background:var(--surface)">
+          <div style="width:48px;height:32px;border-radius:6px;background:linear-gradient(90deg,var(--skeleton) 0,var(--skeleton-hi) 40%,var(--skeleton) 80%);background-size:960px 100%;animation:agShimmer 1.4s linear infinite"></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+            <div style="height:14px;width:45%;border-radius:6px;background:linear-gradient(90deg,var(--skeleton) 0,var(--skeleton-hi) 40%,var(--skeleton) 80%);background-size:960px 100%;animation:agShimmer 1.4s linear infinite"></div>
+            <div style="height:12px;width:30%;border-radius:6px;background:var(--skeleton)"></div>
+          </div>
+          <div style="width:80px;height:24px;border-radius:99px;background:var(--skeleton)"></div>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ aEmpty }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:56px 24px;border:1px dashed var(--border-strong);border-radius:16px;background:var(--surface)">
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--primary-soft);color:var(--primary-text);display:grid;place-items:center"><span style="font-family:'Material Symbols Rounded';font-size:28px;line-height:1">{{ emptyIcon }}</span></div>
+      <div style="font:700 18px/1.3 Figtree,sans-serif">{{ emptyTitle }}</div>
+      <div style="font:500 14px/1.5 Figtree,sans-serif;color:var(--text-2);max-width:400px;text-wrap:pretty">{{ emptyText }}</div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:6px">
+        <button onClick="{{ openNew }}" style="display:flex;align-items:center;gap:8px;height:44px;padding:0 18px;border:none;border-radius:10px;background:var(--primary);color:var(--on-primary);font:600 14px/1 Figtree,sans-serif;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1">add</span>Novo agendamento</button>
+        <button onClick="{{ copyLink }}" style="display:flex;align-items:center;gap:8px;height:44px;padding:0 18px;border:1px solid var(--border-strong);border-radius:10px;background:var(--surface);color:var(--text);font:600 14px/1 Figtree,sans-serif;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1">content_copy</span>Copiar link</button>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ showDay }}" hint-placeholder-val="{{ false }}">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow-sm)">
+      <div style="position:sticky;top:{{ stickyTop }};z-index:3;display:flex;background:var(--surface);border-bottom:1px solid var(--border);border-radius:14px 14px 0 0">
+        <div style="width:{{ gutter }}px;flex-shrink:0"></div>
+        <sc-for list="{{ dayCols }}" as="c" hint-placeholder-count="3">
+          <div style="flex:1;min-width:0;padding:{{ colHeadPad }};display:flex;align-items:center;gap:10px;border-left:1px solid var(--border)">
+            <div style="width:{{ colAv }}px;height:{{ colAv }}px;flex-shrink:0;border-radius:50%;background:var(--primary-soft);color:var(--primary-text);display:grid;place-items:center;font:700 12px/1 Figtree,sans-serif">{{ c.initials }}</div>
+            <div style="min-width:0">
+              <div style="font:700 14px/1.2 Figtree,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.name }}</div>
+              <div style="font:500 12px/1.3 Figtree,sans-serif;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.count }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;position:relative">
+        <div style="width:{{ gutter }}px;flex-shrink:0;position:relative;height:{{ gridH }}px">
+          <sc-for list="{{ hours }}" as="h" hint-placeholder-count="13">
+            <div style="position:absolute;top:{{ h.top }}px;right:8px;transform:translateY(-50%);font:600 11px/1 Figtree,sans-serif;color:var(--text-3);font-variant-numeric:tabular-nums;background:var(--surface);padding:2px 0">{{ h.label }}</div>
+          </sc-for>
+        </div>
+        <sc-for list="{{ dayCols }}" as="c" hint-placeholder-count="3">
+          <div style="flex:1;min-width:0;position:relative;height:{{ gridH }}px;border-left:1px solid var(--border)">
+            <sc-for list="{{ c.offs }}" as="o" hint-placeholder-count="0"><div style="position:absolute;left:0;right:0;top:{{ o.top }}px;height:{{ o.height }}px;background:var(--surface-2)"></div></sc-for>
+            <sc-for list="{{ hours }}" as="h" hint-placeholder-count="13">
+              <div style="position:absolute;left:0;right:0;top:{{ h.top }}px;border-top:1px solid var(--border)"></div>
+              <div style="position:absolute;left:0;right:0;top:{{ h.half }}px;border-top:1px dashed var(--border);opacity:0.6"></div>
+            </sc-for>
+            <sc-for list="{{ c.blocks }}" as="b" hint-placeholder-count="0">
+              <div style="position:absolute;left:4px;right:4px;top:{{ b.top }}px;height:{{ b.height }}px;border-radius:8px;border:1px dashed var(--border-strong);background:repeating-linear-gradient(135deg,var(--hatch) 0 2px,transparent 2px 9px);padding:6px 8px;color:var(--text-2);overflow:hidden">
+                <div style="display:flex;align-items:center;gap:4px;font:700 12px/1.2 Figtree,sans-serif"><span style="font-family:'Material Symbols Rounded';font-size:15px;line-height:1">block</span><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ b.reason }}</span></div>
+                <div style="font:500 11px/1.3 Figtree,sans-serif;margin-top:2px;font-variant-numeric:tabular-nums">{{ b.range }}</div>
+              </div>
+            </sc-for>
+            <sc-for list="{{ c.appts }}" as="a" hint-placeholder-count="0">
+              <div onClick="{{ a.onOpen }}" style="position:absolute;left:4px;right:4px;top:{{ a.top }}px;height:{{ a.height }}px;background:{{ a.sBg }};color:{{ a.sFg }};border-radius:8px;padding:{{ a.pad }};overflow:hidden;cursor:pointer;opacity:{{ a.opacity }};box-shadow:0 0 0 1px var(--surface)" style-hover="box-shadow:0 0 0 2px var(--primary)">
+                <sc-if value="{{ a.compact }}" hint-placeholder-val="{{ false }}">
+                  <div style="height:100%;display:flex;align-items:center;gap:5px;font:600 12px/1.2 Figtree,sans-serif;white-space:nowrap;overflow:hidden;text-decoration:{{ a.strike }}"><span style="width:6px;height:6px;flex-shrink:0;border-radius:50%;background:{{ a.sDot }}"></span><span style="font-variant-numeric:tabular-nums">{{ a.startLabel }}</span><span style="overflow:hidden;text-overflow:ellipsis">{{ a.customerName }}</span></div>
+                </sc-if>
+                <sc-if value="{{ a.full }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;align-items:center;gap:5px;font:600 12px/1.2 Figtree,sans-serif;font-variant-numeric:tabular-nums"><span style="width:6px;height:6px;flex-shrink:0;border-radius:50%;background:{{ a.sDot }}"></span><span style="flex:1;white-space:nowrap;overflow:hidden">{{ a.timeRange }}</span><span title="{{ a.originLabel }}" style="font-family:'Material Symbols Rounded';font-size:14px;line-height:1;opacity:0.8">{{ a.originIcon }}</span></div>
+                  <div style="font:700 14px/1.25 Figtree,sans-serif;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:{{ a.strike }}">{{ a.customerName }}</div>
+                  <div style="font:500 12px/1.3 Figtree,sans-serif;opacity:0.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ a.serviceName }}</div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+        <sc-if value="{{ showNow }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:{{ gutter }}px;right:0;top:{{ nowTop }}px;height:2px;background:var(--noshow-dot);z-index:2;pointer-events:none">
+            <div style="position:absolute;left:-5px;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--noshow-dot)"></div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ showWeek }}" hint-placeholder-val="{{ false }}">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow-sm)">
+      <div style="position:sticky;top:{{ stickyTop }};z-index:3;display:flex;background:var(--surface);border-bottom:1px solid var(--border);border-radius:14px 14px 0 0">
+        <div style="width:56px;flex-shrink:0"></div>
+        <sc-for list="{{ weekDays }}" as="w" hint-placeholder-count="7">
+          <button onClick="{{ w.onClick }}" style="flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 4px;border:none;border-left:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer" style-hover="background:var(--surface-2)">
+            <span style="font:600 12px/1 Figtree,sans-serif;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-2)">{{ w.dow }}</span>
+            <span style="min-width:30px;height:30px;padding:0 4px;border-radius:99px;display:grid;place-items:center;background:{{ w.dayBg }};color:{{ w.dayFg }};font:700 15px/1 Figtree,sans-serif">{{ w.day }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <div style="display:flex">
+        <div style="width:56px;flex-shrink:0;position:relative;height:{{ weekGridH }}px">
+          <sc-for list="{{ weekHours }}" as="h" hint-placeholder-count="13">
+            <div style="position:absolute;top:{{ h.top }}px;right:8px;transform:translateY(-50%);font:600 11px/1 Figtree,sans-serif;color:var(--text-3);font-variant-numeric:tabular-nums;background:var(--surface);padding:2px 0">{{ h.label }}</div>
+          </sc-for>
+        </div>
+        <sc-for list="{{ weekDays }}" as="w" hint-placeholder-count="7">
+          <div style="flex:1;min-width:0;position:relative;height:{{ weekGridH }}px;border-left:1px solid var(--border);background:{{ w.colBg }}">
+            <sc-for list="{{ weekHours }}" as="h" hint-placeholder-count="13"><div style="position:absolute;left:0;right:0;top:{{ h.top }}px;border-top:1px solid var(--border)"></div></sc-for>
+            <sc-if value="{{ w.closed }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;top:16px;left:0;right:0;text-align:center;font:600 12px/1 Figtree,sans-serif;color:var(--text-3)">Fechado</div></sc-if>
+            <sc-for list="{{ w.blocks }}" as="b" hint-placeholder-count="0">
+              <div title="{{ b.reason }}" style="position:absolute;top:{{ b.top }}px;height:{{ b.height }}px;left:calc({{ b.left }}% + 2px);width:calc({{ b.width }}% - 4px);border-radius:5px;border:1px dashed var(--border-strong);background:repeating-linear-gradient(135deg,var(--hatch) 0 2px,transparent 2px 7px)"></div>
+            </sc-for>
+            <sc-for list="{{ w.items }}" as="a" hint-placeholder-count="0">
+              <div onClick="{{ a.onOpen }}" title="{{ a.startLabel }} {{ a.customerName }} · {{ a.serviceName }}" style="position:absolute;top:{{ a.top }}px;height:{{ a.height }}px;left:calc({{ a.left }}% + 1px);width:calc({{ a.width }}% - 2px);background:{{ a.sBg }};color:{{ a.sFg }};border-radius:5px;padding:2px 4px;overflow:hidden;cursor:pointer;opacity:{{ a.opacity }};font:600 10px/1.2 Figtree,sans-serif;white-space:nowrap;text-overflow:ellipsis;text-decoration:{{ a.strike }}" style-hover="box-shadow:0 0 0 2px var(--primary)">{{ a.customerFirst }}</div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="font:500 12px/1.4 Figtree,sans-serif;color:var(--text-3)">{{ weekHint }}</div>
+    </sc-if>
+
+    <sc-if value="{{ showList }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font:600 13px/1.3 Figtree,sans-serif;color:var(--text-2)">{{ listSummary }}</div>
+      <sc-for list="{{ listItems }}" as="a" hint-placeholder-count="6">
+        <div onClick="{{ a.onOpen }}" style="display:flex;gap:14px;align-items:center;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:14px;cursor:pointer;opacity:{{ a.opacity }}" style-hover="border-color:var(--border-strong);box-shadow:var(--shadow-md)">
+          <div style="width:52px;flex-shrink:0">
+            <div style="font:700 16px/1.2 Figtree,sans-serif;font-variant-numeric:tabular-nums">{{ a.startLabel }}</div>
+            <div style="font:500 12px/1.3 Figtree,sans-serif;color:var(--text-3);font-variant-numeric:tabular-nums">{{ a.endLabel }}</div>
+          </div>
+          <div style="width:1px;align-self:stretch;background:var(--border)"></div>
+          <div style="flex:1;min-width:0">
+            <div style="font:600 15px/1.3 Figtree,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:{{ a.strike }}">{{ a.customerName }}</div>
+            <div style="font:500 13px/1.35 Figtree,sans-serif;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ a.serviceName }} · {{ a.proName }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+              <span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:99px;background:{{ a.sBg }};color:{{ a.sFg }};font:600 12px/1 Figtree,sans-serif"><span style="width:6px;height:6px;border-radius:50%;background:{{ a.sDot }}"></span>{{ a.sLabel }}</span>
+              <span style="display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:99px;border:1px solid var(--border);color:var(--text-2);font:600 12px/1 Figtree,sans-serif"><span style="font-family:'Material Symbols Rounded';font-size:14px;line-height:1">{{ a.originIcon }}</span>{{ a.originLabel }}</span>
+            </div>
+          </div>
+          <div style="font:700 15px/1.2 Figtree,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap;align-self:flex-start;padding-top:2px">{{ a.price }}</div>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+  </div>
+  </sc-if>
+  </div>
+
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+  <div style="height:68px;flex-shrink:0;display:flex;border-top:1px solid var(--border);background:var(--surface);padding:0 4px">
+    <sc-for list="{{ mobileNav }}" as="n" hint-placeholder-count="5">
+      <button onClick="{{ n.onClick }}" style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:none;background:transparent;color:{{ n.fg }};font:600 11px/1 Figtree,sans-serif;cursor:pointer">
+        <span style="width:52px;height:30px;border-radius:99px;display:grid;place-items:center;background:{{ n.pill }}"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;font-variation-settings:'FILL' {{ n.fill }}">{{ n.icon }}</span></span>{{ n.label }}
+      </button>
+    </sc-for>
+  </div>
+  </sc-if>
+</div>
+
+<sc-if value="{{ showFab }}" hint-placeholder-val="{{ false }}">
+  <button onClick="{{ openNew }}" aria-label="Novo agendamento" style="position:absolute;right:16px;bottom:84px;z-index:5;width:56px;height:56px;border-radius:18px;border:none;background:var(--primary);color:var(--on-primary);box-shadow:var(--shadow-lg);display:grid;place-items:center;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:28px;line-height:1">add</span></button>
+</sc-if>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeMenu }}" style="position:absolute;inset:0;z-index:20"></div>
+  <div style="position:absolute;top:{{ menuTop }};right:12px;z-index:21;width:260px;border-radius:14px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-lg);padding:6px">
+    <div style="padding:12px 12px 10px;border-bottom:1px solid var(--border);margin-bottom:6px">
+      <div style="font:700 14px/1.3 Figtree,sans-serif">{{ userName }}</div>
+      <div style="font:500 13px/1.3 Figtree,sans-serif;color:var(--text-2)">{{ userEmail }}</div>
+      <div style="display:inline-flex;margin-top:8px;height:22px;align-items:center;padding:0 8px;border-radius:99px;background:var(--primary-soft);color:var(--primary-text);font:700 11px/1 Figtree,sans-serif">{{ userRole }}</div>
+    </div>
+    <button onClick="{{ toggleTheme }}" style="width:100%;display:flex;align-items:center;gap:10px;height:44px;padding:0 12px;border:none;border-radius:9px;background:transparent;color:var(--text);font:500 14px/1 Figtree,sans-serif;cursor:pointer" style-hover="background:var(--surface-2)"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1">{{ themeIcon }}</span>{{ themeLabel }}</button>
+    <a href="Agendly Design System.dc.html" style="display:flex;align-items:center;gap:10px;height:44px;padding:0 12px;border-radius:9px;color:var(--text);font:500 14px/1 Figtree,sans-serif"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1">palette</span>Design system</a>
+    <button onClick="{{ logout }}" style="width:100%;display:flex;align-items:center;gap:10px;height:44px;padding:0 12px;border:none;border-radius:9px;background:transparent;color:var(--danger-fg);font:500 14px/1 Figtree,sans-serif;cursor:pointer" style-hover="background:var(--danger-soft)"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1">logout</span>Sair</button>
+  </div>
+</sc-if>
+
+<sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeDrawer }}" style="position:absolute;inset:0;z-index:30;background:var(--overlay)"></div>
+  <div data-screen-label="Drawer agendamento" style="position:absolute;top:0;right:0;bottom:0;z-index:31;width:{{ drawerW }};display:flex;flex-direction:column;background:var(--surface);box-shadow:var(--shadow-lg)">
+    <div style="height:60px;flex-shrink:0;display:flex;align-items:center;gap:8px;padding:0 8px 0 12px;border-bottom:1px solid var(--border)">
+      <sc-if value="{{ isResched }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ backToDetails }}" aria-label="Voltar" style="width:44px;height:44px;border:none;border-radius:10px;background:transparent;color:var(--text);display:grid;place-items:center;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">arrow_back</span></button>
+      </sc-if>
+      <div style="flex:1;font:700 16px/1.2 Figtree,sans-serif;padding-left:4px">{{ drawerTitle }}</div>
+      <button onClick="{{ closeDrawer }}" aria-label="Fechar" style="width:44px;height:44px;border:none;border-radius:10px;background:transparent;color:var(--text);display:grid;place-items:center;cursor:pointer" style-hover="background:var(--surface-2)"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">close</span></button>
+    </div>
+
+    <sc-if value="{{ isDetails }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;overflow:auto;padding:20px">
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:99px;background:{{ d.sBg }};color:{{ d.sFg }};font:600 13px/1 Figtree,sans-serif"><span style="width:7px;height:7px;border-radius:50%;background:{{ d.sDot }}"></span>{{ d.sLabel }}</span>
+        <span style="display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 10px;border-radius:99px;border:1px solid var(--border);color:var(--text-2);font:600 13px/1 Figtree,sans-serif"><span style="font-family:'Material Symbols Rounded';font-size:15px;line-height:1">{{ d.originIcon }}</span>{{ d.originLabel }}</span>
+      </div>
+      <div style="font:700 30px/1.15 Figtree,sans-serif;letter-spacing:-0.02em;margin-top:14px;font-variant-numeric:tabular-nums">{{ d.timeRange }}</div>
+      <div style="font:500 15px/1.4 Figtree,sans-serif;color:var(--text-2);margin-top:4px">{{ d.dateLabel }} · {{ d.dateShort }}</div>
+
+      <div style="display:flex;align-items:center;gap:12px;margin-top:20px;padding:14px;border-radius:14px;background:var(--surface-2)">
+        <div style="width:44px;height:44px;flex-shrink:0;border-radius:50%;background:var(--primary-soft);color:var(--primary-text);display:grid;place-items:center;font:700 15px/1 Figtree,sans-serif">{{ d.customerInitials }}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font:700 15px/1.3 Figtree,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.customerName }}</div>
+          <div style="font:500 13px/1.3 Figtree,sans-serif;color:var(--text-2);font-variant-numeric:tabular-nums">{{ d.customerPhone }}</div>
+        </div>
+        <a href="{{ waHref }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:10px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:600 13px/1 Figtree,sans-serif;text-decoration:none;white-space:nowrap"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1">chat</span>WhatsApp</a>
+      </div>
+
+      <div style="display:flex;flex-direction:column;margin-top:8px">
+        <sc-for list="{{ dRows }}" as="r" hint-placeholder-count="5">
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--border)">
+            <span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:var(--text-3);padding-top:1px">{{ r.icon }}</span>
+            <div style="flex:1;font:500 14px/1.4 Figtree,sans-serif;color:var(--text-2)">{{ r.label }}</div>
+            <div style="text-align:right">
+              <div style="font:600 14px/1.4 Figtree,sans-serif;font-variant-numeric:tabular-nums">{{ r.value }}</div>
+              <div style="font:500 12px/1.3 Figtree,sans-serif;color:var(--text-3)">{{ r.sub }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ dFinal }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:10px;align-items:flex-start;margin-top:18px;padding:12px 14px;border-radius:12px;background:var(--surface-2);color:var(--text-2);font:500 13px/1.5 Figtree,sans-serif">
+          <span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1">lock</span>{{ dFinalText }}
+        </div>
+      </sc-if>
+    </div>
+    <sc-if value="{{ hasActions }}" hint-placeholder-val="{{ false }}">
+    <div style="flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:16px 20px;border-top:1px solid var(--border)">
+      <sc-for list="{{ dActions }}" as="x" hint-placeholder-count="4">
+        <button onClick="{{ x.onClick }}" style="grid-column:{{ x.span }};display:flex;align-items:center;justify-content:center;gap:8px;height:46px;border-radius:11px;border:1px solid {{ x.border }};background:{{ x.bg }};color:{{ x.fg }};font:600 14px/1 Figtree,sans-serif;cursor:pointer" style-hover="filter:brightness(0.97)"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1">{{ x.icon }}</span>{{ x.label }}</button>
+      </sc-for>
+    </div>
+    </sc-if>
+    </sc-if>
+
+    <sc-if value="{{ isResched }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;overflow:auto;padding:20px;display:flex;flex-direction:column;gap:18px">
+      <div style="padding:12px 14px;border-radius:12px;background:var(--surface-2);font:500 14px/1.45 Figtree,sans-serif;color:var(--text-2)">
+        <span style="color:var(--text);font-weight:700">{{ d.customerName }}</span> · {{ d.serviceName }} ({{ d.duration }}) com {{ d.proName }}<br>Horário atual: {{ d.dateShort }} às {{ d.startLabel }}
+      </div>
+      <sc-if value="{{ rsHasErr }}" hint-placeholder-val="{{ false }}">
+        <div role="alert" style="display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:12px;background:var(--danger-soft);border:1px solid var(--danger-border);color:var(--danger-fg)">
+          <span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1">event_busy</span>
+          <div><div style="font:700 14px/1.3 Figtree,sans-serif">Horário indisponível</div><sc-for list="{{ rsErrors }}" as="e" hint-placeholder-count="1"><div style="font:500 13px/1.45 Figtree,sans-serif">{{ e }}</div></sc-for></div>
+        </div>
+      </sc-if>
+      <div>
+        <div style="font:700 14px/1.3 Figtree,sans-serif;margin-bottom:10px">Nova data</div>
+        <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px">
+          <sc-for list="{{ rsStrip }}" as="s" hint-placeholder-count="10">
+            <button onClick="{{ s.onClick }}" style="flex-shrink:0;width:58px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 0;min-height:66px;border-radius:12px;border:1px solid {{ s.border }};background:{{ s.bg }};color:{{ s.fg }};opacity:{{ s.opacity }};cursor:{{ s.cursor }}">
+              <span style="font:600 11px/1 Figtree,sans-serif;text-transform:uppercase;letter-spacing:0.04em;color:{{ s.subFg }}">{{ s.dow }}</span>
+              <span style="font:700 18px/1.1 Figtree,sans-serif">{{ s.day }}</span>
+              <span style="font:600 10px/1 Figtree,sans-serif;color:{{ s.subFg }}">{{ s.sub }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <div style="font:700 14px/1.3 Figtree,sans-serif;margin-bottom:10px">Horários livres</div>
+        <sc-if value="{{ rsLoading }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px">
+            <sc-for list="{{ sk12 }}" as="k" hint-placeholder-count="12"><div style="height:44px;border-radius:10px;background:linear-gradient(90deg,var(--skeleton) 0,var(--skeleton-hi) 40%,var(--skeleton) 80%);background-size:960px 100%;animation:agShimmer 1.4s linear infinite"></div></sc-for>
+          </div>
+        </sc-if>
+        <sc-for list="{{ rsGroups }}" as="g" hint-placeholder-count="0">
+          <div style="margin-bottom:14px">
+            <div style="font:600 12px/1 Figtree,sans-serif;color:var(--text-3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px">{{ g.label }}</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px">
+              <sc-for list="{{ g.slots }}" as="t" hint-placeholder-count="0">
+                <button onClick="{{ t.onClick }}" style="height:44px;border-radius:10px;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.fg }};font:600 15px/1 Figtree,sans-serif;font-variant-numeric:tabular-nums;cursor:pointer">{{ t.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+        <sc-if value="{{ rsNoSlots }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:24px 16px;border:1px dashed var(--border-strong);border-radius:12px">
+            <span style="font-family:'Material Symbols Rounded';font-size:26px;line-height:1;color:var(--text-3)">event_busy</span>
+            <div style="font:700 15px/1.3 Figtree,sans-serif">Sem horários livres neste dia</div>
+            <button onClick="{{ rsNextDay }}" style="height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:600 13px/1 Figtree,sans-serif;cursor:pointer">{{ rsNextLabel }}</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+    <div style="flex-shrink:0;display:flex;gap:8px;padding:16px 20px;border-top:1px solid var(--border)">
+      <button onClick="{{ backToDetails }}" style="flex:1;height:46px;border-radius:11px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:600 14px/1 Figtree,sans-serif;cursor:pointer">Voltar</button>
+      <button onClick="{{ rsConfirm }}" style="flex:2;height:46px;border-radius:11px;border:none;background:var(--primary);color:var(--on-primary);font:600 14px/1 Figtree,sans-serif;cursor:{{ rsCursor }};opacity:{{ rsOpacity }}">{{ rsBtnLabel }}</button>
+    </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<sc-if value="{{ confirmOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:40;background:var(--overlay);display:grid;place-items:center;padding:16px">
+    <div role="alertdialog" style="width:100%;max-width:400px;border-radius:18px;background:var(--surface);box-shadow:var(--shadow-lg);padding:24px">
+      <div style="width:44px;height:44px;border-radius:50%;background:var(--danger-soft);color:var(--danger-fg);display:grid;place-items:center"><span style="font-family:'Material Symbols Rounded';font-size:24px;line-height:1">{{ cIcon }}</span></div>
+      <div style="font:700 18px/1.3 Figtree,sans-serif;margin-top:14px">{{ cTitle }}</div>
+      <div style="font:500 14px/1.55 Figtree,sans-serif;color:var(--text-2);margin-top:6px;text-wrap:pretty">{{ cText }}</div>
+      <div style="display:flex;gap:8px;margin-top:22px">
+        <button onClick="{{ cCancel }}" style="flex:1;height:46px;border-radius:11px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:600 14px/1 Figtree,sans-serif;cursor:pointer">Voltar</button>
+        <button onClick="{{ cOk }}" style="flex:1.4;height:46px;border-radius:11px;border:none;background:var(--danger-fg);color:var(--surface);font:600 14px/1 Figtree,sans-serif;cursor:pointer">{{ cBtn }}</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ nwOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeNew }}" style="position:absolute;inset:0;z-index:30;background:var(--overlay)"></div>
+  <div data-screen-label="Novo agendamento" role="dialog" style="position:absolute;z-index:31;top:{{ nwTop }};left:{{ nwLeft }};transform:{{ nwTransform }};width:{{ nwW }};height:{{ nwH }};border-radius:{{ nwRadius }};display:flex;flex-direction:column;background:var(--surface);box-shadow:var(--shadow-lg);overflow:hidden">
+    <div style="flex-shrink:0;padding:14px 12px 14px 16px;border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:6px">
+        <sc-if value="{{ nwShowBack }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ nwBack }}" aria-label="Voltar" style="width:40px;height:40px;margin-left:-6px;border:none;border-radius:10px;background:transparent;color:var(--text);display:grid;place-items:center;cursor:pointer" style-hover="background:var(--surface-2)"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">arrow_back</span></button>
+        </sc-if>
+        <div style="flex:1;min-width:0">
+          <div style="font:600 12px/1.2 Figtree,sans-serif;color:var(--text-2)">Novo agendamento · Etapa {{ nwStepNum }} de 5</div>
+          <div style="font:700 18px/1.3 Figtree,sans-serif">{{ nwTitle }}</div>
+        </div>
+        <button onClick="{{ closeNew }}" aria-label="Fechar" style="width:40px;height:40px;border:none;border-radius:10px;background:transparent;color:var(--text);display:grid;place-items:center;cursor:pointer" style-hover="background:var(--surface-2)"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1">close</span></button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:12px">
+        <sc-for list="{{ nwSteps }}" as="p" hint-placeholder-count="5"><div style="height:4px;border-radius:99px;background:{{ p.bar }}"></div></sc-for>
+      </div>
+      <sc-if value="{{ nwHasContext }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:10px;font:500 13px/1.4 Figtree,sans-serif;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ nwContext }}</div>
+      </sc-if>
+    </div>
+
+    <div style="flex:1;min-height:0;overflow:auto;padding:16px">
+      <sc-if value="{{ nwS0 }}" hint-placeholder-val="{{ false }}">
+        <sc-if value="{{ nwListMode }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:8px;height:46px;padding:0 12px;border:1px solid var(--border-strong);border-radius:11px;background:var(--surface)">
+            <span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:var(--text-2)">search</span>
+            <input value="{{ nwQ }}" onChange="{{ nwOnQ }}" placeholder="Buscar por nome ou telefone" style="flex:1;min-width:0;border:none;outline:none;background:transparent;color:var(--text);font:500 15px/1 Figtree,sans-serif">
+          </div>
+          <button onClick="{{ nwToggleForm }}" style="width:100%;display:flex;align-items:center;gap:12px;margin-top:10px;padding:12px;border:1px dashed var(--border-strong);border-radius:12px;background:transparent;color:var(--primary-text);font:600 14px/1 Figtree,sans-serif;cursor:pointer">
+            <span style="width:40px;height:40px;border-radius:50%;background:var(--primary-soft);display:grid;place-items:center"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1">person_add</span></span>Cadastrar novo cliente
+          </button>
+          <div style="display:flex;flex-direction:column;margin-top:8px">
+            <sc-for list="{{ nwCustomers }}" as="c" hint-placeholder-count="6">
+              <button onClick="{{ c.onClick }}" style="display:flex;align-items:center;gap:12px;padding:10px 12px;border:none;border-radius:12px;background:{{ c.bg }};color:var(--text);cursor:pointer;text-align:left" style-hover="background:var(--surface-2)">
+                <span style="width:40px;height:40px;flex-shrink:0;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;font:700 13px/1 Figtree,sans-serif">{{ c.initials }}</span>
+                <span style="flex:1;min-width:0"><span style="display:block;font:600 15px/1.3 Figtree,sans-serif">{{ c.name }}</span><span style="display:block;font:500 13px/1.3 Figtree,sans-serif;color:var(--text-2);font-variant-numeric:tabular-nums">{{ c.phone }}</span></span>
+                <span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:var(--text-3)">chevron_right</span>
+              </button>
+            </sc-for>
+            <sc-if value="{{ nwNoCustomers }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:24px 8px;text-align:center;font:500 14px/1.5 Figtree,sans-serif;color:var(--text-2)">Nenhum cliente encontrado para “{{ nwQ }}”. Cadastre um novo cliente acima.</div>
+            </sc-if>
+          </div>
+        </sc-if>
+        <sc-if value="{{ nwFormMode }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <label style="display:flex;flex-direction:column;gap:6px;font:600 14px/1.2 Figtree,sans-serif">Nome <span style="font-weight:500;color:var(--text-3);font-size:12px;margin-top:-4px">Obrigatório</span>
+              <input value="{{ nwName }}" onChange="{{ nwOnName }}" placeholder="Nome completo" style="height:48px;padding:0 14px;border:1px solid var(--border-strong);border-radius:11px;background:var(--surface);color:var(--text);font:500 16px/1 Figtree,sans-serif;outline-color:var(--primary)">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:6px;font:600 14px/1.2 Figtree,sans-serif">WhatsApp / telefone <span style="font-weight:500;color:var(--text-3);font-size:12px;margin-top:-4px">Obrigatório</span>
+              <input value="{{ nwPhone }}" onChange="{{ nwOnPhone }}" inputmode="tel" placeholder="(11) 91234-5678" style="height:48px;padding:0 14px;border:1px solid var(--border-strong);border-radius:11px;background:var(--surface);color:var(--text);font:500 16px/1 Figtree,sans-serif;font-variant-numeric:tabular-nums;outline-color:var(--primary)">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:6px;font:600 14px/1.2 Figtree,sans-serif">E-mail <span style="font-weight:500;color:var(--text-3);font-size:12px;margin-top:-4px">Opcional</span>
+              <input value="{{ nwEmail }}" onChange="{{ nwOnEmail }}" type="email" placeholder="cliente@email.com" style="height:48px;padding:0 14px;border:1px solid var(--border-strong);border-radius:11px;background:var(--surface);color:var(--text);font:500 16px/1 Figtree,sans-serif;outline-color:var(--primary)">
+            </label>
+          </div>
+        </sc-if>
+      </sc-if>
+
+      <sc-if value="{{ nwS1 }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ nwServices }}" as="v" hint-placeholder-count="6">
+            <button onClick="{{ v.onClick }}" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;border:1px solid {{ v.border }};background:{{ v.bg }};color:var(--text);cursor:pointer;text-align:left" style-hover="border-color:var(--primary)">
+              <span style="flex:1;min-width:0">
+                <span style="display:block;font:600 15px/1.3 Figtree,sans-serif">{{ v.name }}</span>
+                <span style="display:block;font:500 13px/1.4 Figtree,sans-serif;color:var(--text-2)">{{ v.duration }}</span>
+              </span>
+              <span style="font:700 15px/1 Figtree,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap">{{ v.price }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ nwS2 }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ nwPros }}" as="p" hint-placeholder-count="3">
+            <button onClick="{{ p.onClick }}" style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;border:1px solid {{ p.border }};background:{{ p.bg }};color:var(--text);cursor:pointer;text-align:left" style-hover="border-color:var(--primary)">
+              <span style="width:44px;height:44px;flex-shrink:0;border-radius:50%;background:var(--primary-soft);color:var(--primary-text);display:grid;place-items:center;font:700 14px/1 Figtree,sans-serif">{{ p.initials }}</span>
+              <span style="flex:1;font:600 15px/1.3 Figtree,sans-serif">{{ p.name }}</span>
+              <span style="font:500 13px/1 Figtree,sans-serif;color:var(--text-2);white-space:nowrap">{{ p.next }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ nwS3 }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <sc-if value="{{ nwHasErr }}" hint-placeholder-val="{{ false }}">
+            <div role="alert" style="display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:12px;background:var(--danger-soft);border:1px solid var(--danger-border);color:var(--danger-fg)">
+              <span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1">event_busy</span>
+              <div><div style="font:700 14px/1.3 Figtree,sans-serif">Horário indisponível</div><sc-for list="{{ nwErrors }}" as="e" hint-placeholder-count="1"><div style="font:500 13px/1.45 Figtree,sans-serif">{{ e }}</div></sc-for></div>
+            </div>
+          </sc-if>
+          <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px">
+            <sc-for list="{{ nwStrip }}" as="s" hint-placeholder-count="10">
+              <button onClick="{{ s.onClick }}" style="flex-shrink:0;width:58px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 0;min-height:66px;border-radius:12px;border:1px solid {{ s.border }};background:{{ s.bg }};color:{{ s.fg }};opacity:{{ s.opacity }};cursor:{{ s.cursor }}">
+                <span style="font:600 11px/1 Figtree,sans-serif;text-transform:uppercase;letter-spacing:0.04em;color:{{ s.subFg }}">{{ s.dow }}</span>
+                <span style="font:700 18px/1.1 Figtree,sans-serif">{{ s.day }}</span>
+                <span style="font:600 10px/1 Figtree,sans-serif;color:{{ s.subFg }}">{{ s.sub }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ nwLoading }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px">
+              <sc-for list="{{ sk12 }}" as="k" hint-placeholder-count="12"><div style="height:44px;border-radius:10px;background:linear-gradient(90deg,var(--skeleton) 0,var(--skeleton-hi) 40%,var(--skeleton) 80%);background-size:960px 100%;animation:agShimmer 1.4s linear infinite"></div></sc-for>
+            </div>
+          </sc-if>
+          <sc-for list="{{ nwGroups }}" as="g" hint-placeholder-count="0">
+            <div>
+              <div style="font:600 12px/1 Figtree,sans-serif;color:var(--text-3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px">{{ g.label }}</div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px">
+                <sc-for list="{{ g.slots }}" as="t" hint-placeholder-count="0">
+                  <button onClick="{{ t.onClick }}" style="height:44px;border-radius:10px;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.fg }};font:600 15px/1 Figtree,sans-serif;font-variant-numeric:tabular-nums;cursor:pointer">{{ t.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+          <sc-if value="{{ nwNoSlots }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:24px 16px;border:1px dashed var(--border-strong);border-radius:12px">
+              <span style="font-family:'Material Symbols Rounded';font-size:26px;line-height:1;color:var(--text-3)">event_busy</span>
+              <div style="font:700 15px/1.3 Figtree,sans-serif">Sem horários livres neste dia</div>
+              <button onClick="{{ nwNextDay }}" style="height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:600 13px/1 Figtree,sans-serif;cursor:pointer">{{ nwNextLabel }}</button>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ nwS4 }}" hint-placeholder-val="{{ false }}">
+        <div style="border-radius:14px;border:1px solid var(--border);overflow:hidden">
+          <sc-for list="{{ nwSummary }}" as="r" hint-placeholder-count="8">
+            <div style="display:flex;justify-content:space-between;gap:12px;padding:13px 16px;border-top:1px solid {{ r.border }};background:{{ r.bg }}">
+              <span style="font:500 14px/1.4 Figtree,sans-serif;color:var(--text-2)">{{ r.label }}</span>
+              <span style="font:{{ r.weight }} {{ r.size }}px/1.4 Figtree,sans-serif;text-align:right;font-variant-numeric:tabular-nums">{{ r.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start;margin-top:12px;font:500 13px/1.5 Figtree,sans-serif;color:var(--text-2)">
+          <span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1.1">info</span>O agendamento entra como Agendado e origem Manual. O preço fica congelado no valor atual do serviço.
+        </div>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ nwHasFooter }}" hint-placeholder-val="{{ false }}">
+    <div style="flex-shrink:0;display:flex;gap:8px;padding:14px 16px;border-top:1px solid var(--border)">
+      <button onClick="{{ nwPrimary }}" style="flex:1;height:48px;border-radius:12px;border:none;background:var(--primary);color:var(--on-primary);font:600 15px/1 Figtree,sans-serif;cursor:{{ nwCursor }};opacity:{{ nwOpacity }}">{{ nwPrimaryLabel }}</button>
+    </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<sc-if value="{{ qrOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeQr }}" style="position:absolute;inset:0;z-index:40;background:var(--overlay)"></div>
+  <div role="dialog" style="position:absolute;z-index:41;top:50%;left:50%;transform:translate(-50%,-50%);width:min(380px,calc(100% - 32px));border-radius:18px;background:var(--surface);box-shadow:var(--shadow-lg);padding:24px;text-align:center">
+    <div style="font:700 18px/1.3 Figtree,sans-serif">QR Code da sua página</div>
+    <div style="font:500 14px/1.5 Figtree,sans-serif;color:var(--text-2);margin-top:4px">Imprima no balcão ou poste nas redes. Quem escanear cai direto no agendamento.</div>
+    <div style="margin:20px auto 0;width:200px;height:200px;border-radius:14px;border:1px solid var(--border);background:repeating-linear-gradient(45deg,var(--surface-2) 0 8px,var(--surface) 8px 16px);display:grid;place-items:center;font:500 12px/1.4 ui-monospace,Menlo,monospace;color:var(--text-2);padding:16px">QR code<br>agendly.com/barbearia-do-ze</div>
+    <div style="font:600 14px/1.3 Figtree,sans-serif;margin-top:14px">agendly.com/barbearia-do-ze</div>
+    <div style="display:flex;gap:8px;margin-top:18px">
+      <button onClick="{{ copyLink }}" style="flex:1;height:46px;border-radius:11px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:600 14px/1 Figtree,sans-serif;cursor:pointer">Copiar link</button>
+      <button onClick="{{ downloadQr }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;height:46px;border-radius:11px;border:none;background:var(--primary);color:var(--on-primary);font:600 14px/1 Figtree,sans-serif;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1">download</span>Baixar PNG</button>
+    </div>
+  </div>
+</sc-if>
+
+<div style="position:absolute;z-index:50;left:{{ toastLeft }};right:{{ toastRight }};bottom:{{ toastBottom }};display:flex;flex-direction:column;gap:8px;align-items:{{ toastAlign }};pointer-events:none">
+  <sc-for list="{{ toasts }}" as="t" hint-placeholder-count="0">
+    <div role="status" style="display:flex;align-items:center;gap:10px;max-width:420px;width:{{ toastW }};padding:12px 16px;border-radius:12px;background:var(--text);color:var(--surface);box-shadow:var(--shadow-lg);font:600 14px/1.4 Figtree,sans-serif">
+      <span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ t.iconColor }}">{{ t.icon }}</span>{{ t.text }}
+    </div>
+  </sc-for>
+</div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;tema&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Claro&quot;,&quot;Escuro&quot;],&quot;default&quot;:&quot;Claro&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aparência&quot;},&quot;visualizacao&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Auto&quot;,&quot;Desktop&quot;,&quot;Mobile (390)&quot;],&quot;default&quot;:&quot;Auto&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aparência&quot;},&quot;papel&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Owner&quot;,&quot;Employee&quot;],&quot;default&quot;:&quot;Owner&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Permissões&quot;},&quot;estado&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Normal&quot;,&quot;Carregando&quot;,&quot;Vazio&quot;,&quot;Erro&quot;],&quot;default&quot;:&quot;Normal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estados de tela&quot;},&quot;simularConflito&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Estados de tela&quot;}}">
+const TODAY_KEY = '2026-09-29', NOW_MIN = 14 * 60 + 20, DS = 8, DE = 21;
+const pad = n => String(n).padStart(2, '0');
+const toKey = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+const parse = k => { const a = k.split('-').map(Number); return new Date(a[0], a[1] - 1, a[2]); };
+const addDays = (k, n) => { const d = parse(k); d.setDate(d.getDate() + n); return toKey(d); };
+const hm = m => pad(Math.floor(m / 60)) + ':' + pad(m % 60);
+const toMin = s => { const a = s.split(':').map(Number); return a[0] * 60 + a[1]; };
+const brl = v => 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const DOW = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+const DOWF = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+const MON = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+const longDate = k => { const d = parse(k); return DOWF[d.getDay()] + ', ' + d.getDate() + ' de ' + MON[d.getMonth()]; };
+const brDate = k => { const a = k.split('-'); return a[2] + '/' + a[1] + '/' + a[0]; };
+const initials = n => n.split(' ').filter(Boolean).slice(0, 2).map(x => x[0]).join('').toUpperCase();
+const maskPhone = v => { const d = v.replace(/\D/g, '').slice(0, 11); if (!d.length) return ''; if (d.length <= 2) return '(' + d; if (d.length <= 6) return '(' + d.slice(0, 2) + ') ' + d.slice(2); if (d.length <= 10) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6); return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7); };
+const STATUS = { Scheduled: { label: 'Agendado', v: 'sched' }, Confirmed: { label: 'Confirmado', v: 'conf' }, Completed: { label: 'Concluído', v: 'done' }, Cancelled: { label: 'Cancelado', v: 'canc' }, NoShow: { label: 'Faltou', v: 'noshow' } };
+const SERVICES = [
+  { id: 's1', name: 'Corte masculino', durationMinutes: 30, price: 45, active: true },
+  { id: 's2', name: 'Barba', durationMinutes: 20, price: 30, active: true },
+  { id: 's3', name: 'Corte + barba', durationMinutes: 50, price: 70, active: true },
+  { id: 's4', name: 'Corte degradê', durationMinutes: 40, price: 55, active: true },
+  { id: 's5', name: 'Sobrancelha', durationMinutes: 15, price: 15, active: true },
+  { id: 's6', name: 'Pigmentação de barba', durationMinutes: 30, price: 40, active: true },
+  { id: 's7', name: 'Hidratação capilar', durationMinutes: 20, price: 35, active: false }];
+const SVC = {}; SERVICES.forEach(s => SVC[s.id] = s);
+const PROS = [
+  { id: 'p1', name: 'Zé Carlos', short: 'Zé', serviceIds: ['s1', 's2', 's3', 's4', 's5', 's6', 's7'], active: true },
+  { id: 'p2', name: 'Rafael Souza', short: 'Rafael', serviceIds: ['s1', 's2', 's3', 's4', 's5'], active: true },
+  { id: 'p3', name: 'Lucas Mendes', short: 'Lucas', serviceIds: ['s1', 's4', 's5', 's6'], active: true }];
+const PRO = {}; PROS.forEach(p => PRO[p.id] = p);
+const WORK = { p1: {}, p2: {}, p3: {} };
+for (let d = 1; d <= 6; d++) { WORK.p1[d] = [[540, 720], [780, 1200]]; WORK.p2[d] = [[540, 1200]]; WORK.p3[d] = d === 1 ? [[780, 1140]] : [[600, 1140]]; }
+const BLOCKS = [
+  { id: 'b1', proId: 'p2', date: TODAY_KEY, start: 720, end: 780, reason: 'Almoço' },
+  { id: 'b2', proId: 'p3', date: TODAY_KEY, start: 960, end: 1020, reason: 'Consulta médica' },
+  { id: 'b3', proId: 'p1', date: '2026-10-01', start: 840, end: 960, reason: 'Curso de atualização' },
+  { id: 'b4', proId: 'p3', date: '2026-10-03', start: 600, end: 1140, reason: 'Folga' }];
+const CUSTOMERS = [
+  ['c1', 'João Pedro Almeida', '(11) 98765-4321', 'joaopedro.almeida@gmail.com'], ['c2', 'Marcos Vinícius Silva', '(11) 99812-3345'], ['c3', 'Felipe Rocha', '(11) 97654-1122', 'felipe.rocha@hotmail.com'], ['c4', 'Gustavo Lima', '(11) 98221-7788'], ['c5', 'André Santos', '(11) 99134-5566', 'andre.santos@outlook.com'], ['c6', 'Thiago Oliveira', '(11) 98877-2210'], ['c7', 'Bruno Carvalho', '(11) 97321-9087', 'bruno.carvalho@gmail.com'], ['c8', 'Leonardo Costa', '(11) 99456-7812'], ['c9', 'Rodrigo Nunes', '(11) 98003-4455'], ['c10', 'Diego Martins', '(11) 97788-6654', 'diego.m@gmail.com'], ['c11', 'Caio Ferreira', '(11) 99601-2233'], ['c12', 'Henrique Barbosa', '(11) 98345-9901'], ['c13', 'Vitor Hugo Pereira', '(11) 97112-3409'], ['c14', 'Matheus Ribeiro', '(11) 99870-1256', 'matheus.ribeiro@gmail.com'], ['c15', 'Paulo Sérgio Mota', '(11) 98456-3321'], ['c16', 'Eduardo Pires', '(11) 97567-8843'], ['c17', 'Renan Dias', '(11) 99234-6671'], ['c18', 'Igor Moreira', '(11) 98912-0045', 'igor.moreira@icloud.com'], ['c19', 'Samuel Teixeira', '(11) 97401-5589'], ['c20', 'Fábio Nascimento', '(11) 99088-7734'], ['c21', 'Luiz Fernando Gomes', '(11) 98176-2290'], ['c22', 'Ricardo Alves', '(11) 97654-8812', 'ricardo.alves@gmail.com'], ['c23', 'Pedro Henrique Souza', '(11) 99345-1107'], ['c24', 'Otávio Prado', '(11) 98567-4432'], ['c25', 'Daniel Freitas', '(11) 97890-3316'], ['c26', 'Murilo Campos', '(11) 99712-6608']];
+const TODAY_LIST = [
+  ['p1', '09:00', 's1', 'Completed', 'c1', 'Online'], ['p1', '09:30', 's3', 'Completed', 'c2', 'Manual'], ['p1', '10:30', 's2', 'NoShow', 'c3', 'Online'], ['p1', '11:00', 's4', 'Completed', 'c4', 'Online'], ['p1', '13:00', 's1', 'Completed', 'c5', 'Manual'], ['p1', '14:00', 's3', 'Confirmed', 'c6', 'Online'], ['p1', '15:00', 's1', 'Scheduled', 'c7', 'Online'], ['p1', '15:45', 's2', 'Confirmed', 'c8', 'Manual'], ['p1', '17:00', 's4', 'Scheduled', 'c9', 'Online'], ['p1', '18:00', 's3', 'Confirmed', 'c10', 'Online'], ['p1', '19:00', 's1', 'Scheduled', 'c11', 'Online'],
+  ['p2', '09:00', 's4', 'Completed', 'c12', 'Online'], ['p2', '10:00', 's1', 'Cancelled', 'c13', 'Online'], ['p2', '10:30', 's1', 'Completed', 'c14', 'Manual'], ['p2', '11:15', 's2', 'Completed', 'c15', 'Online'], ['p2', '13:30', 's3', 'Completed', 'c16', 'Online'], ['p2', '14:30', 's5', 'Confirmed', 'c17', 'Online'], ['p2', '15:00', 's4', 'Scheduled', 'c18', 'Online'], ['p2', '16:30', 's1', 'Confirmed', 'c19', 'Manual'], ['p2', '18:30', 's3', 'Scheduled', 'c20', 'Online'],
+  ['p3', '10:00', 's6', 'Completed', 'c21', 'Online'], ['p3', '11:00', 's1', 'Completed', 'c22', 'Manual'], ['p3', '14:00', 's4', 'Confirmed', 'c23', 'Online'], ['p3', '15:00', 's1', 'Scheduled', 'c24', 'Online'], ['p3', '17:30', 's4', 'Scheduled', 'c25', 'Online'], ['p3', '18:30', 's1', 'Confirmed', 'c26', 'Online']];
+function rng(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function genAppts() {
+  const out = []; let n = 1;
+  TODAY_LIST.forEach(([p, t, s, st, c, o]) => { const sv = SVC[s], m = toMin(t); out.push({ id: 'a' + (n++), customerId: c, professionalId: p, serviceId: s, date: TODAY_KEY, start: m, end: m + sv.durationMinutes, status: st, origin: o, priceCharged: sv.price }); });
+  const r = rng(11);
+  for (let i = -9; i <= 13; i++) {
+    if (!i) continue;
+    const k = addDays(TODAY_KEY, i), dow = parse(k).getDay();
+    PROS.forEach(p => {
+      const svs = p.serviceIds.filter(id => SVC[id].active);
+      (WORK[p.id][dow] || []).forEach(([s, e]) => {
+        let t = s + 15 * Math.floor(r() * 3), g = 0;
+        while (g++ < 80) {
+          const sv = SVC[svs[Math.floor(r() * svs.length)]], end = t + sv.durationMinutes;
+          if (end > e) break;
+          const b = BLOCKS.find(b => b.proId === p.id && b.date === k && b.start < end && b.end > t);
+          if (b) { t = b.end; continue; }
+          const fill = i < 0 ? 0.8 : Math.max(0.22, 0.82 - i * 0.05);
+          if (r() < fill) {
+            const x = r(); let st;
+            if (i < 0) st = x < .84 ? 'Completed' : x < .92 ? 'Cancelled' : 'NoShow';
+            else st = x < .05 ? 'Cancelled' : x < (i < 3 ? .55 : .3) ? 'Confirmed' : 'Scheduled';
+            out.push({ id: 'a' + (n++), customerId: CUSTOMERS[Math.floor(r() * CUSTOMERS.length)][0], professionalId: p.id, serviceId: sv.id, date: k, start: t, end, status: st, origin: r() < .65 ? 'Online' : 'Manual', priceCharged: sv.price });
+            t = end;
+          } else t += 15 * (1 + Math.floor(r() * 3));
+          t = Math.ceil(t / 15) * 15;
+        }
+      });
+    });
+  }
+  return out;
+}
+const PERIODS = {
+  hoje: { svc: [['s1', 4], ['s3', 2], ['s4', 2], ['s2', 1], ['s6', 1]], pros: [['p1', 4, 215], ['p2', 4, 200], ['p3', 2, 85]], uniq: 10, newC: 2, canc: 1, ns: 1, dl: [-6, -9, -9, 0, 3, -50, 0] },
+  '7d': { svc: [['s4', 34], ['s1', 28], ['s3', 16], ['s2', 14], ['s5', 9], ['s6', 5]], pros: [['p1', 44, 2135], ['p2', 36, 1690], ['p3', 26, 1180]], uniq: 88, newC: 8, canc: 5, ns: 3, dl: [12, 8, 5, 33, 4, -29, 50] }
+};
+function scaleP(f, uniq, newC, canc, ns, dl) {
+  const b = PERIODS['7d']; const svc = b.svc.map(([id, c]) => [id, Math.round(c * f)]);
+  const tot = svc.reduce((a, [id, c]) => a + c * SVC[id].price, 0);
+  const pros = b.pros.map(([id, c, r]) => [id, Math.round(c * f), Math.round(tot * r / 5005 / 5) * 5]);
+  return { svc, pros, uniq, newC, canc, ns, dl };
+}
+PERIODS['30d'] = scaleP(4.2, 312, 31, 19, 11, [7, 5, 3, 11, 2, -10, 22]);
+PERIODS.mes = scaleP(3.9, 296, 29, 18, 10, [9, 6, 4, 16, 3, -5, -9]);
+PERIODS.custom = PERIODS['30d'];
+const PERIOD_LABEL = { hoje: 'Terça-feira, 29/09/2026', '7d': '23/09/2026 – 29/09/2026', '30d': '31/08/2026 – 29/09/2026', mes: '01/09/2026 – 29/09/2026', custom: '01/09/2026 – 29/09/2026' };
+const seg = (on, label, onClick, icon) => ({ label, icon, onClick, bg: on ? 'var(--surface)' : 'transparent', fg: on ? 'var(--text)' : 'var(--text-2)', shadow: on ? 'var(--shadow-sm)' : 'none' });
+const range = n => Array.from({ length: n }, (_, i) => i);
+
+class Component extends DCLogic {
+  rootRef = React.createRef();
+  state = { w: 1200, screen: null, view: 'dia', date: TODAY_KEY, pro: 'all', period: '7d', chart: 'receita', appts: genAppts(), taken: [], customers: CUSTOMERS.map(c => ({ id: c[0], name: c[1], phone: c[2], email: c[3] || null })), sel: null, mode: 'details', confirm: null, rs: null, nw: null, toasts: [], qr: false, menu: false, themeO: null, retry: null };
+
+  componentDidMount() {
+    const el = this.rootRef.current;
+    if (el && window.ResizeObserver) { this.ro = new ResizeObserver(en => { const w = Math.round(en[0].contentRect.width); if (w !== this.state.w) this.setState({ w }); }); this.ro.observe(el); }
+  }
+  componentWillUnmount() { this.ro && this.ro.disconnect(); }
+  componentDidUpdate(pp) {
+    if (pp.estado !== this.props.estado && this.state.retry) this.setState({ retry: null });
+    if (pp.tema !== this.props.tema && this.state.themeO) this.setState({ themeO: null });
+  }
+  toast(text, kind) {
+    const id = Math.random();
+    this.setState(s => ({ toasts: [...s.toasts, { id, text, kind: kind || 'success' }] }));
+    setTimeout(() => this.setState(s => ({ toasts: s.toasts.filter(t => t.id !== id) })), 3200);
+  }
+  cust(id) { return this.state.customers.find(c => c.id === id) || { name: 'Cliente', phone: '' }; }
+  slots(proId, date, dur, excl) {
+    if (date < TODAY_KEY) return [];
+    const dow = parse(date).getDay(), ints = WORK[proId][dow] || [];
+    const busy = this.state.appts.filter(a => a.professionalId === proId && a.date === date && a.status !== 'Cancelled' && a.id !== excl);
+    const bl = BLOCKS.filter(b => b.proId === proId && b.date === date);
+    const out = [];
+    ints.forEach(([s, e]) => { for (let t = s; t + dur <= e; t += 15) { const end = t + dur; if (date === TODAY_KEY && t <= NOW_MIN) continue; if (busy.some(a => a.start < end && a.end > t)) continue; if (bl.some(b => b.start < end && b.end > t)) continue; if (this.state.taken.includes(proId + '|' + date + '|' + t)) continue; out.push(t); } });
+    return out;
+  }
+  nextWithSlots(proId, from, dur, excl) { for (let i = 1; i <= 30; i++) { const k = addDays(from, i); if (this.slots(proId, k, dur, excl).length) return k; } return null; }
+  groups(list, sel, pick) {
+    return [['Manhã', 0, 720], ['Tarde', 720, 1080], ['Noite', 1080, 1440]].map(([label, a, b]) => ({ label, slots: list.filter(t => t >= a && t < b).map(t => { const on = t === sel; return { label: hm(t), bg: on ? 'var(--primary)' : 'var(--surface)', fg: on ? 'var(--on-primary)' : 'var(--text)', border: on ? 'var(--primary)' : 'var(--border-strong)', onClick: () => pick(t) }; }) })).filter(g => g.slots.length);
+  }
+  strip(start, n, sel, pick, o) {
+    const out = [];
+    for (let i = 0; i < n; i++) {
+      const k = addDays(start, i), d = parse(k), dow = d.getDay(), closed = dow === 0, past = k < TODAY_KEY;
+      const dis = (o.past && past) || (o.closed && closed), on = k === sel, isT = k === TODAY_KEY;
+      let sub;
+      if (o.count) { const c = o.count(k); sub = closed ? 'Fechado' : c ? c + ' agend.' : '—'; } else sub = closed ? 'Fechado' : isT ? 'Hoje' : '';
+      out.push({ key: k, dow: DOW[dow], day: String(d.getDate()), sub, bg: on ? 'var(--primary)' : 'var(--surface)', fg: on ? 'var(--on-primary)' : 'var(--text)', subFg: on ? 'var(--on-primary)' : 'var(--text-2)', border: on || isT ? 'var(--primary)' : 'var(--border)', opacity: dis ? 0.4 : 1, cursor: dis ? 'not-allowed' : 'pointer', onClick: () => { if (!dis) pick(k); } });
+    }
+    return out;
+  }
+  deco(a) {
+    const c = this.cust(a.customerId), sv = SVC[a.serviceId], p = PRO[a.professionalId], st = STATUS[a.status];
+    return { ...a, customerName: c.name, customerFirst: c.name.split(' ')[0], customerPhone: c.phone, customerInitials: initials(c.name), serviceName: sv.name, proName: p.name, proShort: p.short, duration: (a.end - a.start) + ' min', timeRange: hm(a.start) + ' – ' + hm(a.end), startLabel: hm(a.start), endLabel: hm(a.end), price: brl(a.priceCharged), dateLabel: longDate(a.date), dateShort: brDate(a.date), sLabel: st.label, sBg: 'var(--' + st.v + '-bg)', sFg: 'var(--' + st.v + '-fg)', sDot: 'var(--' + st.v + '-dot)', originLabel: a.origin === 'Online' ? 'Online' : 'Manual', originIcon: a.origin === 'Online' ? 'language' : 'edit_calendar', strike: a.status === 'Cancelled' ? 'line-through' : 'none', opacity: a.status === 'Cancelled' ? 0.65 : 1, onOpen: () => this.setState({ sel: a.id, mode: 'details', confirm: null, rs: null }) };
+  }
+  setStatus(id, st, msg) { this.setState(s => ({ appts: s.appts.map(a => a.id === id ? { ...a, status: st } : a), confirm: null })); this.toast(msg); }
+  load(key) { setTimeout(() => this.setState(s => s[key] ? { [key]: { ...s[key], loading: false } } : null), 450); }
+  startRs(a) {
+    const d = a.date >= TODAY_KEY && parse(a.date).getDay() !== 0 ? a.date : addDays(TODAY_KEY, 0);
+    this.setState({ mode: 'reschedule', rs: { date: d, slot: null, loading: true, error: null, conflicted: false } }); this.load('rs');
+  }
+  pickRs(k) { this.setState(s => ({ rs: { ...s.rs, date: k, slot: null, loading: true, error: null } })); this.load('rs'); }
+  updNw(p) { this.setState(s => s.nw ? { nw: { ...s.nw, ...p } } : null); }
+  openNew() {
+    let d = this.state.date >= TODAY_KEY ? this.state.date : TODAY_KEY; while (parse(d).getDay() === 0) d = addDays(d, 1);
+    this.setState({ nw: { step: 0, q: '', customerId: null, form: false, name: '', phone: '', email: '', serviceId: null, proId: null, date: d, slot: null, loading: false, error: null, conflicted: false, skippedPro: false }, menu: false, sel: null });
+  }
+
+  renderVals() {
+    const s = this.state, P = this.props;
+    const role = P.papel === 'Employee' ? 'employee' : 'owner';
+    const theme = s.themeO || (P.tema === 'Escuro' ? 'dark' : 'light');
+    const vz = P.visualizacao || 'Auto';
+    const forced = vz === 'Mobile (390)';
+    const mobile = forced || (vz === 'Auto' && s.w < 760);
+    const est = s.retry || ({ Normal: 'normal', Carregando: 'loading', Vazio: 'empty', Erro: 'error' })[P.estado] || 'normal';
+    let screen = s.screen || (role === 'owner' ? 'dashboard' : 'agenda');
+    if (role === 'employee' && screen === 'dashboard') screen = 'agenda';
+    let view = s.view; if (mobile && view === 'semana') view = 'lista';
+    const go = id => { if (id === 'dashboard' || id === 'agenda') this.setState({ screen: id, menu: false }); else this.toast('Esta tela entra na próxima rodada do design.', 'info'); };
+    const navDefs = role === 'owner'
+      ? [['dashboard', 'Dashboard', 'space_dashboard'], ['agenda', 'Agenda', 'calendar_month'], ['clientes', 'Clientes', 'group'], ['servicos', 'Serviços', 'content_cut'], ['profissionais', 'Profissionais', 'badge'], ['config', 'Configurações', 'settings']]
+      : [['agenda', 'Agenda', 'calendar_month'], ['clientes', 'Clientes', 'group'], ['servicos', 'Serviços', 'content_cut'], ['profissionais', 'Profissionais', 'badge']];
+    const navItems = navDefs.map(([id, label, icon]) => { const on = id === screen; return { label, icon, bg: on ? 'var(--primary-soft)' : 'transparent', fg: on ? 'var(--primary-text)' : 'var(--text-2)', fill: on ? 1 : 0, weight: on ? 700 : 500, onClick: () => go(id) }; });
+    const mobDefs = role === 'owner'
+      ? [['dashboard', 'Início', 'home'], ['agenda', 'Agenda', 'calendar_month'], ['clientes', 'Clientes', 'group'], ['servicos', 'Serviços', 'content_cut'], ['mais', 'Mais', 'menu']]
+      : [['agenda', 'Agenda', 'calendar_month'], ['clientes', 'Clientes', 'group'], ['servicos', 'Serviços', 'content_cut'], ['profissionais', 'Equipe', 'badge']];
+    const mobileNav = mobDefs.map(([id, label, icon]) => { const on = id === screen; return { label, icon, fg: on ? 'var(--primary-text)' : 'var(--text-2)', fill: on ? 1 : 0, pill: on ? 'var(--primary-soft)' : 'transparent', onClick: () => id === 'mais' ? this.setState({ menu: true }) : go(id) }; });
+    const copyLink = () => { try { navigator.clipboard && navigator.clipboard.writeText('https://agendly.com/barbearia-do-ze').catch(() => { }); } catch (e) { } this.toast('Link copiado'); };
+
+    // Dashboard
+    const pd = PERIODS[s.period];
+    const rev = pd.svc.reduce((a, [id, c]) => a + c * SVC[id].price, 0), comp = pd.svc.reduce((a, x) => a + x[1], 0);
+    const badUp = [0, 0, 0, 0, 0, 1, 1];
+    const kdefs = [['Faturamento', brl(rev), 'payments'], ['Atendimentos concluídos', String(comp), 'task_alt'], ['Clientes únicos', String(pd.uniq), 'person'], ['Novos clientes', String(pd.newC), 'person_add'], ['Ticket médio', brl(comp ? rev / comp : 0), 'receipt_long'], ['Cancelamentos', String(pd.canc), 'event_busy'], ['Faltas (no-show)', String(pd.ns), 'person_off']];
+    const kpis = kdefs.map(([label, value, icon], i) => { const d = pd.dl[i], good = d === 0 ? null : (badUp[i] ? d < 0 : d > 0); return { label, value, icon, delta: (d > 0 ? '+' : d < 0 ? '−' : '') + Math.abs(d) + '%', dIcon: d > 0 ? 'trending_up' : d < 0 ? 'trending_down' : 'trending_flat', dFg: good === null ? 'var(--text-2)' : good ? 'var(--done-fg)' : 'var(--noshow-fg)', dBg: good === null ? 'var(--surface-2)' : good ? 'var(--done-bg)' : 'var(--noshow-bg)' }; });
+    const byRev = s.chart === 'receita';
+    const sd = pd.svc.map(([id, c]) => ({ name: SVC[id].name, c, r: c * SVC[id].price })).sort((a, b) => byRev ? b.r - a.r : b.c - a.c);
+    const mxS = Math.max(...sd.map(x => byRev ? x.r : x.c), 1);
+    const svcRows = sd.map(x => ({ name: x.name, value: byRev ? brl(x.r) : x.c + ' atend.', sub: byRev ? x.c + ' atend.' : brl(x.r), pct: Math.round((byRev ? x.r : x.c) / mxS * 100) }));
+    const prd = pd.pros.map(([id, c, r]) => ({ name: PRO[id].name, initials: initials(PRO[id].name), c, r })).sort((a, b) => byRev ? b.r - a.r : b.c - a.c);
+    const mxP = Math.max(...prd.map(x => byRev ? x.r : x.c), 1);
+    const proRows = prd.map(x => ({ name: x.name, initials: x.initials, value: byRev ? brl(x.r) : x.c + ' atend.', sub: byRev ? x.c + ' atend.' : brl(x.r), pct: Math.round((byRev ? x.r : x.c) / mxP * 100) }));
+    let ins;
+    if (s.period === '7d') ins = ['Seu faturamento aumentou 12% em relação ao período anterior.', 'Corte degradê foi o serviço mais realizado neste período, com 34 atendimentos.', 'O horário entre 18h e 20h é o período de maior movimento.', 'Você teve 8 novos clientes neste período.'];
+    else { const top = [...pd.svc].sort((a, b) => b[1] - a[1])[0], d = pd.dl[0], h = s.period === 'hoje'; ins = ['Seu faturamento ' + (d >= 0 ? 'aumentou ' : 'diminuiu ') + Math.abs(d) + '% em relação ao período anterior.', SVC[top[0]].name + ' foi o serviço mais realizado ' + (h ? 'hoje' : 'neste período') + ', com ' + top[1] + ' atendimentos.', 'O horário entre 18h e 20h é o período de maior movimento.', 'Você teve ' + pd.newC + ' novos clientes ' + (h ? 'hoje' : 'neste período') + '.']; }
+    const insIcons = ['trending_up', 'content_cut', 'schedule', 'person_add'];
+    const insights = ins.map((text, i) => ({ text, icon: insIcons[i % 4], border: i ? 'var(--border)' : 'transparent' }));
+    const upcoming = s.appts.filter(a => a.date === TODAY_KEY && (a.status === 'Scheduled' || a.status === 'Confirmed') && a.end > NOW_MIN).sort((a, b) => a.start - b.start).slice(0, 6).map(a => this.deco(a));
+
+    // Agenda
+    const vis = a => s.pro === 'all' || a.professionalId === s.pro;
+    const visPros = PROS.filter(p => s.pro === 'all' || p.id === s.pro);
+    const dayAppts = k => est === 'empty' ? [] : s.appts.filter(a => a.date === k && vis(a));
+    const stepN = view === 'semana' ? 7 : 1;
+    const wkStart = addDays(s.date, -parse(s.date).getDay());
+    const MS = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+    let dateLabel, dateSub;
+    if (view === 'semana') { const a = parse(wkStart), b = parse(addDays(wkStart, 6)); dateLabel = 'Semana de ' + a.getDate() + ' ' + MS[a.getMonth()] + ' a ' + b.getDate() + ' ' + MS[b.getMonth()]; dateSub = brDate(wkStart) + ' – ' + brDate(addDays(wkStart, 6)); }
+    else { dateLabel = longDate(s.date); dateSub = brDate(s.date) + (s.date === TODAY_KEY ? ' · Hoje' : ''); }
+    const viewDefs = mobile ? [['dia', 'Dia', 'view_column'], ['lista', 'Lista', 'view_agenda']] : [['dia', 'Dia', 'view_column'], ['semana', 'Semana', 'calendar_view_week'], ['lista', 'Lista', 'view_agenda']];
+    const viewOpts = viewDefs.map(([id, label, icon]) => seg(view === id, label, () => this.setState({ view: id }), icon));
+    const proChips = [{ id: 'all', label: 'Todos' }, ...PROS.map(p => ({ id: p.id, label: mobile ? p.short : p.name, initials: initials(p.name) }))].map(c => { const on = s.pro === c.id; return { label: c.label, initials: c.initials, showAv: !!c.initials, padL: c.initials ? 5 : 14, bg: on ? 'var(--primary-soft)' : 'var(--surface)', fg: on ? 'var(--primary-text)' : 'var(--text)', border: on ? 'var(--primary)' : 'var(--border-strong)', onClick: () => this.setState({ pro: c.id }) }; });
+    const legend = Object.values(STATUS).map(x => ({ label: x.label, bg: 'var(--' + x.v + '-bg)', dot: 'var(--' + x.v + '-dot)' })).concat([{ label: 'Bloqueio', bg: 'repeating-linear-gradient(135deg,var(--hatch) 0 2px,transparent 2px 5px)', dot: 'var(--border-strong)' }]);
+    const selDay = dayAppts(s.date), closedSel = parse(s.date).getDay() === 0;
+    const aEmpty = est === 'empty' || (est === 'normal' && view !== 'semana' && selDay.length === 0);
+    const ready = est === 'normal' && !aEmpty;
+    const HP = mobile ? 88 : 104, px = m => Math.round((m - DS * 60) * HP / 60), gridH = px(DE * 60);
+    const hours = range(DE - DS).map(i => ({ label: hm((DS + i) * 60), top: px((DS + i) * 60), half: px((DS + i) * 60 + 30) }));
+    const dow = parse(s.date).getDay();
+    const dayCols = visPros.map(p => {
+      const list = selDay.filter(a => a.professionalId === p.id).sort((a, b) => a.start - b.start).map(a => { const d = this.deco(a), h = Math.max(px(a.end) - px(a.start) - 2, 18); return { ...d, top: px(a.start) + 1, height: h, compact: h < 50, full: h >= 50, pad: h < 50 ? '0 8px' : '6px 8px' }; });
+      const ints = WORK[p.id][dow] || [], offs = []; let cur = DS * 60;
+      ints.forEach(([a, b]) => { if (a > cur) offs.push({ top: px(cur), height: px(a) - px(cur) }); cur = Math.max(cur, b); });
+      if (cur < DE * 60) offs.push({ top: px(cur), height: gridH - px(cur) });
+      const blocks = BLOCKS.filter(b => b.proId === p.id && b.date === s.date).map(b => ({ top: px(b.start), height: px(b.end) - px(b.start), reason: b.reason || 'Bloqueado', range: hm(b.start) + ' – ' + hm(b.end) }));
+      const n = list.filter(a => a.status !== 'Cancelled').length;
+      return { name: mobile ? p.short : p.name, initials: initials(p.name), count: mobile ? n + ' agend.' : n + (n === 1 ? ' agendamento' : ' agendamentos'), appts: list, offs, blocks };
+    });
+    dayCols.forEach(c => c.appts.forEach(a => { if (a.compact) a.pad = '0 8px'; }));
+    const WH = 56, wpx = m => Math.round((m - DS * 60) * WH / 60), lanes = visPros.length;
+    const weekDays = range(7).map(i => {
+      const k = addDays(wkStart, i), d = parse(k), isT = k === TODAY_KEY;
+      const items = dayAppts(k).map(a => { const li = visPros.findIndex(p => p.id === a.professionalId); return { ...this.deco(a), top: wpx(a.start) + 1, height: Math.max(wpx(a.end) - wpx(a.start) - 2, 14), left: (li * 100 / lanes).toFixed(3), width: (100 / lanes).toFixed(3) }; });
+      const blocks = BLOCKS.filter(b => b.date === k && (s.pro === 'all' || b.proId === s.pro)).map(b => { const li = visPros.findIndex(p => p.id === b.proId); return { reason: b.reason, top: wpx(b.start), height: wpx(b.end) - wpx(b.start), left: (li * 100 / lanes).toFixed(3), width: (100 / lanes).toFixed(3) }; });
+      return { dow: DOW[d.getDay()], day: String(d.getDate()), items, blocks, closed: d.getDay() === 0, colBg: d.getDay() === 0 ? 'var(--surface-2)' : 'transparent', dayBg: isT ? 'var(--primary)' : 'transparent', dayFg: isT ? 'var(--on-primary)' : 'var(--text)', onClick: () => this.setState({ date: k, view: 'dia' }) };
+    });
+    const weekHours = range(DE - DS).map(i => ({ label: hm((DS + i) * 60), top: wpx((DS + i) * 60) }));
+    const listItems = [...selDay].sort((a, b) => a.start - b.start).map(a => this.deco(a));
+    const act = listItems.filter(a => a.status !== 'Cancelled');
+    const listSummary = act.length + (act.length === 1 ? ' agendamento' : ' agendamentos') + ' · ' + brl(act.reduce((x, a) => x + a.priceCharged, 0)) + ' previstos';
+    const agStrip = this.strip(wkStart, 7, s.date, k => this.setState({ date: k }), { count: k => est === 'empty' ? 0 : s.appts.filter(a => a.date === k && a.status !== 'Cancelled' && vis(a)).length });
+
+    // Drawer
+    const selA = s.sel && s.appts.find(a => a.id === s.sel);
+    const d = selA ? this.deco(selA) : {};
+    const A = (label, icon, kind, onClick, span) => ({ label, icon, onClick, span: span || 'auto', bg: kind === 'primary' ? 'var(--primary)' : 'var(--surface)', fg: kind === 'primary' ? 'var(--on-primary)' : kind === 'danger' ? 'var(--danger-fg)' : 'var(--text)', border: kind === 'primary' ? 'var(--primary)' : kind === 'danger' ? 'var(--danger-border)' : 'var(--border-strong)' });
+    let dActions = [];
+    if (selA && (selA.status === 'Scheduled' || selA.status === 'Confirmed')) {
+      dActions = [
+        selA.status === 'Scheduled' ? A('Confirmar', 'check', 'primary', () => this.setStatus(selA.id, 'Confirmed', 'Agendamento confirmado'), '1 / -1') : A('Concluir atendimento', 'task_alt', 'primary', () => this.setStatus(selA.id, 'Completed', 'Atendimento concluído'), '1 / -1'),
+        A('Reagendar', 'event_repeat', 'secondary', () => this.startRs(selA)),
+        A('Marcar falta', 'person_off', 'secondary', () => this.setState({ confirm: 'noshow' })),
+        A('Cancelar agendamento', 'close', 'danger', () => this.setState({ confirm: 'cancel' }), '1 / -1')];
+    }
+    const finalText = { Completed: 'Atendimento concluído. Estados finais não podem ser alterados.', Cancelled: 'Agendamento cancelado. Estados finais não podem ser alterados.', NoShow: 'Cliente não compareceu. Estados finais não podem ser alterados.' };
+    const dRows = selA ? [{ icon: 'content_cut', label: 'Serviço', value: d.serviceName, sub: '' }, { icon: 'badge', label: 'Profissional', value: d.proName, sub: '' }, { icon: 'timer', label: 'Duração', value: d.duration, sub: '' }, { icon: 'payments', label: 'Preço cobrado', value: d.price, sub: 'Congelado no agendamento' }] : [];
+    let rsStrip = [], rsGroups = [], rsNoSlots = false, rsNext = null, rsLoading = false;
+    if (selA && s.mode === 'reschedule' && s.rs) {
+      const dur = selA.end - selA.start;
+      rsLoading = s.rs.loading;
+      const list = rsLoading ? [] : this.slots(selA.professionalId, s.rs.date, dur, selA.id);
+      rsStrip = this.strip(TODAY_KEY, 14, s.rs.date, k => this.pickRs(k), { past: true, closed: true });
+      rsGroups = this.groups(list, s.rs.slot, t => this.setState(st => ({ rs: { ...st.rs, slot: t, error: null } })));
+      rsNoSlots = !rsLoading && !list.length;
+      if (rsNoSlots) rsNext = this.nextWithSlots(selA.professionalId, s.rs.date, dur, selA.id);
+    }
+    const rsConfirm = () => {
+      const r = s.rs; if (!r || r.slot == null) return;
+      const dur = selA.end - selA.start;
+      if (P.simularConflito && !r.conflicted) {
+        this.setState(st => ({ taken: [...st.taken, selA.professionalId + '|' + r.date + '|' + r.slot], rs: { ...st.rs, slot: null, conflicted: true, loading: true, error: { title: 'Conflict', status: 409, errors: ['Este horário acabou de ser ocupado. Atualizamos a lista com os horários livres.'] } } }));
+        this.load('rs'); return;
+      }
+      this.setState(st => ({ appts: st.appts.map(a => a.id === selA.id ? { ...a, date: r.date, start: r.slot, end: r.slot + dur } : a), mode: 'details', rs: null, date: r.date }));
+      this.toast('Reagendado para ' + brDate(r.date) + ' às ' + hm(r.slot));
+    };
+    const rsSlot = s.rs && s.rs.slot != null;
+
+    // Confirm dialog
+    const cMap = selA ? { cancel: { t: 'Cancelar agendamento?', x: 'O horário das ' + d.startLabel + ' de ' + d.dateShort + ' com ' + d.customerName + ' será liberado na agenda. Essa ação não pode ser desfeita.', b: 'Cancelar agendamento', i: 'event_busy', st: 'Cancelled', m: 'Agendamento cancelado' }, noshow: { t: 'Marcar como falta?', x: d.customerName + ' não compareceu ao horário das ' + d.startLabel + '. O agendamento será encerrado e essa ação não pode ser desfeita.', b: 'Marcar falta', i: 'person_off', st: 'NoShow', m: 'Falta registrada' } } : {};
+    const cc = s.confirm && cMap[s.confirm];
+
+    // New appointment
+    const nw = s.nw;
+    let nwV = {};
+    if (nw) {
+      const titles = ['Quem é o cliente?', 'Qual serviço?', 'Com qual profissional?', 'Escolha data e horário', 'Revise e confirme'];
+      const cu = nw.customerId && this.cust(nw.customerId), sv = nw.serviceId && SVC[nw.serviceId], pr = nw.proId && PRO[nw.proId];
+      const q = nw.q.trim().toLowerCase(), qd = q.replace(/\D/g, '');
+      const custs = s.customers.filter(c => !q || c.name.toLowerCase().includes(q) || (qd && c.phone.replace(/\D/g, '').includes(qd))).slice(0, 30);
+      const phoneOk = nw.phone.replace(/\D/g, '').length >= 10, formOk = nw.name.trim().length >= 2 && phoneOk;
+      const ctx = [cu && cu.name, sv && sv.name, pr && pr.name].filter(Boolean).join(' · ');
+      let slotsL = [], groupsL = [], noSlots = false, nextK = null;
+      if (nw.step === 3 && pr && sv) {
+        slotsL = nw.loading ? [] : this.slots(pr.id, nw.date, sv.durationMinutes);
+        groupsL = this.groups(slotsL, nw.slot, t => this.updNw({ slot: t, error: null }));
+        noSlots = !nw.loading && !slotsL.length;
+        if (noSlots) nextK = this.nextWithSlots(pr.id, nw.date, sv.durationMinutes);
+      }
+      const create = () => {
+        if (P.simularConflito && !nw.conflicted) {
+          this.setState(st => ({ taken: [...st.taken, pr.id + '|' + nw.date + '|' + nw.slot], nw: { ...st.nw, step: 3, slot: null, conflicted: true, loading: true, error: { title: 'Conflict', status: 409, errors: ['Este horário acabou de ser ocupado por outro cliente. Escolha outro horário.'] } } }));
+          this.load('nw'); return;
+        }
+        const a = { id: 'n' + Date.now(), customerId: cu.id, professionalId: pr.id, serviceId: sv.id, date: nw.date, start: nw.slot, end: nw.slot + sv.durationMinutes, status: 'Scheduled', origin: 'Manual', priceCharged: sv.price };
+        this.setState(st => ({ appts: [...st.appts, a], nw: null, screen: 'agenda', date: nw.date }));
+        this.toast('Agendamento criado para ' + brDate(nw.date) + ' às ' + hm(nw.slot));
+      };
+      const saveCust = () => { if (!formOk) return; const id = 'c' + Date.now(); this.setState(st => ({ customers: [{ id, name: nw.name.trim(), phone: nw.phone, email: nw.email || null }, ...st.customers], nw: { ...st.nw, customerId: id, form: false, step: 1 } })); this.toast('Cliente cadastrado'); };
+      let primary = null, primaryLabel = '', canGo = false;
+      if (nw.step === 0 && nw.form) { primary = saveCust; primaryLabel = 'Salvar e continuar'; canGo = formOk; }
+      if (nw.step === 3) { primary = () => nw.slot != null && this.updNw({ step: 4 }); primaryLabel = 'Continuar'; canGo = nw.slot != null; }
+      if (nw.step === 4) { primary = create; primaryLabel = 'Criar agendamento'; canGo = true; }
+      nwV = {
+        nwStepNum: nw.step + 1, nwTitle: nw.step === 0 && nw.form ? 'Novo cliente' : titles[nw.step],
+        nwSteps: range(5).map(i => ({ bar: i <= nw.step ? 'var(--primary)' : 'var(--border)' })),
+        nwShowBack: nw.step > 0 || nw.form,
+        nwBack: () => { if (nw.step === 0) this.updNw({ form: false }); else if (nw.step === 3 && nw.skippedPro) this.updNw({ step: 1 }); else this.updNw({ step: nw.step - 1, error: null }); },
+        nwHasContext: nw.step > 0 && !!ctx, nwContext: ctx,
+        nwS0: nw.step === 0, nwS1: nw.step === 1, nwS2: nw.step === 2, nwS3: nw.step === 3, nwS4: nw.step === 4,
+        nwListMode: !nw.form, nwFormMode: nw.form,
+        nwQ: nw.q, nwOnQ: e => this.updNw({ q: e.target.value }),
+        nwToggleForm: () => this.updNw({ form: true, name: /\d/.test(nw.q) ? '' : nw.q, phone: /\d/.test(nw.q) ? maskPhone(nw.q) : '' }),
+        nwCustomers: custs.map(c => ({ name: c.name, phone: c.phone, initials: initials(c.name), bg: c.id === nw.customerId ? 'var(--primary-soft)' : 'transparent', onClick: () => this.updNw({ customerId: c.id, step: 1 }) })),
+        nwNoCustomers: !custs.length,
+        nwName: nw.name, nwPhone: nw.phone, nwEmail: nw.email,
+        nwOnName: e => this.updNw({ name: e.target.value }), nwOnPhone: e => this.updNw({ phone: maskPhone(e.target.value) }), nwOnEmail: e => this.updNw({ email: e.target.value }),
+        nwServices: SERVICES.filter(x => x.active).map(x => { const on = x.id === nw.serviceId; return { name: x.name, duration: x.durationMinutes + ' min', price: brl(x.price), bg: on ? 'var(--primary-soft)' : 'var(--surface)', border: on ? 'var(--primary)' : 'var(--border)', onClick: () => { const ps = PROS.filter(p => p.active && p.serviceIds.includes(x.id)); if (ps.length === 1) { this.updNw({ serviceId: x.id, proId: ps[0].id, step: 3, skippedPro: true, slot: null, loading: true }); this.load('nw'); } else this.updNw({ serviceId: x.id, step: 2, skippedPro: false, slot: null }); } }; }),
+        nwPros: sv ? PROS.filter(p => p.active && p.serviceIds.includes(sv.id)).map(p => { const on = p.id === nw.proId; const sl = this.slots(p.id, nw.date, sv.durationMinutes); return { name: p.name, initials: initials(p.name), next: sl.length ? 'Próximo: ' + hm(sl[0]) : 'Sem horários no dia', bg: on ? 'var(--primary-soft)' : 'var(--surface)', border: on ? 'var(--primary)' : 'var(--border)', onClick: () => { this.updNw({ proId: p.id, step: 3, slot: null, loading: true }); this.load('nw'); } }; }) : [],
+        nwStrip: this.strip(TODAY_KEY, 14, nw.date, k => { this.updNw({ date: k, slot: null, loading: true, error: null }); this.load('nw'); }, { past: true, closed: true }),
+        nwLoading: nw.step === 3 && nw.loading, nwGroups: groupsL, nwNoSlots: noSlots,
+        nwNextLabel: nextK ? 'Ver ' + DOWF[parse(nextK).getDay()].split('-')[0].toLowerCase() + ', ' + brDate(nextK).slice(0, 5) : 'Escolha outro dia',
+        nwNextDay: () => { if (nextK) { this.updNw({ date: nextK, slot: null, loading: true }); this.load('nw'); } },
+        nwHasErr: !!nw.error, nwErrors: nw.error ? nw.error.errors : [],
+        nwSummary: (cu && sv && pr && nw.slot != null) ? [['Cliente', cu.name], ['WhatsApp', cu.phone], ['Serviço', sv.name], ['Profissional', pr.name], ['Data', longDate(nw.date) + ' · ' + brDate(nw.date)], ['Horário', hm(nw.slot) + ' – ' + hm(nw.slot + sv.durationMinutes)], ['Duração', sv.durationMinutes + ' min'], ['Preço', brl(sv.price)]].map(([label, value], i, arr) => ({ label, value, border: i ? 'var(--border)' : 'transparent', bg: i === arr.length - 1 ? 'var(--surface-2)' : 'var(--surface)', weight: i === arr.length - 1 ? 700 : 600, size: i === arr.length - 1 ? 17 : 14 })) : [],
+        nwHasFooter: !!primary, nwPrimary: () => canGo && primary && primary(), nwPrimaryLabel: primaryLabel, nwOpacity: canGo ? 1 : 0.45, nwCursor: canGo ? 'pointer' : 'not-allowed'
+      };
+    }
+
+    const toastIcons = { success: ['check_circle', 'var(--done-dot)'], info: ['info', 'var(--primary)'], error: ['error', 'var(--noshow-dot)'] };
+    return {
+      rootRef: this.rootRef, theme,
+      frameMax: forced ? '390px' : '100%', frameH: forced ? '844px' : '100vh', frameMargin: forced ? '24px auto' : '0', frameRadius: forced ? '28px' : '0', frameShadow: forced ? 'var(--shadow-lg)' : 'none', shellDir: mobile ? 'column' : 'row',
+      isMobile: mobile, isDesktop: !mobile, contentPad: mobile ? '16px 16px 24px' : '28px 32px 40px',
+      navItems, mobileNav, copyLink,
+      userName: role === 'owner' ? 'Zé Carlos' : 'Rafael Souza', userInitials: role === 'owner' ? 'ZC' : 'RS', userRole: role === 'owner' ? 'Proprietário' : 'Funcionário', userEmail: role === 'owner' ? 'ze@barbeariadoze.com.br' : 'rafael@barbeariadoze.com.br',
+      menuOpen: s.menu, toggleMenu: () => this.setState({ menu: !s.menu }), closeMenu: () => this.setState({ menu: false }), menuTop: mobile ? '58px' : '62px',
+      toggleTheme: () => this.setState({ themeO: theme === 'dark' ? 'light' : 'dark', menu: false }), themeLabel: theme === 'dark' ? 'Tema claro' : 'Tema escuro', themeIcon: theme === 'dark' ? 'light_mode' : 'dark_mode',
+      logout: () => { this.setState({ menu: false }); this.toast('A tela de login entra na próxima rodada.', 'info'); },
+      qrOpen: s.qr, openQr: () => this.setState({ qr: true }), closeQr: () => this.setState({ qr: false }), downloadQr: () => { this.setState({ qr: false }); this.toast('QR Code baixado'); },
+      isDash: screen === 'dashboard', isAgenda: screen === 'agenda', goAgenda: () => go('agenda'),
+      periodLabel: PERIOD_LABEL[s.period] + (s.period === 'hoje' ? '' : ' · comparado ao período anterior'),
+      periodOpts: [['hoje', 'Hoje'], ['7d', '7 dias'], ['30d', '30 dias'], ['mes', 'Mês atual'], ['custom', 'Personalizado']].map(([id, l]) => seg(id === s.period, l, () => this.setState({ period: id }))),
+      isCustom: s.period === 'custom' && est === 'normal',
+      dLoading: est === 'loading', dError: est === 'error', dEmpty: est === 'empty', dReady: est === 'normal',
+      dErr: { title: 'Não foi possível carregar o dashboard', status: 500, errors: ['Ocorreu um erro ao calcular as métricas do período. Tente novamente em instantes.'] },
+      retry: () => { this.setState({ retry: 'loading' }); setTimeout(() => this.setState({ retry: 'normal' }), 900); },
+      kpiMin: mobile ? '150px' : '175px', sk7: range(7), sk6: range(6), sk12: range(12),
+      kpis, svcRows, proRows, chartOpts: [seg(byRev, 'Receita', () => this.setState({ chart: 'receita' })), seg(!byRev, 'Quantidade', () => this.setState({ chart: 'qtd' }))], chartSub: byRev ? 'Receita no período' : 'Atendimentos concluídos no período',
+      insights, upcoming, noUpcoming: !upcoming.length,
+      h1Size: mobile ? 20 : 26, dateLabel, dateSub,
+      prevDate: () => this.setState(st => ({ date: addDays(st.date, -stepN) })), nextDate: () => this.setState(st => ({ date: addDays(st.date, stepN) })), goToday: () => this.setState({ date: TODAY_KEY }),
+      openNew: () => this.openNew(), showFab: mobile && screen === 'agenda' && !s.nw && !selA,
+      viewOpts, proChips, legend, showLegend: !mobile,
+      showStrip: est !== 'error' && (view === 'lista' || (mobile && view === 'dia')), agStrip,
+      aError: est === 'error', aErr: { title: 'Não foi possível carregar a agenda', status: 500, errors: ['Ocorreu um erro ao buscar os agendamentos. Verifique sua conexão e tente novamente.'] },
+      aLoading: est === 'loading', aEmpty: aEmpty && est !== 'error' && est !== 'loading',
+      emptyIcon: closedSel && est !== 'empty' ? 'storefront' : 'event_available',
+      emptyTitle: closedSel && est !== 'empty' ? 'Fechado aos domingos' : 'Nenhum agendamento neste dia',
+      emptyText: closedSel && est !== 'empty' ? 'Nenhum profissional tem horário de trabalho neste dia.' : 'Crie um agendamento manual ou compartilhe seu link para que os clientes agendem sozinhos.',
+      showDay: ready && view === 'dia', showWeek: est === 'normal' && view === 'semana', showList: ready && view === 'lista',
+      stickyTop: mobile ? '-16px' : '-28px', gutter: mobile ? 44 : 60, colHeadPad: mobile ? '8px' : '12px 14px', colAv: mobile ? 28 : 34,
+      dayCols, hours, gridH, nowTop: px(NOW_MIN), showNow: s.date === TODAY_KEY,
+      weekDays, weekHours, weekGridH: wpx(DE * 60), weekHint: 'Clique em um dia para abrir a visão detalhada. As faixas de cada dia seguem a ordem: ' + visPros.map(p => p.short).join(', ') + '.',
+      listItems, listSummary,
+      drawerOpen: !!selA, closeDrawer: () => this.setState({ sel: null, rs: null, mode: 'details' }), drawerW: mobile ? '100%' : '440px',
+      drawerTitle: s.mode === 'reschedule' ? 'Reagendar' : 'Detalhes do agendamento',
+      isDetails: !!selA && s.mode === 'details', isResched: !!selA && s.mode === 'reschedule', d,
+      waHref: selA ? 'https://wa.me/55' + (d.customerPhone || '').replace(/\D/g, '') : '#',
+      dRows, dActions, hasActions: dActions.length > 0, dFinal: !!selA && !dActions.length, dFinalText: selA ? finalText[selA.status] : '',
+      backToDetails: () => this.setState({ mode: 'details', rs: null }),
+      rsStrip, rsGroups, rsLoading, rsNoSlots, rsNextLabel: rsNext ? 'Ver próximo dia livre: ' + brDate(rsNext).slice(0, 5) : 'Escolha outro dia', rsNextDay: () => rsNext && this.pickRs(rsNext),
+      rsHasErr: !!(s.rs && s.rs.error), rsErrors: s.rs && s.rs.error ? s.rs.error.errors : [],
+      rsConfirm, rsOpacity: rsSlot ? 1 : 0.45, rsCursor: rsSlot ? 'pointer' : 'not-allowed', rsBtnLabel: rsSlot ? 'Reagendar para ' + brDate(s.rs.date).slice(0, 5) + ' às ' + hm(s.rs.slot) : 'Escolha um horário',
+      confirmOpen: !!cc, cTitle: cc ? cc.t : '', cText: cc ? cc.x : '', cBtn: cc ? cc.b : '', cIcon: cc ? cc.i : 'warning',
+      cCancel: () => this.setState({ confirm: null }), cOk: () => cc && this.setStatus(selA.id, cc.st, cc.m),
+      nwOpen: !!nw, closeNew: () => this.setState({ nw: null }),
+      nwTop: mobile ? '0' : '50%', nwLeft: mobile ? '0' : '50%', nwTransform: mobile ? 'none' : 'translate(-50%,-50%)', nwW: mobile ? '100%' : 'min(560px, calc(100% - 48px))', nwH: mobile ? '100%' : 'min(720px, calc(100% - 48px))', nwRadius: mobile ? '0' : '18px',
+      ...nwV,
+      toasts: s.toasts.map(t => ({ text: t.text, icon: toastIcons[t.kind][0], iconColor: toastIcons[t.kind][1] })),
+      toastLeft: mobile ? '16px' : 'auto', toastRight: mobile ? '16px' : '24px', toastBottom: mobile ? '84px' : '24px', toastAlign: mobile ? 'stretch' : 'flex-end', toastW: mobile ? 'auto' : 'auto'
+    };
+  }
+}
+</script>
+</body>
+</html>

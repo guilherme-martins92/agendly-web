@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Cliente gerado pelo orval (npm run api:gen): não é editado à mão
+    "src/lib/api/generated/**",
+    // Protótipos exportados do Claude Design (referência visual, não fazem parte do app)
+    "design/**",
   ]),
 ]);
 
