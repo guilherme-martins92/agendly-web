@@ -42,7 +42,8 @@ export function BackofficeShell({ children }: { children: ReactNode }) {
 
   const session = useMemo<BackofficeSession | null>(() => {
     if (!userQuery.data || !businessQuery.data || !role) return null;
-    return { user: userQuery.data, business: businessQuery.data, role, isOwner: role === "Owner" };
+    const isOwner = role === "Owner";
+    return { user: userQuery.data, business: businessQuery.data, role, isOwner, canManageCatalog: isOwner };
   }, [userQuery.data, businessQuery.data, role]);
 
   const failed = !unauthorized && (userQuery.isError || businessQuery.isError);
