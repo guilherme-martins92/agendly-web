@@ -1,6 +1,6 @@
 import "server-only";
 
-import type { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 /**
  * Sessão do backoffice guardada em cookies httpOnly (inacessíveis a scripts no navegador).
@@ -20,8 +20,65 @@ export type Tokens = { accessToken: string; refreshToken: string };
 
 export function apiUrl(path: string) {
   const base = process.env.API_URL;
-  if (!base) throw new Error("API_URL não configurada (ver .env.example).");
+  if (!base) throw new ApiUnavailableError("API_URL não configurada (ver .env.example).");
   return new URL(path, base).toString();
+}
+
+/** A API não pôde ser alcançada (fora do ar, endereço errado ou redirecionando para outro endereço). */
+export class ApiUnavailableError extends Error {
+  constructor(message: string, options?: ErrorOptions) {
+    super(message, options);
+    this.name = "ApiUnavailableError";
+  }
+}
+
+/**
+ * fetch do servidor para a API. Nunca segue redirecionamentos: um 3xx indica API_URL apontando
+ * para o endereço errado (ex.: API no perfil HTTPS redirecionando http → https com certificado
+ * de desenvolvimento, que o Node recusa), e seguir às cegas escondia o problema num erro 500.
+ */
+export async function fetchApi(url: string, init: RequestInit): Promise<Response> {
+  let response: Response;
+
+  try {
+    response = await fetch(url, { ...init, cache: "no-store", redirect: "manual" });
+  } catch (cause) {
+    throw new ApiUnavailableError(`Não foi possível conectar à API em ${process.env.API_URL}. Ela está no ar?`, { cause });
+  }
+
+  if (response.status >= 300 && response.status < 400) {
+    const location = response.headers.get("location") ?? "outro endereço";
+    throw new ApiUnavailableError(
+      `A API em ${process.env.API_URL} redirecionou para ${location}. Suba a API com o perfil "http" ` +
+        `(dotnet run --launch-profile http) ou ajuste API_URL no .env.local.`,
+    );
+  }
+
+  return response;
+}
+
+/** Envolve um route handler: API inalcançável vira 502 com mensagem clara, em vez de um 500 genérico. */
+export function withApiErrors<Args extends unknown[]>(handler: (...args: Args) => Promise<Response>) {
+  return async (...args: Args): Promise<Response> => {
+    try {
+      return await handler(...args);
+    } catch (error) {
+      if (error instanceof ApiUnavailableError) return apiUnavailableResponse(error);
+      throw error;
+    }
+  };
+}
+
+/** Resposta 502 no formato de erro da API. Em produção, sem detalhes de infraestrutura. */
+export function apiUnavailableResponse(error: ApiUnavailableError) {
+  console.error(`[agendly] ${error.message}`, error.cause ?? "");
+
+  const message =
+    process.env.NODE_ENV === "production"
+      ? "Serviço temporariamente indisponível. Tente novamente em instantes."
+      : error.message;
+
+  return NextResponse.json({ title: "Serviço indisponível", status: 502, errors: [message] }, { status: 502 });
 }
 
 const cookieOptions = {
@@ -67,11 +124,11 @@ export function refreshTokens(refreshToken: string): Promise<Tokens | null> {
   if (existing) return existing;
 
   const promise = (async () => {
-    const response = await fetch(apiUrl("/auth/refresh"), {
+    // Falha de conexão propaga (ApiUnavailableError): API fora do ar não deve derrubar a sessão
+    const response = await fetchApi(apiUrl("/auth/refresh"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refreshToken }),
-      cache: "no-store",
     });
 
     if (!response.ok) return null;

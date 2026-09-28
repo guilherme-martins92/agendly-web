@@ -4,9 +4,11 @@ import {
   REFRESH_COOKIE,
   apiUrl,
   clearSessionCookies,
+  fetchApi,
   isAccessTokenUsable,
   refreshTokens,
   setSessionCookies,
+  withApiErrors,
   type Tokens,
 } from "@/lib/server/session";
 
@@ -37,12 +39,10 @@ async function handler(request: NextRequest, ctx: RouteContext<"/api/bff/[...pat
   const body = request.method === "GET" || request.method === "HEAD" ? undefined : await request.arrayBuffer();
 
   const send = (token: string) =>
-    fetch(target, {
+    fetchApi(target, {
       method: request.method,
       headers: forwardHeaders(request, token),
       body,
-      cache: "no-store",
-      redirect: "manual",
     });
 
   let upstream = await send(accessToken);
@@ -71,12 +71,10 @@ function isAnonymousPath(path: string[]) {
 
 async function sendAnonymous(request: NextRequest, target: string) {
   const body = request.method === "GET" || request.method === "HEAD" ? undefined : await request.arrayBuffer();
-  return fetch(target, {
+  return fetchApi(target, {
     method: request.method,
     headers: forwardHeaders(request),
     body,
-    cache: "no-store",
-    redirect: "manual",
   });
 }
 
@@ -119,4 +117,6 @@ function unauthorized() {
   return response;
 }
 
-export { handler as GET, handler as POST, handler as PUT, handler as PATCH, handler as DELETE };
+const bff = withApiErrors(handler);
+
+export { bff as GET, bff as POST, bff as PUT, bff as PATCH, bff as DELETE };

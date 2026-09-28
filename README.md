@@ -15,7 +15,14 @@ O backend (.NET) fica no repositório `Agendly`.
 
 ## Como rodar
 
-Pré-requisito: a API do Agendly rodando (por padrão em `http://localhost:5023`).
+Pré-requisito: a API do Agendly rodando **no perfil `http`** (por padrão em `http://localhost:5023`):
+
+```bash
+dotnet run --project src/Host/Agendly.Api --launch-profile http   # no repositório Agendly
+```
+
+> No perfil `https`, a API redireciona `http → https` com o certificado de desenvolvimento do .NET, que o
+> Node recusa. O front detecta isso e mostra o erro "A API ... redirecionou para ...".
 
 ```bash
 cp .env.example .env.local   # API_URL=http://localhost:5023
