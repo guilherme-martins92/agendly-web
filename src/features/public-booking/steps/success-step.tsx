@@ -3,19 +3,8 @@
 import { Icon } from "@/components/icon";
 import { Button } from "@/components/ui/button";
 import type { AppointmentDetailsDto, BusinessDto } from "@/lib/api/generated/model";
-import { formatDate, toLocalDate, toLocalTime } from "@/lib/datetime";
+import { formatDate, formatLongDate, toLocalDate, toLocalTime } from "@/lib/datetime";
 import { formatBRL } from "@/lib/money";
-
-const MONTHS = [
-  "janeiro", "fevereiro", "março", "abril", "maio", "junho",
-  "julho", "agosto", "setembro", "outubro", "novembro", "dezembro",
-];
-const WEEKDAY_FULL = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
-
-function longDate(date: string) {
-  const d = new Date(`${date}T00:00:00Z`);
-  return `${WEEKDAY_FULL[d.getUTCDay()]}, ${d.getUTCDate()} de ${MONTHS[d.getUTCMonth()]}`;
-}
 
 /** Monta um .ics mínimo e dispara o download — funciona offline, sem chamar a API de novo. */
 function downloadIcs(booked: AppointmentDetailsDto, business: BusinessDto) {
@@ -80,7 +69,7 @@ export function SuccessStep({
           <div className="tabular text-[22px] font-bold">
             {start} – {end}
           </div>
-          <div className="mt-0.5 text-[14px] font-semibold">{longDate(date)}</div>
+          <div className="mt-0.5 text-[14px] font-semibold">{formatLongDate(date)}</div>
         </div>
         {[
           ["Serviço", booked.service.name],
