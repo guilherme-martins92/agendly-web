@@ -6,15 +6,9 @@ import { Button } from "@/components/ui/button";
 import { LoadError } from "@/components/ui/controls";
 import type { AvailableSlotDto } from "@/lib/api/generated/model";
 import { useGetPublicAvailabilitySummary, useGetPublicAvailableSlots } from "@/lib/api/generated/public/public";
-import { addDays, timeToMinutes, toLocalTime, todayIn } from "@/lib/datetime";
+import { MONTHS_PT, WEEKDAY_SHORT_PT, addDays, formatLongDate, timeToMinutes, toLocalTime, todayIn } from "@/lib/datetime";
 import { cn } from "@/lib/utils";
 
-const WEEKDAY_SHORT = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
-const WEEKDAY_FULL = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
-const MONTHS = [
-  "janeiro", "fevereiro", "março", "abril", "maio", "junho",
-  "julho", "agosto", "setembro", "outubro", "novembro", "dezembro",
-];
 const PERIODS = [
   { label: "Manhã", from: 0, to: 720 },
   { label: "Tarde", from: 720, to: 1080 },
@@ -24,11 +18,6 @@ const PERIODS = [
 const dow = (date: string) => new Date(`${date}T00:00:00Z`).getUTCDay();
 const startOfWeek = (date: string) => addDays(date, -dow(date));
 const dayOfMonth = (date: string) => Number(date.slice(8, 10));
-
-function longDate(date: string) {
-  const d = new Date(`${date}T00:00:00Z`);
-  return `${WEEKDAY_FULL[d.getUTCDay()]}, ${d.getUTCDate()} de ${MONTHS[d.getUTCMonth()]}`;
-}
 
 /** Passo 3: tira semanas do negócio no fuso dele, horários em grade por período. */
 export function DateTimeStep({
@@ -66,8 +55,8 @@ export function DateTimeStep({
   const weekEndDate = new Date(`${weekEnd}T00:00:00Z`);
   const monthLabel =
     weekStartDate.getUTCMonth() === weekEndDate.getUTCMonth()
-      ? `${MONTHS[weekStartDate.getUTCMonth()]} ${weekStartDate.getUTCFullYear()}`
-      : `${MONTHS[weekStartDate.getUTCMonth()].slice(0, 3)} – ${MONTHS[weekEndDate.getUTCMonth()].slice(0, 3)} ${weekEndDate.getUTCFullYear()}`;
+      ? `${MONTHS_PT[weekStartDate.getUTCMonth()]} ${weekStartDate.getUTCFullYear()}`
+      : `${MONTHS_PT[weekStartDate.getUTCMonth()].slice(0, 3)} – ${MONTHS_PT[weekEndDate.getUTCMonth()].slice(0, 3)} ${weekEndDate.getUTCFullYear()}`;
 
   return (
     <div className="flex flex-col gap-[18px]">
@@ -118,7 +107,7 @@ export function DateTimeStep({
                   disabled && "cursor-not-allowed opacity-40 line-through",
                 )}
               >
-                <span className="text-[11px] font-semibold tracking-[0.04em] uppercase opacity-80">{WEEKDAY_SHORT[dow(day)]}</span>
+                <span className="text-[11px] font-semibold tracking-[0.04em] uppercase opacity-80">{WEEKDAY_SHORT_PT[dow(day)]}</span>
                 <span className="tabular text-[19px] font-bold">{dayOfMonth(day)}</span>
                 <span className="text-[10px] font-semibold opacity-80">{closed ? "Fechado" : isToday ? "Hoje" : ""}</span>
               </button>
@@ -128,7 +117,7 @@ export function DateTimeStep({
       </div>
 
       <div className="text-[14px] font-semibold text-text-2">
-        {longDate(date)} · com {professionalName}
+        {formatLongDate(date)} · com {professionalName}
       </div>
 
       {slots.isError && <LoadError what="os horários" messages={slots.error?.errors} onRetry={() => slots.refetch()} />}

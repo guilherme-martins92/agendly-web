@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { ComingSoon } from "@/components/backoffice/page-header";
+import { AgendaScreen } from "@/features/agenda/agenda-screen";
 
 export const metadata: Metadata = { title: "Agenda" };
 
 export default function AgendaPage() {
-  return <ComingSoon title="Agenda" stage="agenda" />;
+  return <AgendaScreen />;
 }

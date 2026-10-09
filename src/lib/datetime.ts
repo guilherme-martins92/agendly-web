@@ -103,3 +103,34 @@ export function formatDate(date: string) {
 export function formatInstantDate(instant: string | Date, timeZone: string) {
   return formatDate(toLocalDate(instant, timeZone));
 }
+
+export const WEEKDAY_SHORT_PT = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+const WEEKDAY_FULL_PT = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+export const MONTHS_PT = [
+  "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+  "julho", "agosto", "setembro", "outubro", "novembro", "dezembro",
+];
+
+/** "2026-10-05" → "Segunda-feira, 5 de outubro". */
+export function formatLongDate(date: string) {
+  const d = new Date(`${date}T00:00:00Z`);
+  return `${WEEKDAY_FULL_PT[d.getUTCDay()]}, ${d.getUTCDate()} de ${MONTHS_PT[d.getUTCMonth()]}`;
+}
+
+/** "Próximo horário: Hoje às 14:00" / "Amanhã às..." / "Seg, 05/10 às..." a partir de um instante UTC opcional. */
+export function nextAvailableLabel(instant: string | null | undefined, timeZone: string) {
+  if (!instant) return { text: "Sem horários nos próximos dias", available: false };
+
+  const localDate = toLocalDate(instant, timeZone);
+  const localTime = toLocalTime(instant, timeZone);
+  const today = todayIn(timeZone);
+  const weekday = new Date(`${localDate}T00:00:00Z`).getUTCDay();
+  const dayLabel =
+    localDate === today
+      ? "Hoje"
+      : localDate === addDays(today, 1)
+        ? "Amanhã"
+        : `${WEEKDAY_SHORT_PT[weekday]}, ${formatDate(localDate).slice(0, 5)}`;
+
+  return { text: `Próximo horário: ${dayLabel} às ${localTime}`, available: true };
+}
