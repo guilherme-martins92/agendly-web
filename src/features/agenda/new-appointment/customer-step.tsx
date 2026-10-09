@@ -7,7 +7,7 @@ import { Field, TextInput } from "@/components/ui/field";
 import { validateCustomer, type CustomerFormValues } from "@/features/public-booking/steps/customer-step";
 import type { CustomerListItemDto } from "@/lib/api/generated/model";
 import { useListCustomers } from "@/lib/api/generated/customers/customers";
-import { initials, maskPhone } from "@/lib/format";
+import { displayPhone, initials, maskPhone } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 export type NewCustomerValues = CustomerFormValues;
@@ -124,7 +124,7 @@ export function CustomerStep({
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block text-[15px] font-semibold">{c.name}</span>
-                <span className="tabular block text-[13px] font-medium text-text-2">{c.phone}</span>
+                <span className="tabular block text-[13px] font-medium text-text-2">{displayPhone(c.phone)}</span>
               </span>
               <Icon name="chevron_right" size={20} className="text-text-3" />
             </button>

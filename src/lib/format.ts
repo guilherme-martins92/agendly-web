@@ -19,6 +19,18 @@ export function maskPhone(value: string) {
   return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
 }
 
+/** Telefone salvo (às vezes com o DDI 55) → exibição com máscara, sem o DDI. */
+export function displayPhone(phone: string) {
+  const digits = phone.replace(/\D/g, "");
+  return maskPhone(digits.length > 11 && digits.startsWith("55") ? digits.slice(2) : digits);
+}
+
+/** Telefone salvo (com ou sem o DDI 55) → link do WhatsApp. */
+export function whatsappUrl(phone: string) {
+  const digits = phone.replace(/\D/g, "");
+  return `https://wa.me/${digits.length <= 11 ? `55${digits}` : digits}`;
+}
+
 /**
  * Converte um texto em slug no formato aceito pela API (^[a-z0-9]+(-[a-z0-9]+)*$).
  * Com `typing`, preserva o hífen final para não "comer" o que a pessoa está digitando.

@@ -10,6 +10,7 @@ import { errorMessages } from "@/lib/api/errors";
 import { createAppointment, getListAppointmentsQueryKey } from "@/lib/api/generated/appointments/appointments";
 import { createCustomer, getListCustomersQueryKey } from "@/lib/api/generated/customers/customers";
 import type { AppointmentDetailsDto, AvailableSlotDto, CustomerListItemDto, ServiceDto } from "@/lib/api/generated/model";
+import { displayPhone } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { DateTimePicker } from "../date-time-picker";
 import { CustomerStep, type NewCustomerValues } from "./customer-step";
@@ -63,7 +64,7 @@ export function NewAppointmentDialog({
   function pickExistingCustomer(customer: CustomerListItemDto) {
     setCustomerId(customer.id);
     setCustomerName(customer.name);
-    setCustomerPhone(customer.phone);
+    setCustomerPhone(displayPhone(customer.phone));
     setStep(1);
   }
 

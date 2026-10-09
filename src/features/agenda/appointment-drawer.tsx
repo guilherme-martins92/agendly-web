@@ -19,7 +19,7 @@ import {
   useRescheduleAppointment,
 } from "@/lib/api/generated/appointments/appointments";
 import { formatDate, toLocalDate, toLocalTime } from "@/lib/datetime";
-import { initials } from "@/lib/format";
+import { displayPhone, initials, whatsappUrl } from "@/lib/format";
 import { formatBRL, formatDuration } from "@/lib/money";
 import { DateTimePicker } from "./date-time-picker";
 
@@ -220,7 +220,6 @@ export function AppointmentDrawer({
 
 function DetailsBody({ appointment, timeZoneId }: { appointment: AppointmentDetailsDto; timeZoneId: string }) {
   const origin = ORIGIN[appointment.origin] ?? ORIGIN.Manual;
-  const phoneDigits = appointment.customer.phone?.replace(/\D/g, "") ?? "";
 
   const rows = [
     { icon: "content_cut" as const, label: "Serviço", value: appointment.service.name },
@@ -250,15 +249,17 @@ function DetailsBody({ appointment, timeZoneId }: { appointment: AppointmentDeta
         </div>
         <div className="min-w-0 flex-1">
           <div className="truncate text-[15px] font-bold">{appointment.customer.name}</div>
-          {appointment.customer.phone && <div className="tabular text-[13px] font-medium text-text-2">{appointment.customer.phone}</div>}
+          {appointment.customer.phone && (
+            <div className="tabular text-[13px] font-medium text-text-2">{displayPhone(appointment.customer.phone)}</div>
+          )}
         </div>
-        {phoneDigits && (
+        {appointment.customer.phone && (
           <Button
             variant="secondary"
             size="sm"
             className="h-10"
             nativeButton={false}
-            render={<a href={`https://wa.me/55${phoneDigits}`} target="_blank" rel="noopener noreferrer" />}
+            render={<a href={whatsappUrl(appointment.customer.phone)} target="_blank" rel="noopener noreferrer" />}
           >
             <Icon name="chat" size={18} />
             WhatsApp
