@@ -20,7 +20,7 @@ export function ProfessionalStep({
   serviceId: string;
   timeZoneId: string;
   selectedProfessionalId: string | null;
-  onPick: (professionalId: string, professionalName: string) => void;
+  onPick: (professionalId: string, professionalName: string, nextAvailableAt?: string | null) => void;
 }) {
   const summary = useGetPublicAvailabilitySummary(slug, { serviceId });
 
@@ -44,7 +44,7 @@ export function ProfessionalStep({
           <button
             key={professional.professionalId}
             type="button"
-            onClick={() => onPick(professional.professionalId, professional.professionalName)}
+            onClick={() => onPick(professional.professionalId, professional.professionalName, professional.nextAvailableAt)}
             className={cn(
               "flex min-h-[80px] items-center gap-3.5 rounded-2xl border px-4 py-3.5 text-left transition-colors",
               selected ? "border-2 border-brand" : "border-border-strong hover:border-text-3",

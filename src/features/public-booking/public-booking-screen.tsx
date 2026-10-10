@@ -16,7 +16,7 @@ import {
   useListPublicServices,
 } from "@/lib/api/generated/public/public";
 import { formatDuration } from "@/lib/money";
-import { todayIn, toLocalTime } from "@/lib/datetime";
+import { todayIn, toLocalDate, toLocalTime } from "@/lib/datetime";
 import { cn } from "@/lib/utils";
 import { BusinessIdentity } from "./business-identity";
 import { CustomerStep, validateCustomer, type CustomerFormValues } from "./steps/customer-step";
@@ -89,6 +89,14 @@ export function PublicBookingScreen({ slug, business }: { slug: string; business
     setStep(next);
   }
 
+  /** Dia em que o passo de data abre: o do próximo horário livre do profissional, ou hoje se ele não tiver nenhum. */
+  function firstDateFor(nextAvailableAt: string | null | undefined) {
+    const today = todayIn(business.timeZoneId);
+    if (!nextAvailableAt) return today;
+    const next = toLocalDate(nextAvailableAt, business.timeZoneId);
+    return next > today ? next : today;
+  }
+
   function goBack() {
     setFormError(null);
     setStep(flowIndex <= 0 ? 0 : flow[flowIndex - 1]);
@@ -117,7 +125,7 @@ export function PublicBookingScreen({ slug, business }: { slug: string; business
       if (professionals.length === 1) {
         setProfessionalId(professionals[0].professionalId);
         setProfessionalName(professionals[0].professionalName);
-        setDate(todayIn(business.timeZoneId));
+        setDate(firstDateFor(professionals[0].nextAvailableAt));
         setSlot(null);
         setStep(3);
         return;
@@ -129,11 +137,11 @@ export function PublicBookingScreen({ slug, business }: { slug: string; business
     }
   }
 
-  function pickProfessional(id: string, name: string) {
+  function pickProfessional(id: string, name: string, nextAvailableAt?: string | null) {
     setFormError(null);
     setProfessionalId(id);
     setProfessionalName(name);
-    setDate(todayIn(business.timeZoneId));
+    setDate(firstDateFor(nextAvailableAt));
     setSlot(null);
     setStep(3);
   }
