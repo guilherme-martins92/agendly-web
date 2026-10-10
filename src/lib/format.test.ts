@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { EMAIL_PATTERN, displayPhone, initials, maskPhone, slugify, whatsappUrl } from "./format";
+import { EMAIL_PATTERN, displayPhone, initials, isSlugLike, maskPhone, slugify, whatsappUrl } from "./format";
 
 describe("initials", () => {
   it("usa até duas iniciais em maiúsculo", () => {
@@ -66,6 +66,32 @@ describe("slugify", () => {
   it("não termina em hífen quando o corte de 50 caracteres cai logo depois de um", () => {
     const slug = slugify(`${"a".repeat(49)} bc`);
     expect(slug).toBe("a".repeat(49));
+  });
+});
+
+describe("isSlugLike", () => {
+  it("aceita slugs de negócio, em qualquer caixa", () => {
+    expect(isSlugLike("barbearia-do-ze")).toBe(true);
+    expect(isSlugLike("studio54")).toBe(true);
+    expect(isSlugLike("Barbearia-Do-Ze")).toBe(true);
+    expect(isSlugLike(slugify("Ótica São João"))).toBe(true);
+  });
+
+  it("recusa arquivos, caminhos e tentativas de sair do diretório", () => {
+    for (const value of ["robots.txt", "favicon.ico", "wp-login.php", "a/b", "x/../../users/me", "..", ".env", ""]) {
+      expect(isSlugLike(value)).toBe(false);
+    }
+  });
+
+  it("recusa hífen nas pontas ou repetido, espaços e acentos", () => {
+    for (const value of ["-abc", "abc-", "a--b", "a b", "salão"]) {
+      expect(isSlugLike(value)).toBe(false);
+    }
+  });
+
+  it("recusa o que passa de 50 caracteres", () => {
+    expect(isSlugLike("a".repeat(50))).toBe(true);
+    expect(isSlugLike("a".repeat(51))).toBe(false);
   });
 });
 

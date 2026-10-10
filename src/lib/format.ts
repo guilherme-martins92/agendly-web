@@ -50,4 +50,9 @@ export function slugify(value: string, typing = false) {
   return slug;
 }
 
+/** Um endereço tem a forma de um slug de negócio? Sem diferenciar maiúsculas, como num link digitado à mão. */
+export function isSlugLike(value: string) {
+  return value.length <= 50 && /^[a-z0-9]+(-[a-z0-9]+)*$/i.test(value);
+}
+
 export const EMAIL_PATTERN = /^\S+@\S+\.\S+$/;
