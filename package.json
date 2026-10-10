@@ -10,6 +10,8 @@
     "api:pull": "node scripts/pull-openapi.mjs",
     "api:gen": "orval --config orval.config.ts",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "visual-check": "node scripts/visual-check.mjs screenshots"
   },
   "dependencies": {
@@ -29,7 +31,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^22.20.5",
     "@types/qrcode": "^1.5.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -38,6 +40,7 @@
     "orval": "^7.21.0",
     "playwright": "^1.63.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^5.0.3"
   }
 }
