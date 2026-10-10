@@ -59,6 +59,14 @@ export function DashboardScreen() {
   const [custom, setCustom] = useState({ start: addDays(today, -29), end: today });
   const copyLink = useCopyPublicLink(business.slug);
 
+  // Campo de data limpo (valor vazio) é ignorado; uma data que inverteria o período arrasta a outra junto
+  function setCustomStart(start: string) {
+    if (start) setCustom((c) => ({ start, end: c.end < start ? start : c.end }));
+  }
+  function setCustomEnd(end: string) {
+    if (end) setCustom((c) => ({ start: c.start > end ? end : c.start, end }));
+  }
+
   const { start, end } = rangeFor(preset, today, custom);
   const periodLength = daysBetween(start, end) + 1;
   const previousEnd = addDays(start, -1);
@@ -104,7 +112,7 @@ export function DashboardScreen() {
               className="min-w-[170px]"
               value={custom.start}
               max={custom.end}
-              onChange={(e) => setCustom((c) => ({ ...c, start: e.target.value }))}
+              onChange={(e) => setCustomStart(e.target.value)}
             />
           </Field>
           <Field label="Fim" htmlFor="dash-end">
@@ -115,7 +123,7 @@ export function DashboardScreen() {
               value={custom.end}
               min={custom.start}
               max={today}
-              onChange={(e) => setCustom((c) => ({ ...c, end: e.target.value }))}
+              onChange={(e) => setCustomEnd(e.target.value)}
             />
           </Field>
         </div>

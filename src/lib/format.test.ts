@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { EMAIL_PATTERN, initials, maskPhone, slugify } from "./format";
+import { EMAIL_PATTERN, displayPhone, initials, maskPhone, slugify, whatsappUrl } from "./format";
 
 describe("initials", () => {
   it("usa até duas iniciais em maiúsculo", () => {
@@ -63,7 +63,40 @@ describe("slugify", () => {
     expect(slugify("a".repeat(60))).toHaveLength(50);
   });
 
-  it.todo("não termina em hífen quando o corte de 50 caracteres cai logo depois de um");
+  it("não termina em hífen quando o corte de 50 caracteres cai logo depois de um", () => {
+    const slug = slugify(`${"a".repeat(49)} bc`);
+    expect(slug).toBe("a".repeat(49));
+  });
+});
+
+describe("displayPhone", () => {
+  it("mostra o telefone salvo com máscara", () => {
+    expect(displayPhone("11912345678")).toBe("(11) 91234-5678");
+    expect(displayPhone("1134567890")).toBe("(11) 3456-7890");
+  });
+
+  it("remove o DDI 55 de celular e de fixo", () => {
+    expect(displayPhone("5511912345678")).toBe("(11) 91234-5678");
+    expect(displayPhone("551134567890")).toBe("(11) 3456-7890");
+    expect(displayPhone("+55 (11) 91234-5678")).toBe("(11) 91234-5678");
+  });
+
+  it("não confunde o DDD 55 com o DDI", () => {
+    expect(displayPhone("55912345678")).toBe("(55) 91234-5678");
+    expect(displayPhone("5534567890")).toBe("(55) 3456-7890");
+  });
+});
+
+describe("whatsappUrl", () => {
+  it("acrescenta o DDI 55 quando falta", () => {
+    expect(whatsappUrl("11912345678")).toBe("https://wa.me/5511912345678");
+    expect(whatsappUrl("(11) 3456-7890")).toBe("https://wa.me/551134567890");
+    expect(whatsappUrl("55912345678")).toBe("https://wa.me/5555912345678");
+  });
+
+  it("mantém o DDI quando o telefone já vem com ele", () => {
+    expect(whatsappUrl("5511912345678")).toBe("https://wa.me/5511912345678");
+  });
 });
 
 describe("EMAIL_PATTERN", () => {

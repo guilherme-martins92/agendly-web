@@ -6,8 +6,10 @@ import { useState } from "react";
 import { Icon } from "@/components/icon";
 import { Button } from "@/components/ui/button";
 import { AlertBanner } from "@/components/ui/field";
+import { ApiError } from "@/lib/api/api-error";
 import { errorMessages } from "@/lib/api/errors";
-import { createAppointment, getListAppointmentsQueryKey } from "@/lib/api/generated/appointments/appointments";
+import { createAppointment } from "@/lib/api/generated/appointments/appointments";
+import { invalidateAppointmentData } from "@/lib/api/invalidation";
 import { createCustomer, getListCustomersQueryKey } from "@/lib/api/generated/customers/customers";
 import type { AppointmentDetailsDto, AvailableSlotDto, CustomerListItemDto, ServiceDto } from "@/lib/api/generated/model";
 import { displayPhone } from "@/lib/format";
@@ -51,6 +53,8 @@ export function NewAppointmentDialog({
   const [customerFormMode, setCustomerFormMode] = useState(false);
   const [customerForm, setCustomerForm] = useState<NewCustomerValues>({ name: "", phone: "", email: "" });
   const [customerTried, setCustomerTried] = useState(false);
+  // Cliente cadastrado por este modal e os dados usados, para não cadastrar de novo ao repetir o envio
+  const [createdCustomer, setCreatedCustomer] = useState<{ id: string; key: string } | null>(null);
 
   const [service, setService] = useState<ServiceDto | null>(null);
   const [professionalId, setProfessionalId] = useState<string | null>(null);
@@ -87,24 +91,45 @@ export function NewAppointmentDialog({
     try {
       let finalCustomerId = customerId;
       if (!finalCustomerId) {
-        const created = await createCustomer({
+        const newCustomer = {
           name: customerForm.name.trim(),
           phone: customerForm.phone.replace(/\D/g, ""),
           email: customerForm.email.trim() || null,
-        });
-        finalCustomerId = created.id;
-        queryClient.invalidateQueries({ queryKey: getListCustomersQueryKey() });
+        };
+        const key = JSON.stringify(newCustomer);
+
+        // Nova tentativa depois de uma falha no agendamento: o cliente já foi cadastrado na anterior
+        if (createdCustomer?.key === key) {
+          finalCustomerId = createdCustomer.id;
+        } else {
+          const created = await createCustomer(newCustomer);
+          finalCustomerId = created.id;
+          setCreatedCustomer({ id: created.id, key });
+          queryClient.invalidateQueries({ queryKey: getListCustomersQueryKey() });
+        }
       }
 
-      const appointment = await createAppointment({
-        customerId: finalCustomerId,
-        professionalId,
-        serviceId: service.id,
-        startAt: slot.startAt,
-        origin: "Manual",
-      });
+      let appointment: AppointmentDetailsDto;
+      try {
+        appointment = await createAppointment({
+          customerId: finalCustomerId,
+          professionalId,
+          serviceId: service.id,
+          startAt: slot.startAt,
+          origin: "Manual",
+        });
+      } catch (appointmentError) {
+        if (appointmentError instanceof ApiError && appointmentError.isConflict) {
+          invalidateAppointmentData(queryClient);
+          setSlot(null);
+          setStep(3);
+          setError(["Esse horário acabou de ser ocupado. Escolha outro horário."]);
+          return;
+        }
+        throw appointmentError;
+      }
 
-      queryClient.invalidateQueries({ queryKey: getListAppointmentsQueryKey() });
+      invalidateAppointmentData(queryClient);
       onCreated(appointment);
       onClose();
     } catch (submitError) {
@@ -213,6 +238,7 @@ export function NewAppointmentDialog({
                 onPick={(d, s) => {
                   setDate(d);
                   setSlot(s);
+                  setError(null);
                 }}
               />
             )}

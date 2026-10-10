@@ -4,27 +4,21 @@ import { Icon } from "@/components/icon";
 import { Button } from "@/components/ui/button";
 import type { AppointmentDetailsDto, BusinessDto } from "@/lib/api/generated/model";
 import { formatDate, formatLongDate, toLocalDate, toLocalTime } from "@/lib/datetime";
+import { buildIcs } from "@/lib/ics";
 import { formatBRL } from "@/lib/money";
 
 /** Monta um .ics mínimo e dispara o download — funciona offline, sem chamar a API de novo. */
 function downloadIcs(booked: AppointmentDetailsDto, business: BusinessDto) {
-  const stamp = (instant: string) => `${instant.replace(/[-:]/g, "").split(".")[0]}Z`;
-  const lines = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//Agendly//PT-BR",
-    "BEGIN:VEVENT",
-    `UID:${booked.id}@agendly`,
-    `DTSTART:${stamp(booked.startAt)}`,
-    `DTEND:${stamp(booked.endAt)}`,
-    `SUMMARY:${booked.service.name} — ${business.name}`,
-    `DESCRIPTION:Com ${booked.professional.name}. Agendado via agendly.`,
-    ...(business.address ? [`LOCATION:${business.address.replace(/,/g, "\\,")}`] : []),
-    "END:VEVENT",
-    "END:VCALENDAR",
-  ].join("\r\n");
+  const ics = buildIcs({
+    uid: `${booked.id}@agendly`,
+    start: booked.startAt,
+    end: booked.endAt,
+    summary: `${booked.service.name} — ${business.name}`,
+    description: `Com ${booked.professional.name}. Agendado via agendly.`,
+    location: business.address,
+  });
 
-  const url = URL.createObjectURL(new Blob([lines], { type: "text/calendar" }));
+  const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
   const a = document.createElement("a");
   a.href = url;
   a.download = `agendamento-${business.slug}.ics`;

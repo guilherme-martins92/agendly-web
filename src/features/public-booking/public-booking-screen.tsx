@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button";
 import { AlertBanner } from "@/components/ui/field";
 import { ApiError } from "@/lib/api/api-error";
 import { errorMessages } from "@/lib/api/errors";
+import { invalidatePublicAvailability } from "@/lib/api/invalidation";
 import type { AppointmentDetailsDto, AvailableSlotDto, BusinessDto, ServiceDto } from "@/lib/api/generated/model";
 import {
   getGetPublicAvailabilitySummaryQueryOptions,
-  getGetPublicAvailableSlotsQueryKey,
   useCreatePublicAppointment,
   useGetPublicAvailabilitySummary,
   useListPublicServices,
@@ -155,17 +155,15 @@ export function PublicBookingScreen({ slug, business }: { slug: string; business
   const createAppointment = useCreatePublicAppointment({
     mutation: {
       onSuccess: (result) => {
+        // O horário recém-ocupado não pode reaparecer em "Fazer outro agendamento"
+        invalidatePublicAvailability(queryClient, slug);
         setBooked(result);
         setFormError(null);
         setStep(6);
       },
       onError: (error) => {
         if (error instanceof ApiError && error.isConflict) {
-          if (professionalId && serviceId) {
-            queryClient.invalidateQueries({
-              queryKey: getGetPublicAvailableSlotsQueryKey(slug, { professionalId, serviceId, date }),
-            });
-          }
+          invalidatePublicAvailability(queryClient, slug);
           setSlot(null);
           setStep(3);
           setFormError({

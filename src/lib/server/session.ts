@@ -131,13 +131,22 @@ export function refreshTokens(refreshToken: string): Promise<Tokens | null> {
       body: JSON.stringify({ refreshToken }),
     });
 
-    if (!response.ok) return null;
-    return (await response.json()) as Tokens;
-  })().finally(() => {
-    // Mantém o resultado por alguns segundos para requisições que chegarem logo depois
-    setTimeout(() => inflightRefresh.delete(refreshToken), 10_000);
-  });
+    if (response.ok) return (await response.json()) as Tokens;
+
+    // Só a recusa do token (4xx) encerra a sessão. Falha passageira da API (5xx) ou limite de
+    // requisições (429) não diz nada sobre o token: propaga como indisponibilidade.
+    if (response.status >= 500 || response.status === 429) {
+      throw new ApiUnavailableError(`A API respondeu ${response.status} ao renovar a sessão.`);
+    }
+    return null;
+  })();
 
   inflightRefresh.set(refreshToken, promise);
+  promise.then(
+    // Mantém o resultado por alguns segundos para requisições que chegarem logo depois
+    () => setTimeout(() => inflightRefresh.delete(refreshToken), 10_000),
+    // Falhou sem gastar o token: a próxima requisição pode tentar de novo
+    () => inflightRefresh.delete(refreshToken),
+  );
   return promise;
 }
