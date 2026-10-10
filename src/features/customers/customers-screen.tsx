@@ -23,23 +23,11 @@ import {
 } from "@/lib/api/generated/customers/customers";
 import type { CustomerListItemDto } from "@/lib/api/generated/model";
 import { formatInstantDate, toLocalTime } from "@/lib/datetime";
-import { EMAIL_PATTERN, initials, maskPhone } from "@/lib/format";
+import { displayPhone, EMAIL_PATTERN, initials, maskPhone, whatsappUrl } from "@/lib/format";
 import { formatBRL } from "@/lib/money";
 import { cn } from "@/lib/utils";
 
 const onlyDigits = (value: string) => value.replace(/\D/g, "");
-
-/** Telefone salvo só com dígitos → exibição com máscara (DDI 55 some da máscara). */
-function displayPhone(phone: string) {
-  const digits = onlyDigits(phone);
-  return maskPhone(digits.length > 11 && digits.startsWith("55") ? digits.slice(2) : digits);
-}
-
-/** Link do WhatsApp: números brasileiros sem DDI ganham o 55. */
-function whatsappUrl(phone: string) {
-  const digits = onlyDigits(phone);
-  return `https://wa.me/${digits.length <= 11 ? `55${digits}` : digits}`;
-}
 
 export function CustomersScreen() {
   const { canManageCatalog, business } = useSession();
