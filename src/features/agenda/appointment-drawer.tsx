@@ -9,9 +9,9 @@ import { StatusBadge } from "@/components/ui/controls";
 import { Drawer } from "@/components/ui/drawer";
 import { ConfirmDialog } from "@/components/ui/form-dialog";
 import { errorMessages } from "@/lib/api/errors";
+import { invalidateAppointmentData } from "@/lib/api/invalidation";
 import type { AppointmentDetailsDto, AppointmentStatus, AvailableSlotDto } from "@/lib/api/generated/model";
 import {
-  getListAppointmentsQueryKey,
   useCancelAppointment,
   useCompleteAppointment,
   useConfirmAppointment,
@@ -70,7 +70,7 @@ export function AppointmentDrawer({
     setWasClosed(true);
   }
 
-  const invalidate = () => queryClient.invalidateQueries({ queryKey: getListAppointmentsQueryKey() });
+  const invalidate = () => invalidateAppointmentData(queryClient);
 
   const settle = (status: AppointmentStatus, message: string) => ({
     onSuccess: () => {

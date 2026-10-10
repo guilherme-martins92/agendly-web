@@ -28,6 +28,12 @@ describe("parsePrice", () => {
 
   it("trata ponto como separador de milhar", () => {
     expect(parsePrice("1.234,50")).toBe(1234.5);
+    expect(parsePrice("1.234")).toBe(1234);
+  });
+
+  it("aceita ponto como separador decimal", () => {
+    expect(parsePrice("45.50")).toBe(45.5);
+    expect(parsePrice("45.5")).toBe(45.5);
   });
 
   it("ignora espaços nas pontas", () => {
@@ -58,7 +64,24 @@ describe("sanitizePriceInput", () => {
     expect(sanitizePriceInput("45,")).toBe("45,");
   });
 
-  it.todo("aceita ponto como separador decimal (hoje digitar 45.50 vira 4550)");
+  it("aceita ponto como separador decimal", () => {
+    expect(sanitizePriceInput("45.")).toBe("45,");
+    expect(sanitizePriceInput("45.5")).toBe("45,5");
+    expect(sanitizePriceInput("45.50")).toBe("45,50");
+  });
+
+  it("digitar 45.50 tecla a tecla resulta em 45,50", () => {
+    let value = "";
+    for (const key of "45.50") value = sanitizePriceInput(value + key);
+    expect(value).toBe("45,50");
+    expect(parsePrice(value)).toBe(45.5);
+  });
+
+  it("trata ponto como milhar quando há vírgula ou três casas depois dele", () => {
+    expect(sanitizePriceInput("1.234,50")).toBe("1234,50");
+    expect(sanitizePriceInput("1.234")).toBe("1234");
+    expect(sanitizePriceInput("1.234.567")).toBe("1234567");
+  });
 });
 
 describe("formatDuration", () => {

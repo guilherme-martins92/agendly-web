@@ -42,10 +42,12 @@ export function slugify(value: string, typing = false) {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/-+/g, "-")
-    .replace(/^-/, "");
+    .replace(/^-/, "")
+    .slice(0, 50);
 
+  // Depois do corte: ele pode deixar um hífen no fim
   if (!typing) slug = slug.replace(/-$/, "");
-  return slug.slice(0, 50);
+  return slug;
 }
 
 export const EMAIL_PATTERN = /^\S+@\S+\.\S+$/;

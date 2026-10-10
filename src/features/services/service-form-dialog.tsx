@@ -186,6 +186,10 @@ function ServiceForm({
             placeholder="0,00"
             value={draft.price}
             onChange={(e) => set({ price: sanitizePriceInput(e.target.value) })}
+            // Ao sair do campo, mostra o valor como será salvo ("45" → "45,00")
+            onBlur={() => {
+              if (!Number.isNaN(price)) set({ price: toPriceInput(price) });
+            }}
             className="tabular h-full min-w-0 flex-1 bg-transparent pr-3.5 pl-2 outline-none"
           />
         </div>
