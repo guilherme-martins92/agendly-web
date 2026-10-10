@@ -1,10 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import { Icon } from "@/components/icon";
+import { Button } from "@/components/ui/button";
 import { LoadError } from "@/components/ui/controls";
 import type { AvailableSlotDto } from "@/lib/api/generated/model";
 import { useGetAvailabilitySummary, useGetAvailableSlots } from "@/lib/api/generated/appointments/appointments";
-import { WEEKDAY_SHORT_PT, addDays, timeToMinutes, toLocalTime, todayIn } from "@/lib/datetime";
+import {
+  MONTHS_PT,
+  WEEKDAY_SHORT_PT,
+  addDays,
+  startOfWeek,
+  timeToMinutes,
+  toLocalTime,
+  todayIn,
+  weekdayOf,
+} from "@/lib/datetime";
 import { cn } from "@/lib/utils";
 
 const PERIODS = [
@@ -12,13 +23,20 @@ const PERIODS = [
   { label: "Tarde", from: 720, to: 1080 },
   { label: "Noite", from: 1080, to: 1440 },
 ];
-const STRIP_DAYS = 14;
 
 const dayOfMonth = (date: string) => Number(date.slice(8, 10));
-const weekday = (date: string) => new Date(`${date}T00:00:00Z`).getUTCDay();
+
+/** "outubro 2026", ou "set – out 2026" quando a semana atravessa o mês. */
+function weekLabel(weekStart: string) {
+  const [startYear, startMonth] = weekStart.split("-").map(Number);
+  const [endYear, endMonth] = addDays(weekStart, 6).split("-").map(Number);
+  return startMonth === endMonth
+    ? `${MONTHS_PT[startMonth - 1]} ${startYear}`
+    : `${MONTHS_PT[startMonth - 1].slice(0, 3)} – ${MONTHS_PT[endMonth - 1].slice(0, 3)} ${endYear}`;
+}
 
 /**
- * Tira de dias (14 a partir de hoje) + grade de horários livres por período.
+ * Semana navegável (a partir da atual, sem limite à frente) + grade de horários livres por período.
  * Usada no reagendamento (drawer) e no passo de data do novo agendamento.
  */
 export function DateTimePicker({
@@ -38,19 +56,41 @@ export function DateTimePicker({
 }) {
   const today = todayIn(timeZoneId);
 
-  const summary = useGetAvailabilitySummary({ serviceId, professionalId, days: STRIP_DAYS });
+  // Abre na semana da data selecionada (ex.: o dia que a agenda está mostrando), nunca antes da atual
+  const [weekStart, setWeekStart] = useState(() => startOfWeek(date > today ? date : today));
+
+  const summary = useGetAvailabilitySummary({ serviceId, professionalId, from: weekStart, days: 7 });
   const slots = useGetAvailableSlots({ professionalId, serviceId, date });
 
   const days = summary.data?.[0]?.days ?? [];
   const dayInfo = days.find((d) => d.date === date) ?? null;
+  const canGoPrev = weekStart > startOfWeek(today);
 
   return (
     <div className="flex flex-col gap-[18px]">
       <div>
-        <div className="mb-2.5 text-[14px] font-bold">Data</div>
-        <div className="flex gap-1.5 overflow-x-auto pb-1">
-          {Array.from({ length: STRIP_DAYS }, (_, i) => addDays(today, i)).map((day) => {
+        <div className="mb-2.5 flex items-center justify-between gap-2">
+          <div className="text-[14px] font-bold capitalize">{weekLabel(weekStart)}</div>
+          <div className="flex gap-1">
+            <Button
+              variant="secondary"
+              size="icon-sm"
+              aria-label="Semana anterior"
+              disabled={!canGoPrev}
+              onClick={() => setWeekStart((w) => addDays(w, -7))}
+            >
+              <Icon name="chevron_left" size={22} />
+            </Button>
+            <Button variant="secondary" size="icon-sm" aria-label="Próxima semana" onClick={() => setWeekStart((w) => addDays(w, 7))}>
+              <Icon name="chevron_right" size={22} />
+            </Button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-7 gap-1.5">
+          {Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)).map((day) => {
             const info = days.find((d) => d.date === day);
+            const past = day < today;
             const closed = Boolean(info && !info.isWorkingDay);
             const selected = day === date;
             const isToday = day === today;
@@ -58,19 +98,19 @@ export function DateTimePicker({
               <button
                 key={day}
                 type="button"
-                disabled={closed}
+                disabled={past || closed}
                 onClick={() => onPick(day, null)}
                 className={cn(
-                  "flex w-[58px] shrink-0 flex-col items-center justify-center gap-1 rounded-[12px] border py-2",
+                  "flex flex-col items-center justify-center gap-1 rounded-[12px] border py-2",
                   selected
                     ? "border-brand bg-brand text-on-brand"
                     : isToday
                       ? "border-brand bg-surface"
                       : "border-border-strong bg-surface",
-                  closed && "cursor-not-allowed opacity-40",
+                  (past || closed) && "cursor-not-allowed opacity-40",
                 )}
               >
-                <span className="text-[11px] font-semibold tracking-[0.04em] uppercase opacity-80">{WEEKDAY_SHORT_PT[weekday(day)]}</span>
+                <span className="text-[11px] font-semibold tracking-[0.04em] uppercase opacity-80">{WEEKDAY_SHORT_PT[weekdayOf(day)]}</span>
                 <span className="tabular text-[18px] font-bold">{dayOfMonth(day)}</span>
                 <span className="text-[10px] font-semibold opacity-80">{closed ? "Fechado" : isToday ? "Hoje" : ""}</span>
               </button>

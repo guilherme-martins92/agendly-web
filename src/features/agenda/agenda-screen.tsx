@@ -23,7 +23,7 @@ function summaryText(list: AppointmentDetailsDto[]) {
 }
 
 export function AgendaScreen() {
-  const { business, canManageCatalog } = useSession();
+  const { business, canManageCatalog, canChangeAppointmentStatus } = useSession();
   const timeZoneId = business.timeZoneId;
 
   const [date, setDate] = useState(() => todayIn(timeZoneId));
@@ -32,7 +32,11 @@ export function AgendaScreen() {
   const [newOpen, setNewOpen] = useState(false);
 
   const professionals = useListProfessionals();
-  const appointments = useListAppointments({ from: date, to: date, professionalId: professionalFilter ?? undefined });
+  // A agenda costuma ficar aberta o dia todo: busca de novo sozinha para mostrar o que entrou pela página pública
+  const appointments = useListAppointments(
+    { from: date, to: date, professionalId: professionalFilter ?? undefined },
+    { query: { refetchInterval: 60_000, refetchOnWindowFocus: true } },
+  );
 
   const sorted = useMemo(
     () => [...(appointments.data ?? [])].sort((a, b) => a.startAt.localeCompare(b.startAt)),
@@ -138,6 +142,7 @@ export function AgendaScreen() {
         onClose={() => setSelected(null)}
         onUpdated={setSelected}
         timeZoneId={timeZoneId}
+        canChangeStatus={canChangeAppointmentStatus}
         canManage={canManageCatalog}
       />
 

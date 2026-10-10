@@ -1,16 +1,13 @@
 "use client";
 
-import { useQueries } from "@tanstack/react-query";
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
 import { useSession } from "@/components/backoffice/session-context";
 import { useCopyPublicLink } from "@/components/backoffice/use-copy-public-link";
 import { Icon } from "@/components/icon";
 import { Button } from "@/components/ui/button";
 import { ListSkeleton, LoadError } from "@/components/ui/controls";
-import { getListWorkSchedulesQueryOptions, useListProfessionals } from "@/lib/api/generated/professionals/professionals";
-import { useListServices } from "@/lib/api/generated/services/services";
 import { cn } from "@/lib/utils";
+import { markLinkShared, useOnboardingProgress } from "./use-onboarding-progress";
 
 type StepKey = "svc" | "pro" | "work" | "share";
 
@@ -22,67 +19,21 @@ type Step = {
   cta: { label: string; href?: string; onClick?: () => void };
 };
 
-const shareStorageKey = (businessId: string) => `agendly-onboarding-shared:${businessId}`;
-
-// "Compartilhou o link" não existe no backend (não é um estado do negócio) — é uma preferência local.
-// useSyncExternalStore evita divergir a primeira renderização do cliente da do servidor (sem localStorage).
-const sharedListeners = new Set<() => void>();
-
-function readShared(businessId: string) {
-  try {
-    return localStorage.getItem(shareStorageKey(businessId)) === "1";
-  } catch {
-    return false;
-  }
-}
-
-function subscribeShared(callback: () => void) {
-  sharedListeners.add(callback);
-  return () => sharedListeners.delete(callback);
-}
-
-function markShared(businessId: string) {
-  try {
-    localStorage.setItem(shareStorageKey(businessId), "1");
-  } catch {
-    // Armazenamento indisponível (ex.: navegação privada): o passo só fica marcado nesta visita
-  }
-  sharedListeners.forEach((listener) => listener());
-}
-
 /** Checklist de 4 passos (em qualquer ordem) para deixar o negócio pronto para receber agendamentos. */
 export function OnboardingScreen() {
   const { business } = useSession();
   const copyLink = useCopyPublicLink(business.slug);
+  const progress = useOnboardingProgress();
 
-  const services = useListServices();
-  const professionals = useListProfessionals();
-  const scheduleQueries = useQueries({
-    queries: (professionals.data ?? []).map((p) => getListWorkSchedulesQueryOptions(p.id)),
-  });
-
-  const shared = useSyncExternalStore(
-    subscribeShared,
-    () => readShared(business.id),
-    () => false,
-  );
-
-  if (services.isError || professionals.isError) {
+  if (progress.isError) {
     return (
       <div className="mx-auto flex max-w-[720px] flex-col gap-4">
-        <LoadError
-          what="os dados dos primeiros passos"
-          messages={services.error?.errors ?? professionals.error?.errors}
-          onRetry={() => {
-            services.refetch();
-            professionals.refetch();
-          }}
-        />
+        <LoadError what="os dados dos primeiros passos" messages={progress.error?.errors} onRetry={progress.refetch} />
       </div>
     );
   }
 
-  if (services.isPending || professionals.isPending) {
+  if (progress.isPending) {
     return (
       <div className="mx-auto flex max-w-[720px] flex-col gap-4">
         <div className="skeleton h-8 w-80 rounded-md" />
@@ -91,10 +42,7 @@ export function OnboardingScreen() {
     );
   }
 
-  const hasService = services.data.length > 0;
-  const hasProfessional = professionals.data.length > 0;
-  const lastProfessional = professionals.data.at(-1);
-  const hasSchedule = scheduleQueries.some((q) => (q.data?.length ?? 0) > 0);
+  const { hasService, hasProfessional, hasLinkedProfessional, hasSchedule, shared, targetProfessional } = progress;
 
   const steps: Step[] = [
     {
@@ -107,17 +55,21 @@ export function OnboardingScreen() {
     {
       key: "pro",
       title: "Cadastre um profissional",
-      text: "Quem atende no seu negócio. Depois, marque os serviços que cada um realiza.",
-      done: hasProfessional,
-      cta: { label: "Cadastrar profissional", href: "/app/profissionais" },
+      text: "Quem atende no seu negócio. Marque os serviços que cada um realiza: sem isso ele não aparece para os clientes.",
+      // Só conta com serviço vinculado: profissional sem serviço não aparece na página pública
+      done: hasLinkedProfessional,
+      cta:
+        hasProfessional && targetProfessional
+          ? { label: "Marcar os serviços", href: `/app/profissionais/${targetProfessional.id}?aba=servicos` }
+          : { label: "Cadastrar profissional", href: "/app/profissionais" },
     },
     {
       key: "work",
       title: "Defina os horários de trabalho",
       text: "Dias e intervalos de cada profissional, como 09:00–12:00 e 13:00–18:00.",
       done: hasSchedule,
-      cta: lastProfessional
-        ? { label: "Definir horários", href: `/app/profissionais/${lastProfessional.id}?aba=horarios` }
+      cta: targetProfessional
+        ? { label: "Definir horários", href: `/app/profissionais/${targetProfessional.id}?aba=horarios` }
         : { label: "Cadastrar profissional primeiro", href: "/app/profissionais" },
     },
     {
@@ -129,7 +81,7 @@ export function OnboardingScreen() {
         label: "Copiar link",
         onClick: () => {
           copyLink();
-          markShared(business.id);
+          markLinkShared(business.id);
         },
       },
     },

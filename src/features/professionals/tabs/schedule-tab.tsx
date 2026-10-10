@@ -80,23 +80,50 @@ function dayErrors(intervals: Interval[]) {
 /** Aba "Horários de trabalho": editor semanal salvo por diferença (remove o que saiu, cria o que entrou). */
 export function ScheduleTab({ professional }: { professional: ProfessionalDto }) {
   const schedules = useListWorkSchedules(professional.id);
+  // O editor só é recriado depois de salvar. Uma nova busca em segundo plano (reconexão, por
+  // exemplo) não pode apagar o que a pessoa está editando.
+  const [savedCount, setSavedCount] = useState(0);
+  const [saveError, setSaveError] = useState<string[] | null>(null);
 
   if (schedules.isError) {
     return <LoadError what="os horários" messages={schedules.error?.errors} onRetry={() => schedules.refetch()} />;
   }
   if (schedules.isPending) return <ListSkeleton rows={4} />;
 
-  // Recria o editor quando os dados do servidor mudam (depois de salvar, por exemplo)
-  return <WeekEditor key={schedules.dataUpdatedAt} professional={professional} schedules={schedules.data} />;
+  return (
+    <WeekEditor
+      key={savedCount}
+      professional={professional}
+      schedules={schedules.data}
+      apiError={saveError}
+      onSaved={(error) => {
+        setSaveError(error);
+        setSavedCount((n) => n + 1);
+      }}
+    />
+  );
 }
 
-function WeekEditor({ professional, schedules }: { professional: ProfessionalDto; schedules: WorkScheduleDto[] }) {
+function WeekEditor({
+  professional,
+  schedules: latestSchedules,
+  apiError,
+  onSaved,
+}: {
+  professional: ProfessionalDto;
+  schedules: WorkScheduleDto[];
+  /** Erro do último salvamento; fica no pai porque o editor é recriado ao salvar. */
+  apiError: string[] | null;
+  /** Chamado com o servidor já consultado de novo, tenha o salvamento dado certo ou não. */
+  onSaved: (error: string[] | null) => void;
+}) {
   const { canManageCatalog } = useSession();
   const queryClient = useQueryClient();
+  // Horários como estavam ao abrir o editor: é contra eles que a edição é comparada
+  const [schedules] = useState(latestSchedules);
   const [initial] = useState(() => toWeek(schedules));
   const [week, setWeek] = useState<Week>(initial);
   const [saving, setSaving] = useState(false);
-  const [apiError, setApiError] = useState<string[] | null>(null);
 
   const readOnly = !canManageCatalog;
   const errors = new Map(DAYS.flatMap(({ day }) => (week[day].enabled ? [...dayErrors(week[day].intervals)] : [])));
@@ -134,7 +161,7 @@ function WeekEditor({ professional, schedules }: { professional: ProfessionalDto
   async function save() {
     if (errors.size > 0 || !dirty) return;
     setSaving(true);
-    setApiError(null);
+    let saveError: string[] | null = null;
     try {
       // Remove antes de criar: um intervalo alterado ocupa o mesmo espaço do antigo
       for (const s of toRemove) await removeWorkSchedule(professional.id, s.id);
@@ -143,14 +170,15 @@ function WeekEditor({ professional, schedules }: { professional: ProfessionalDto
       }
       toast.success("Horários salvos");
     } catch (error) {
-      setApiError(errorMessages(error));
-    } finally {
-      setSaving(false);
-      await Promise.all([
-        queryClient.invalidateQueries({ queryKey: getListWorkSchedulesQueryKey(professional.id) }),
-        queryClient.invalidateQueries({ queryKey: getListProfessionalsQueryKey() }),
-      ]);
+      saveError = errorMessages(error);
     }
+
+    // Busca o que ficou gravado antes de recriar o editor (se a busca falhar, a aba mostra o erro de carregamento)
+    await Promise.allSettled([
+      queryClient.invalidateQueries({ queryKey: getListWorkSchedulesQueryKey(professional.id) }),
+      queryClient.invalidateQueries({ queryKey: getListProfessionalsQueryKey() }),
+    ]);
+    onSaved(saveError);
   }
 
   return (

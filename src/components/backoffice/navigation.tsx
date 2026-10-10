@@ -4,16 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon } from "@/components/icon";
 import { Logo } from "@/components/logo";
-import { bottomNavItems, isActive, sidebarItems, type NavItem } from "@/lib/navigation";
+import { useShowOnboardingLink } from "@/features/onboarding/use-onboarding-progress";
+import { ONBOARDING, bottomNavItems, isActive, sidebarItems, type NavItem } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 import { useSession } from "./session-context";
 import { UserMenu } from "./user-menu";
 
 /** Menu lateral do desktop (240px). */
-export function Sidebar({ extraItems = [] }: { extraItems?: NavItem[] }) {
+export function Sidebar() {
   const { role } = useSession();
   const pathname = usePathname();
-  const items = [...extraItems, ...sidebarItems(role)];
+  const showOnboarding = useShowOnboardingLink();
+  const items = [...(showOnboarding ? [ONBOARDING] : []), ...sidebarItems(role)];
 
   return (
     <nav aria-label="Principal" className="hidden w-60 shrink-0 flex-col gap-0.5 border-r bg-surface px-3 py-[18px] md:flex">
@@ -43,7 +45,11 @@ export function Sidebar({ extraItems = [] }: { extraItems?: NavItem[] }) {
 export function BottomNav() {
   const { role } = useSession();
   const pathname = usePathname();
-  const { items, overflow } = bottomNavItems(role);
+  const showOnboarding = useShowOnboardingLink();
+  const nav = bottomNavItems(role);
+  const items = nav.items;
+  // No celular o checklist entra no menu "Mais", que só o proprietário tem
+  const overflow = showOnboarding ? [ONBOARDING, ...nav.overflow] : nav.overflow;
 
   return (
     <nav aria-label="Principal" className="flex h-[68px] shrink-0 border-t bg-surface px-1 pb-[env(safe-area-inset-bottom)] md:hidden">

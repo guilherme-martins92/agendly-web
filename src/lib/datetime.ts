@@ -93,6 +93,16 @@ export function addDays(date: string, days: number) {
   return `${next.getUTCFullYear()}-${pad(next.getUTCMonth() + 1)}-${pad(next.getUTCDate())}`;
 }
 
+/** Dia da semana de uma data local (0 = domingo). */
+export function weekdayOf(date: string) {
+  return new Date(`${date}T00:00:00Z`).getUTCDay();
+}
+
+/** Domingo da semana de uma data local. */
+export function startOfWeek(date: string) {
+  return addDays(date, -weekdayOf(date));
+}
+
 /** "2026-10-05" → "05/10/2026". */
 export function formatDate(date: string) {
   const [y, m, d] = date.split("-");
