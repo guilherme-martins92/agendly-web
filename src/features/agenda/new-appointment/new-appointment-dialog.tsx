@@ -12,6 +12,7 @@ import { createAppointment } from "@/lib/api/generated/appointments/appointments
 import { invalidateAppointmentData } from "@/lib/api/invalidation";
 import { createCustomer, getListCustomersQueryKey } from "@/lib/api/generated/customers/customers";
 import type { AppointmentDetailsDto, AvailableSlotDto, CustomerListItemDto, ServiceDto } from "@/lib/api/generated/model";
+import { todayIn } from "@/lib/datetime";
 import { displayPhone } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { DateTimePicker } from "../date-time-picker";
@@ -59,7 +60,11 @@ export function NewAppointmentDialog({
   const [service, setService] = useState<ServiceDto | null>(null);
   const [professionalId, setProfessionalId] = useState<string | null>(null);
   const [professionalName, setProfessionalName] = useState<string | null>(null);
-  const [date, setDate] = useState(initialDate);
+  // A agenda pode estar num dia que já passou: o novo agendamento parte de hoje
+  const [date, setDate] = useState(() => {
+    const today = todayIn(timeZoneId);
+    return initialDate > today ? initialDate : today;
+  });
   const [slot, setSlot] = useState<AvailableSlotDto | null>(null);
 
   const [submitting, setSubmitting] = useState(false);

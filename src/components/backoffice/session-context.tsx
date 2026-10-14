@@ -14,6 +14,8 @@ export type BackofficeSession = {
    * (hoje só o proprietário); para o funcionário as telas ficam em modo leitura.
    */
   canManageCatalog: boolean;
+  /** Pode confirmar, concluir e cancelar agendamentos: proprietário e funcionário. */
+  canChangeAppointmentStatus: boolean;
 };
 
 export const SessionContext = createContext<BackofficeSession | null>(null);

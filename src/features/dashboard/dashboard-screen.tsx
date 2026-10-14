@@ -132,6 +132,9 @@ export function DashboardScreen() {
       {metrics.isError && <LoadError what="as métricas" messages={metrics.error?.errors} onRetry={() => metrics.refetch()} />}
       {metrics.isPending && <DashboardSkeleton />}
 
+      {/* Negócio novo não tem métricas, mas pode ter agendamentos para hoje */}
+      {metrics.data && isEmptyPeriod && <UpcomingAppointmentsCard timeZoneId={timeZoneId} />}
+
       {metrics.data && isEmptyPeriod && (
         <EmptyState
           icon="insights"

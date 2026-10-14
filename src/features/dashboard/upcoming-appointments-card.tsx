@@ -10,7 +10,10 @@ import { cn } from "@/lib/utils";
 /** Agendamentos de hoje que ainda vão acontecer (independe do período selecionado no dashboard). */
 export function UpcomingAppointmentsCard({ timeZoneId }: { timeZoneId: string }) {
   const today = todayIn(timeZoneId);
-  const appointments = useListAppointments({ from: today, to: today });
+  const appointments = useListAppointments(
+    { from: today, to: today },
+    { query: { refetchInterval: 60_000, refetchOnWindowFocus: true } },
+  );
 
   // Instantâneo de "agora" no momento em que o card aparece — não precisa reavaliar a cada render.
   const [now] = useState(() => Date.now());

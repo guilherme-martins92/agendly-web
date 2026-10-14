@@ -6,11 +6,13 @@ import {
   formatLongDate,
   minutesToTime,
   nextAvailableLabel,
+  startOfWeek,
   timeToMinutes,
   toLocalDate,
   toLocalTime,
   todayIn,
   trimSeconds,
+  weekdayOf,
   zonedToUtc,
 } from "./datetime";
 
@@ -87,6 +89,20 @@ describe("addDays", () => {
   it("considera ano bissexto", () => {
     expect(addDays("2026-03-01", -1)).toBe("2026-02-28");
     expect(addDays("2024-03-01", -1)).toBe("2024-02-29");
+  });
+});
+
+describe("weekdayOf / startOfWeek", () => {
+  it("weekdayOf conta a partir do domingo", () => {
+    expect(weekdayOf("2026-11-01")).toBe(0);
+    expect(weekdayOf("2026-10-05")).toBe(1);
+    expect(weekdayOf("2026-10-10")).toBe(6);
+  });
+
+  it("startOfWeek volta ao domingo, inclusive atravessando o mês", () => {
+    expect(startOfWeek("2026-10-07")).toBe("2026-10-04");
+    expect(startOfWeek("2026-10-04")).toBe("2026-10-04");
+    expect(startOfWeek("2026-10-02")).toBe("2026-09-27");
   });
 });
 

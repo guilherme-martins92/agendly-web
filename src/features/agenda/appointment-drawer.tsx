@@ -18,7 +18,7 @@ import {
   useMarkAppointmentAsNoShow,
   useRescheduleAppointment,
 } from "@/lib/api/generated/appointments/appointments";
-import { formatDate, toLocalDate, toLocalTime } from "@/lib/datetime";
+import { formatDate, toLocalDate, toLocalTime, todayIn } from "@/lib/datetime";
 import { displayPhone, initials, whatsappUrl } from "@/lib/format";
 import { formatBRL, formatDuration } from "@/lib/money";
 import { DateTimePicker } from "./date-time-picker";
@@ -42,12 +42,16 @@ export function AppointmentDrawer({
   onClose,
   onUpdated,
   timeZoneId,
+  canChangeStatus,
   canManage,
 }: {
   appointment: AppointmentDetailsDto | null;
   onClose: () => void;
   onUpdated: (appointment: AppointmentDetailsDto) => void;
   timeZoneId: string;
+  /** Confirmar, concluir e cancelar. */
+  canChangeStatus: boolean;
+  /** Reagendar e marcar falta. */
   canManage: boolean;
 }) {
   const queryClient = useQueryClient();
@@ -64,7 +68,10 @@ export function AppointmentDrawer({
     setWasClosed(false);
     setMode("details");
     setConfirmAction(null);
-    setRsDate(toLocalDate(appointment.startAt, timeZoneId));
+    // Agendamento que já passou: o reagendamento parte de hoje
+    const today = todayIn(timeZoneId);
+    const current = toLocalDate(appointment.startAt, timeZoneId);
+    setRsDate(current > today ? current : today);
     setRsSlot(null);
   } else if (!appointment && !wasClosed) {
     setWasClosed(true);
@@ -100,7 +107,8 @@ export function AppointmentDrawer({
   });
 
   const pending = confirm.isPending || complete.isPending || cancel.isPending || noShow.isPending;
-  const canAct = appointment != null && canManage && (appointment.status === "Scheduled" || appointment.status === "Confirmed");
+  const canAct =
+    appointment != null && canChangeStatus && (appointment.status === "Scheduled" || appointment.status === "Confirmed");
 
   return (
     <>
@@ -146,14 +154,18 @@ export function AppointmentDrawer({
                   Concluir atendimento
                 </Button>
               )}
-              <Button variant="secondary" disabled={pending} onClick={() => setMode("reschedule")}>
-                <Icon name="event_repeat" size={20} />
-                Reagendar
-              </Button>
-              <Button variant="secondary" disabled={pending} onClick={() => setConfirmAction("noshow")}>
-                <Icon name="person_off" size={20} />
-                Marcar falta
-              </Button>
+              {canManage && (
+                <>
+                  <Button variant="secondary" disabled={pending} onClick={() => setMode("reschedule")}>
+                    <Icon name="event_repeat" size={20} />
+                    Reagendar
+                  </Button>
+                  <Button variant="secondary" disabled={pending} onClick={() => setConfirmAction("noshow")}>
+                    <Icon name="person_off" size={20} />
+                    Marcar falta
+                  </Button>
+                </>
+              )}
               <Button variant="danger" className="col-span-2" disabled={pending} onClick={() => setConfirmAction("cancel")}>
                 <Icon name="close" size={20} />
                 Cancelar agendamento
