@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { PublicBookingScreen } from "@/features/public-booking/public-booking-screen";
 import { ApiError } from "@/lib/api/api-error";
 import { getPublicBusiness } from "@/lib/api/generated/public/public";
 import { isSlugLike } from "@/lib/format";
+import { clientIpHeaders } from "@/lib/server/client-ip";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -14,7 +16,8 @@ async function loadBusiness(slug: string) {
   if (!isSlugLike(slug)) return null;
 
   try {
-    return await getPublicBusiness(slug);
+    // A busca sai deste servidor: sem o IP do visitante, a API contaria todos os acessos como um só
+    return await getPublicBusiness(slug, { headers: clientIpHeaders(await headers()) });
   } catch (error) {
     if (error instanceof ApiError && error.isNotFound) return null;
     throw error;

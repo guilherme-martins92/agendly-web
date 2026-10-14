@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { clientIpFrom } from "@/lib/server/client-ip";
 import {
   ACCESS_COOKIE,
   REFRESH_COOKIE,
@@ -93,7 +94,7 @@ function forwardHeaders(request: NextRequest, accessToken?: string) {
   if (accessToken) headers.set("authorization", `Bearer ${accessToken}`);
 
   // IP do visitante, para a API aplicar o rate limit por cliente e não pelo IP deste servidor
-  const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? request.headers.get("x-real-ip");
+  const clientIp = clientIpFrom(request.headers);
   if (clientIp) headers.set("x-forwarded-for", clientIp);
 
   return headers;
